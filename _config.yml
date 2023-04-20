@@ -1,1 +1,21 @@
 theme: jekyll-theme-architect
+title:             Square Zero
+email:             joeychou0805@gmail.com
+description:       Silent Observations
+author:            Joey Frozzen Zhou
+#url:               "localhost:4000"
+url:               "http://FrozzenCJ.github.io/"
+baseurl:
+
+# Social Profiles
+#twitter_username:  SBootstrap
+#github_username:   BlackrockDigital
+#facebook_username: StartBootstrap
+
+# Build settings
+markdown:          markdown
+paginate:          10
+paginate_path:     "/posts/page:num/"
+plugins:
+  - jekyll-feed
+  - jekyll-paginate
