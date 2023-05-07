@@ -1,0 +1,2152 @@
+<!DOCTYPE html><html lang="zh-Hans">
+  <head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>道德经 - Frozzen's Blog</title>
+
+<meta name="description" content="道德经是开启大自然中，生命体的生死奥秘的密码，以道行德，立德行善。治国，治家，为人处事，包罗万象的一部经书。道德经是一本天书，修行者以道德经为法则，也是口诀，内藏天机，经中道破天机。也是修行法宝，悟性高者，得悟道者，自得圣道。许多祖师为此修行得道，并留下很多经典经验著作，为后人修行学道指明了道路。序该道德经昆仑仙...">
+<link rel="canonical" href="http://localhost:4000/1999/12/31/%E9%81%93%E5%BE%B7%E7%BB%8F.html"><link rel="alternate" type="application/rss+xml" title="Frozzen's Blog" href="/feed.xml"><!-- start favicons snippet, use https://realfavicongenerator.net/ --><link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png"><link rel="manifest" href="/assets/site.webmanifest"><link rel="mask-icon" href="/assets/safari-pinned-tab.svg" color="#fc4d50"><link rel="shortcut icon" href="/assets/favicon.ico">
+
+<meta name="msapplication-TileColor" content="#ffc40d"><meta name="msapplication-config" content="/assets/browserconfig.xml">
+
+<meta name="theme-color" content="#ffffff">
+<!-- end favicons snippet --><link rel="stylesheet" href="/assets/css/main.css"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.3/css/all.css" ><!-- start custom head snippets -->
+
+<!-- end custom head snippets -->
+<script>(function() {
+  window.isArray = function(val) {
+    return Object.prototype.toString.call(val) === '[object Array]';
+  };
+  window.isString = function(val) {
+    return typeof val === 'string';
+  };
+
+  window.hasEvent = function(event) {
+    return 'on'.concat(event) in window.document;
+  };
+
+  window.isOverallScroller = function(node) {
+    return node === document.documentElement || node === document.body || node === window;
+  };
+
+  window.isFormElement = function(node) {
+    var tagName = node.tagName;
+    return tagName === 'INPUT' || tagName === 'SELECT' || tagName === 'TEXTAREA';
+  };
+
+  window.pageLoad = (function () {
+    var loaded = false, cbs = [];
+    window.addEventListener('load', function () {
+      var i;
+      loaded = true;
+      if (cbs.length > 0) {
+        for (i = 0; i < cbs.length; i++) {
+          cbs[i]();
+        }
+      }
+    });
+    return {
+      then: function(cb) {
+        cb && (loaded ? cb() : (cbs.push(cb)));
+      }
+    };
+  })();
+})();
+(function() {
+  window.throttle = function(func, wait) {
+    var args, result, thisArg, timeoutId, lastCalled = 0;
+
+    function trailingCall() {
+      lastCalled = new Date;
+      timeoutId = null;
+      result = func.apply(thisArg, args);
+    }
+    return function() {
+      var now = new Date,
+        remaining = wait - (now - lastCalled);
+
+      args = arguments;
+      thisArg = this;
+
+      if (remaining <= 0) {
+        clearTimeout(timeoutId);
+        timeoutId = null;
+        lastCalled = now;
+        result = func.apply(thisArg, args);
+      } else if (!timeoutId) {
+        timeoutId = setTimeout(trailingCall, remaining);
+      }
+      return result;
+    };
+  };
+})();
+(function() {
+  var Set = (function() {
+    var add = function(item) {
+      var i, data = this._data;
+      for (i = 0; i < data.length; i++) {
+        if (data[i] === item) {
+          return;
+        }
+      }
+      this.size ++;
+      data.push(item);
+      return data;
+    };
+
+    var Set = function(data) {
+      this.size = 0;
+      this._data = [];
+      var i;
+      if (data.length > 0) {
+        for (i = 0; i < data.length; i++) {
+          add.call(this, data[i]);
+        }
+      }
+    };
+    Set.prototype.add = add;
+    Set.prototype.get = function(index) { return this._data[index]; };
+    Set.prototype.has = function(item) {
+      var i, data = this._data;
+      for (i = 0; i < data.length; i++) {
+        if (this.get(i) === item) {
+          return true;
+        }
+      }
+      return false;
+    };
+    Set.prototype.is = function(map) {
+      if (map._data.length !== this._data.length) { return false; }
+      var i, j, flag, tData = this._data, mData = map._data;
+      for (i = 0; i < tData.length; i++) {
+        for (flag = false, j = 0; j < mData.length; j++) {
+          if (tData[i] === mData[j]) {
+            flag = true;
+            break;
+          }
+        }
+        if (!flag) { return false; }
+      }
+      return true;
+    };
+    Set.prototype.values = function() {
+      return this._data;
+    };
+    return Set;
+  })();
+
+  window.Lazyload = (function(doc) {
+    var queue = {js: [], css: []}, sources = {js: {}, css: {}}, context = this;
+    var createNode = function(name, attrs) {
+      var node = doc.createElement(name), attr;
+      for (attr in attrs) {
+        if (attrs.hasOwnProperty(attr)) {
+          node.setAttribute(attr, attrs[attr]);
+        }
+      }
+      return node;
+    };
+    var end = function(type, url) {
+      var s, q, qi, cbs, i, j, cur, val, flag;
+      if (type === 'js' || type ==='css') {
+        s = sources[type], q = queue[type];
+        s[url] = true;
+        for (i = 0; i < q.length; i++) {
+          cur = q[i];
+          if (cur.urls.has(url)) {
+            qi = cur, val = qi.urls.values();
+            qi && (cbs = qi.callbacks);
+            for (flag = true, j = 0; j < val.length; j++) {
+              cur = val[j];
+              if (!s[cur]) {
+                flag = false;
+              }
+            }
+            if (flag && cbs && cbs.length > 0) {
+              for (j = 0; j < cbs.length; j++) {
+                cbs[j].call(context);
+              }
+              qi.load = true;
+            }
+          }
+        }
+      }
+    };
+    var load = function(type, urls, callback) {
+      var s, q, qi, node, i, cur,
+        _urls = typeof urls === 'string' ? new Set([urls]) : new Set(urls), val, url;
+      if (type === 'js' || type ==='css') {
+        s = sources[type], q = queue[type];
+        for (i = 0; i < q.length; i++) {
+          cur = q[i];
+          if (_urls.is(cur.urls)) {
+            qi = cur;
+            break;
+          }
+        }
+        val = _urls.values();
+        if (qi) {
+          callback && (qi.load || qi.callbacks.push(callback));
+          callback && (qi.load && callback());
+        } else {
+          q.push({
+            urls: _urls,
+            callbacks: callback ? [callback] : [],
+            load: false
+          });
+          for (i = 0; i < val.length; i++) {
+            node = null, url = val[i];
+            if (s[url] === undefined) {
+              (type === 'js' ) && (node = createNode('script', { src: url }));
+              (type === 'css') && (node = createNode('link', { rel: 'stylesheet', href: url }));
+              if (node) {
+                node.onload = (function(type, url) {
+                  return function() {
+                    end(type, url);
+                  };
+                })(type, url);
+                (doc.head || doc.body).appendChild(node);
+                s[url] = false;
+              }
+            }
+          }
+        }
+      }
+    };
+    return {
+      js: function(url, callback) {
+        load('js', url, callback);
+      },
+      css: function(url, callback) {
+        load('css', url, callback);
+      }
+    };
+  })(this.document);
+})();
+</script><script>
+  (function() {
+    var TEXT_VARIABLES = {
+      version: '2.2.6',
+      sources: {
+        font_awesome: 'https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.3/css/all.css',
+        jquery: 'https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js',
+        leancloud_js_sdk: '//cdn.jsdelivr.net/npm/leancloud-storage@3.13.2/dist/av-min.js',
+        chart: 'https://cdn.bootcss.com/Chart.js/2.7.2/Chart.bundle.min.js',
+        gitalk: {
+          js: 'https://cdn.bootcss.com/gitalk/1.2.2/gitalk.min.js',
+          css: 'https://cdn.bootcss.com/gitalk/1.2.2/gitalk.min.css'
+        },
+        valine: 'https://unpkg.com/valine/dist/Valine.min.js',
+        mathjax: 'https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML',
+        mermaid: 'https://cdn.jsdelivr.net/npm/mermaid@8.14.0/dist/mermaid.min.js'
+      },
+      site: {
+        toc: {
+          selectors: 'h1,h2,h3'
+        }
+      },
+      paths: {
+        search_js: '/assets/search.js'
+      }
+    };
+    window.TEXT_VARIABLES = TEXT_VARIABLES;
+  })();
+</script>
+</head>
+  <body>
+    <div class="root" data-is-touch="false">
+      <div class="layout--page js-page-root"><div class="page__main js-page-main page__viewport has-aside cell cell--auto">
+
+      <div class="page__main-inner"><div class="page__header d-print-none"><header class="header"><div class="main">
+      <div class="header__title">
+        <div class="header__brand"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="24px" height="24px" viewBox="0 0 24 24">
+<style type="text/css">
+	.st0{fill:#515151;}
+</style>
+<path class="st0" d="M1.7,22.3c5.7-5.7,11.3-5.7,17,0c3.3-3.3,3.5-5.3,0.8-6c2.7,0.7,3.5-1.1,2.3-5.6s-3.3-5.2-6.3-2.1
+	c3-3,2.3-5.2-2.1-6.3S7,1.8,7.7,4.6C7,1.8,5,2.1,1.7,5.3C7.3,11,7.3,16.7,1.7,22.3"/>
+</svg>
+<a title="非常欢迎您浏览我的网站！非常希望能与您积极交流。在这里，您可以找到许多有趣的内容，希望您能喜欢并与我分享您的想法!
+" href="/">Frozzen's Blog</a></div><button class="button button--secondary button--circle search-button js-search-toggle"><i class="fas fa-search"></i></button></div><nav class="navigation">
+        <ul><li class="navigation__item"><a href="/archive.html">归档</a></li><li class="navigation__item"><a href="/about.html">关于</a></li><li><button class="button button--secondary button--circle search-button js-search-toggle"><i class="fas fa-search"></i></button></li></ul>
+      </nav></div>
+  </header>
+</div><div class="page__content"><div class ="main"><div class="grid grid--reverse">
+
+              <div class="col-aside d-print-none js-col-aside"><aside class="page__aside js-page-aside"><div class="toc-aside js-toc-root"></div>
+</aside></div>
+
+              <div class="col-main cell cell--auto"><!-- start custom main top snippet -->
+
+<!-- end custom main top snippet -->
+<article itemscope itemtype="http://schema.org/Article"><div class="article__header"><header><h1>道德经</h1></header><span class="split-space">&nbsp;</span>
+          <a class="edit-on-github"
+            title="在 Github 上修改"
+            href="https://github.com/frozzenCJ/Notes/tree/master/_posts/1999-12-31-道德经.md">
+            <i class="far fa-edit"></i></a></div><meta itemprop="headline" content="道德经"><div class="article__info clearfix"><ul class="left-col menu"><li>
+              <a class="button button--secondary button--pill button--sm"
+                href="/archive.html?tag=%E6%8A%BD%E8%B1%A1">抽象</a>
+            </li></ul><ul class="right-col menu"><li><i class="far fa-calendar-alt"></i> <span>1999年 12月31日</span>
+            </li></ul></div><meta itemprop="author" content="FrozzenCJ"/><meta itemprop="datePublished" content="1999-12-31T00:00:00+08:00">
+    <meta itemprop="keywords" content="抽象"><div class="js-article-content"><div class="layout--article"><!-- start custom article top snippet -->
+
+<!-- end custom article top snippet -->
+<div class="article__content" itemprop="articleBody"><p>道德经是开启大自然中，生命体的生死奥秘的密码，以道行德，立德行善。治国，治家，为人处事，包罗万象的一部经书。</p>
+
+<p>道德经是一本天书，修行者以道德经为法则，也是口诀，内藏天机，经中道破天机。也是修行法宝，悟性高者，得悟道者，自得圣道。许多祖师为此修行得道，并留下很多经典经验著作，为后人修行学道指明了道路。</p>
+
+<p>序</p>
+
+<p>该道德经昆仑仙本二千多年从未在世面上流传过，历来采用口承相传。</p>
+
+<p>本共八千余字，拥有许多通行本未有的内容。该道德经昆仑仙本采用四字体，朗朗上口，是研究道德经以及修炼的珍贵资料。</p>
+
+<p>备注：由于部分网友看不懂开头，我分享一下个人的理解，仅供参考。如果你认为我是错的，那么很明显，你就是对的[Dog]。</p>
+
+<p><strong>道可恒道，非常恒道；名可恒名，非常恒名。</strong></p>
+
+<p>大道本就永恒存在，却不是固定的那种一成不变的存在。</p>
+
+<p>大道这个名字可以一直这么称呼下去，但是大道不是固定的都叫大道这个名字。</p>
+
+<p><strong>德可恒德，非常恒德；衡可恒衡，非常恒衡。</strong></p>
+
+<p>大道造化内在万物众生的德行，本就永恒存在，造化之德却不是固定的那种一成不变。</p>
+
+<p>大道对万灵的衡量感知一直存在，这种衡量感知标准，却不是固定的那种一成不变。</p>
+
+<p><strong>无名而名，<a href="https://www.zhihu.com/search?q=%E5%A4%A9%E5%9C%B0%E4%B9%8B%E5%A7%8B&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A2973115477%7D">天地之始</a>；有名而名，万物之母。</strong></p>
+
+<p>大道本就没有名字，宇宙还未开启之前就存在于混沌之中，大道融汇阴阳，开始造化宇宙。</p>
+
+<p>大道造化了宇宙和内部的万物众生这些万有，众生把这个包含一切万物众生的造化本源容器，命名为大道，大道就是我们真正的源头。</p>
+
+<p><strong>无衡而衡，尊德之初；有衡而衡，万道之父。</strong></p>
+
+<p>没有宇宙时，大道也有感知。大道是一切的开端，所以是道德的起点。</p>
+
+<p>有了宇宙时，大道造化众生万物万有，大道自然而然就可以感知我们， 演绎万道，世界上每时每刻都在发生的森罗净泓，善行恶行。</p>
+
+<p>《昆仑仙派珍藏的八千字道德经》</p>
+
+<p>总章：</p>
+
+<p>道可恒道，非常恒道；名可恒名，非常恒名。</p>
+
+<p>德可恒德，非常恒德；衡可恒衡，非常恒衡。</p>
+
+<p>无名而名，天地之始；有名而名，万物之母。</p>
+
+<p>无衡而衡，尊德之初；有衡而衡，万道之父。</p>
+
+<p>第一章：</p>
+
+<p>无欲观妙，有欲观徼；徼妙同出，异名同玄。</p>
+
+<p>玄之又玄，<a href="https://www.zhihu.com/search?q=%E4%BC%97%E5%A6%99%E4%B9%8B%E9%97%A8&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A2973115477%7D">众妙之门</a>；衡之又衡，万灵之缘。</p>
+
+<p>奥奥为玄，玄玄为道；道道为德，德德为衡。</p>
+
+<p>精精为徼，徼徼为微；微微为妙，妙妙为灵。</p>
+
+<p>第二章：</p>
+
+<p>美之为美，善之为善；丑之为丑，恶之为恶。</p>
+
+<p>有无相生，难易相成；高底相倒，上下相倾。</p>
+
+<p>前后相随，左右相称；音声相和，韵律相乐。</p>
+
+<p>无为之事，不言而教；作而不辞，生而不有。</p>
+
+<p>为而不恃，功成不居；是以不去，无名而归。</p>
+
+<p>圣人之美，在于华德；万民之善，在于普道。</p>
+
+<p>第三章：</p>
+
+<p>若不尚贤，使民不争；若不贵货，使民不盗。</p>
+
+<p>若不见欲，使心不乱；纵欲必狂，狂凶必亡。</p>
+
+<p>虚心实腹，弱志强骨；美愿健身，善意壮体。</p>
+
+<p>民无知无，为无知为；为而无为，无不而为。</p>
+
+<p>第四章：</p>
+
+<p>道冲而用，或似不盈；道净而为，或明而通。</p>
+
+<p>渊兮湛兮，万物之淙；湛兮渊兮，万物之源。</p>
+
+<p>挫锐解纷，去杂除乱；采精夺华，<a href="https://www.zhihu.com/search?q=%E5%92%8C%E5%85%89%E5%90%8C%E5%B0%98&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A2973115477%7D">和光同尘</a>。</p>
+
+<p>第五章：</p>
+
+<p>天地不仁，万物为刍；圣人不仁，百姓为刍。</p>
+
+<p>天地之间，犹如龠乎？虚而不出，动而愈出。</p>
+
+<p>多言数穷，不如守中；优言佳语，道者尊也。</p>
+
+<p>第六章：</p>
+
+<p>道丹不亡，是谓德健；德健之庭，玄妙之源。</p>
+
+<p><a href="https://www.zhihu.com/search?q=%E8%B0%B7%E7%A5%9E%E4%B8%8D%E6%AD%BB&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A2973115477%7D">谷神不死</a>，是谓玄牝；<a href="https://www.zhihu.com/search?q=%E7%8E%84%E7%89%9D%E4%B9%8B%E9%97%A8&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A2973115477%7D">玄牝之门</a>，天地之根。</p>
+
+<p>绵绵若存，用之不勤；锦锦若循，使之不损。</p>
+
+<p>万事含道，适返而生；万情含道，滋怀而育。</p>
+
+<p>万民含德，待机而发；万物含德，应时而放。</p>
+
+<p>天地有仁，万物为圣；圣人有仁，万民为神。</p>
+
+<p>第七章：</p>
+
+<p>大道甚远，其存甚古；生天育地，莫可有始。</p>
+
+<p>天长地久，不以自生；天乘地载，生而无终。</p>
+
+<p>后身而先，外身而存；以其无私，故能成私。</p>
+
+<p>善为道者，顶天立地；照耀万物，故能成道。</p>
+
+<p>第八章：</p>
+
+<p>有为有法，无为无法；不为不法，所为所法。</p>
+
+<p>真为真法，全为全法；道为道法，德为德法。</p>
+
+<p>居善地利，心善胸渊；与善诚仁，言善语信。</p>
+
+<p>政善统治，事善明智；静善良辰，动善吉时。</p>
+
+<p>上善若水，利而不争；惟所不争，故而无忧。</p>
+
+<p>无忧长存，长存泰然；众人之恶，故几于道。</p>
+
+<p>第九章：</p>
+
+<p>悬而吊之，不可久处；高而举之，不可久立。</p>
+
+<p>崇而捧之，不可久情；尚而抱之，不可久怀。</p>
+
+<p>持而盈之，不可其已；揣而锐之，不可常保。</p>
+
+<p>金玉满堂，莫能私守；富贵而骄，自遗其咎。</p>
+
+<p>功成名遂，身而引退；修身处事，乃和天道。</p>
+
+<p>是以圣人，省己察人；敛己利人，含道而去。</p>
+
+<p>第十章：</p>
+
+<p>载营抱一，能无离乎？专气致柔，能无婴乎？</p>
+
+<p>涤除玄览，能无疵乎？爱民治国，能无为乎？</p>
+
+<p><a href="https://www.zhihu.com/search?q=%E5%A4%A9%E9%97%A8%E5%BC%80%E9%98%96&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A2973115477%7D">天门开阖</a>，能无雌乎？明白四达，能无知乎？</p>
+
+<p>生而蓄之，生而不恃；长而不宰，是谓玄德。</p>
+
+<p>第十一章：</p>
+
+<p>辐拱其无，有车之用；址埴其无，有器之用。</p>
+
+<p>凿户其无，有室之用；有以为利，无以为用。</p>
+
+<p>圣人善无，以其为重；万民视有，以此为宝。</p>
+
+<p>君子有道，以无重用；百姓有智，以有善利。</p>
+
+<p>第十二章：</p>
+
+<p>五色目盲，五音耳聋；五味口爽，五香心芳。</p>
+
+<p>驰骋发狂，贵货行妨；为腹除目，取此去彼。</p>
+
+<p>圣人贵实，以利万民；百姓虚华，以用万物。</p>
+
+<p>第十三章：</p>
+
+<p>宠辱若惊，贵大患身；贵以天下，可寄天下。</p>
+
+<p>爱以天下，可托天下；天下而涵，道之所养。</p>
+
+<p>圣人广亲，万民博爱；天下为家，道之普华。</p>
+
+<p>第十四章：</p>
+
+<p>视之不见，故名曰夷；听之不闻，故名曰希。</p>
+
+<p>扬之不损，故名曰精；搏之不得，故名曰微。</p>
+
+<p>不可致诘，混而为一；其上不敫，其下不昧。</p>
+
+<p>绳不可名，复归无物；无状之状，无象之象。</p>
+
+<p>玄奥实变，是谓恍惚；灵妙虚华，是谓惚恍。</p>
+
+<p>迎不见首，随不跟后；执古之道，以御今有。</p>
+
+<p>能知古始，是谓道纲；善明今终，是谓道纪。</p>
+
+<p>第十五章：</p>
+
+<p>善为军者，广博神道；奥不可识，顽之为宾。</p>
+
+<p>善为士者，微妙玄通；涤不可知，强之为客。</p>
+
+<p>豫若涉川，犹若畏邻；严若敬客，涣若释冰。</p>
+
+<p>敦兮若朴，旷兮若谷；浑兮若清，浊兮若净。</p>
+
+<p>清净徐静，安宁待动；保此道者，尚不欲盈。</p>
+
+<p>夫惟不盈，故能新成；成就勤新，故能道成。</p>
+
+<p>圣人善新，万民玄成；百姓好勤，万物大就。</p>
+
+<p>君子秉天，百姓乘地；天公地私，道者守也。</p>
+
+<p>第十六章：</p>
+
+<p>敬致虚极，信守静笃；万物并作，予以观复。</p>
+
+<p>夫物芸芸，各复其根；归根曰静，静曰复命。</p>
+
+<p>复命曰常，知常曰明；不明妄作，妄作则凶。</p>
+
+<p>知明乃容，容乃合公；公乃合王，王乃合天。</p>
+
+<p>天乃合道，道乃合德；道成德就，故而永祷。</p>
+
+<p>第十七章：</p>
+
+<p>太上有德，天地晴静；太上有道，人民神圣。</p>
+
+<p>太上有理，万物精明；太上有智，万事亨通。</p>
+
+<p>上者知有，人无所敬；次者亲誉，民有所敬。</p>
+
+<p>再者畏侮，信而不信；下者怒骂，反而有抗。</p>
+
+<p>犹其贵言，功成名遂；百姓解畏，方为自然。</p>
+
+<p>第十八章：</p>
+
+<p>大道无废，慈有仁义；智慧欲出，华有大伪。</p>
+
+<p>六亲补合，尚有孝慈；国家晖烂，尚有忠臣。</p>
+
+<p>天下事大，莫于朝邦；天下事小，莫于身家。</p>
+
+<p>圣人保朝，持邦为身；百姓护国，执乡为家。</p>
+
+<p>第十九章：</p>
+
+<p>绝圣弃尊，利民万倍；绝仁弃义，民复孝慈。</p>
+
+<p>以武为文，故令所属；见素抱朴，少私寡欲。</p>
+
+<p>是以圣人，身立于民；无圣无尊，同于天地。</p>
+
+<p>为人不骄，为事不狂；普华同等，载道乐俗。</p>
+
+<p>第二十章：</p>
+
+<p><a href="https://www.zhihu.com/search?q=%E7%BB%9D%E5%AD%A6%E6%97%A0%E5%BF%A7&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A2973115477%7D">绝学无忧</a>，唯阿相和；至善无患，唯阿相处。</p>
+
+<p>人之所畏，不可不畏；畏而敬之，是而无畏。</p>
+
+<p>荒兮芜兮，其未央哉；众人熙熙，如亨泰牢。</p>
+
+<p>芜兮荒兮，如婴胎焉；众人攘攘，似登春台。</p>
+
+<p>乘兮秉兮，我独迫逃；众人聚聚，若入玉心。</p>
+
+<p>秉兮乘兮，我独逍遥；众人号号，使侠瀛洲。</p>
+
+<p>窈兮寂兮，昏昏昭昭；寂兮窈兮，察察闷闷。</p>
+
+<p>若忽若晦，似无所智；若顽若鄙，贵求于母。</p>
+
+<p>第二十一章：</p>
+
+<p>孔德之容，唯道是从；道之为物，唯恍唯惚</p>
+
+<p>其极无外，无外而在；其微无内，无内而存。</p>
+
+<p>恍兮惚兮，其中有象；其象至宏，其宏极彤。</p>
+
+<p>惚兮恍兮，其中有物；其物至宠，其宠极雄。</p>
+
+<p>杳兮冥兮，其中有精；其精至真，其真极信。</p>
+
+<p>冥兮杳兮，其中有微；其微至妙，其妙极灵。</p>
+
+<p>幽兮默兮，其中有亮；其亮至光，其光极芒。</p>
+
+<p>默兮幽兮，其中有烂；其烂至辉，其辉极煌。</p>
+
+<p>第二十二章：</p>
+
+<p>曲全枉直，洼盈敝新；少得多获，抱一为天。</p>
+
+<p>不自见明，不自是彰；不自伐功，不自矜长。</p>
+
+<p>夫惟不争，天下莫争；委屈诚全，诚全道归。</p>
+
+<p>圣人明理，达事程全；全之求全，道之圆然。</p>
+
+<p>第二十三章：</p>
+
+<p>飘不终朝，漂不终日；<a href="https://www.zhihu.com/search?q=%E5%B8%8C%E8%A8%80%E8%87%AA%E7%84%B6&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A2973115477%7D">希言自然</a>，孰语善哉。</p>
+
+<p>道者同道，德者同德；同道得道，同德得德。</p>
+
+<p>天地以敬，万神俱守；百姓以敬，万民供资。</p>
+
+<p>圣人明道，不辞天地；百姓达理，不绝万物。</p>
+
+<p>第二十四章：</p>
+
+<p>跻者不立，跨者不行；自见不明，自是不彰。</p>
+
+<p>自伐无功，自矜无长；其于道者，余食赘行。</p>
+
+<p>爱天乐地，循于天道；通理达情，惠于地道。</p>
+
+<p>第二十五章：</p>
+
+<p>有物混成，玄道而生；独立不改，周行不殆。</p>
+
+<p>寂兮寥兮，先天之父；其形健健，其状康康。</p>
+
+<p>寥兮寂兮，后天之母；其体刚刚，其态柔柔。</p>
+
+<p>强名曰道，加字曰大；太大曰逝，太逝曰远。</p>
+
+<p>太远曰迩，太迩曰返；返而则往，往而则返。</p>
+
+<p>道大天大，地大人大；域中四大，人居极大。</p>
+
+<p>人太地太，天太道太；领中四太，道尊极太。</p>
+
+<p>人必法地，地必法天；天必法道，道法自然。</p>
+
+<p>第二十六章：</p>
+
+<p>善为重者，莫于泰山；善为轻者，莫于鸿毛。</p>
+
+<p>善为明者，莫于日月；善为晴者，莫于斗辰。</p>
+
+<p>善为静者，莫于汪洋；善为燥者，莫于烈炎。</p>
+
+<p>善为君者，莫于皇王；善为臣者，莫于公侯。</p>
+
+<p>重为轻根，静为躁君；轻则失臣，躁则失君。</p>
+
+<p>君子终行，不离辎重；虽有荣观，燕处超然。</p>
+
+<p>是以圣人，敬天爱民；慈心开怀，博爱万物。</p>
+
+<p>天藏地遁，与神同等；普华万民，道者德也。</p>
+
+<p>第二十七章：</p>
+
+<p>善行无迹，善言无谪；善计无策，善算无划。</p>
+
+<p>善闭无开，善展无放；善敛无收，善观无察。</p>
+
+<p>善易不卜，善卦不占；善数不读，善韵不词。</p>
+
+<p>常善救人，故无人弃；常善救物，故无物弃。</p>
+
+<p>善人为师，恶人为资；不爱其师，如遇大迷。</p>
+
+<p>不贵其资，虽智不慧；是为袭明，是为要妙。</p>
+
+<p>圣人明道，尊师爱资；信迷仰慧，是为道通。</p>
+
+<p>第二十八章：</p>
+
+<p>知雄守雌，为<a href="https://www.zhihu.com/search?q=%E5%A4%A9%E4%B8%8B%E6%BA%AA&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A2973115477%7D">天下溪</a>；常德不离，复归婴儿。</p>
+
+<p>知白守黑，为天下式；常德不忒，复归无极。</p>
+
+<p>知荣守辱，为天下谷；常德不足，复归素朴。</p>
+
+<p>朴散为器，则为官长；圣人之用，大制不割。</p>
+
+<p>圣人乐天，豪放万民；百姓乐地，普华万物。</p>
+
+<p>君子之道，是为道光；庶人之道，是为道华。</p>
+
+<p>第二十九章：</p>
+
+<p>将欲天下，为而不得；天下神器，不可狂为。</p>
+
+<p>狂者亡之，枉者败之；执者失之，持者损之。</p>
+
+<p>或行或随，或嘘或吹；或强或羸，或载或堕。</p>
+
+<p>圣人用事，慎者为重；除甚除奢，去安去泰。</p>
+
+<p>君子之道，泰者道立；庶人之道，安者道稳。</p>
+
+<p>第三十章：</p>
+
+<p>以道佐主，其主自贵；以德华民，其民自强。</p>
+
+<p>师之所处，荆棘生焉；大军之后，必有凶年。</p>
+
+<p>故善事者，不敢强取；勿矜勿伐，勿骄勿狂。</p>
+
+<p>道佐兵强，其事好成；主贵民尊，其事好做。</p>
+
+<p>第三十一章：</p>
+
+<p>夫佳兵者，不祥之器；道者不处，君子恶之。</p>
+
+<p>君子贵左，用兵贵右；偏将处左，主将处右。</p>
+
+<p>吉事尚左，凶事尚右；以悲哀泣，以丧言礼。</p>
+
+<p>是以杀人，不可得民；恬淡为上，胜而不美。</p>
+
+<p>第三十二章：</p>
+
+<p>道常无名，天地非臣；王侯若守，万物自宾。</p>
+
+<p>天地相合，以降甘露；君民相和，天下自治。</p>
+
+<p>人而自君，始制有名；知之所名，施道天下。</p>
+
+<p>犹如江海，在道若谷；同天如地，尚德禧俗。</p>
+
+<p>第三十三章：</p>
+
+<p>恩人者圣，自恩者愿；惠人者慈，自惠者善。</p>
+
+<p>忍人者能，自忍者耐；让人者宏，自让者宽。</p>
+
+<p>观人者慧，自观者照；察人者聪，自察者晶。</p>
+
+<p><a href="https://www.zhihu.com/search?q=%E7%9F%A5%E4%BA%BA%E8%80%85%E6%99%BA&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A2973115477%7D">知人者智</a>，自知者明；胜人者力，自胜者强。</p>
+
+<p>知足者福，强行者志；其所者久，永生者寿。</p>
+
+<p>第三十四章：</p>
+
+<p>大道汛兮，其可左右；万物恃立，生而不辞。</p>
+
+<p>爱养万物，为而不主；无欲名小，万物名大。</p>
+
+<p>爱赡万民，为而不王；惟我为小，万民为大。</p>
+
+<p>圣人功成，不为有名；终不为大，故能成大。</p>
+
+<p>君子道成，其名不扬；奉天孝地，道者贵也。</p>
+
+<p>第三十五章：</p>
+
+<p>得天待地，万象奇新；得人待民，亿炁祥祯。</p>
+
+<p>锐孔之眼，天地明象；针尖之点，天地晓位。</p>
+
+<p>若执大象，天下必往；往而不害，安定平泰。</p>
+
+<p>乐与施饵，过客欲止；道之出口，淡其无味。</p>
+
+<p>视之不见，听之不闻；使之不既，用之不勤。</p>
+
+<p>是以圣人，贵天贵地；尊人尊民，是为道亲。</p>
+
+<p>第三十六章：</p>
+
+<p>道者奇之，其形不类；德者奇之，其貌不比。</p>
+
+<p>将敛必张，将弱必强；将废必兴，将奇必正。</p>
+
+<p>以柔胜刚，以弱胜强；鱼不离渊，龙不脱澳。</p>
+
+<p>国之锐器，不可示人；以此永盛，是谓微明。</p>
+
+<p>第三十七章：</p>
+
+<p>太德弃德，是以尊德；大德丢德，是以贵德。</p>
+
+<p>上德无德，是以有德；下德持德，是以无德。</p>
+
+<p>太德全为，大德真为；上德无为，下德有为。</p>
+
+<p>太仁综为，大仁所为；上仁不为，下仁而为。</p>
+
+<p>道而后德，德而后仁；德为道华，仁为道精。</p>
+
+<p>第三十八章：</p>
+
+<p>夫大道者，至公之精；故大德者，至私之华。</p>
+
+<p>道常无为，无为自华；为而无为，万物自归。</p>
+
+<p>华而欲作，<a href="https://www.zhihu.com/search?q=%E6%97%A0%E5%90%8D%E4%B9%8B%E6%9C%B4&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A2973115477%7D">无名之朴</a>；归而欲镇，无名之素。</p>
+
+<p>无名朴素，欲将以静；晴静而为，天下自整。</p>
+
+<p>第三十九章：</p>
+
+<p>道者贵一，造化之精；德者尊一，华华之妙。</p>
+
+<p>天得一晴，地得一宁；人得一祷，神得一灵。</p>
+
+<p>谷得一盈，物得一生；皇得一中，王得一整。</p>
+
+<p>贵以贱本，尊以鄙根；高以底础，上以下基。</p>
+
+<p>皇王自孤，公侯自鄙；琭琭如玉，珞珞如石。</p>
+
+<p>第四十章：</p>
+
+<p>夫大道者，自玄自妙；自恩自惠，自健自强。</p>
+
+<p>返者道动，弱者道用；逆者道进，顺者道退。</p>
+
+<p>物生于有，有生于无；无为道初，有为道始。</p>
+
+<p>万物居道，优生佳华；天栽地培，是为道晋。</p>
+
+<p>第四十一章：</p>
+
+<p>大士闻道，做而修之；<a href="https://www.zhihu.com/search?q=%E4%B8%8A%E5%A3%AB%E9%97%BB%E9%81%93&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A2973115477%7D">上士闻道</a>，勤而行之。</p>
+
+<p>中士闻道，若存若亡；下士闻道，大笑大怒。</p>
+
+<p>明道若昧，进道若退；夷道若类，希道若聚。</p>
+
+<p>泰德若辱，修德若谷；广德若欠，建德若偷。</p>
+
+<p>大方无隅，大器晚成；大音希声，大象无形。</p>
+
+<p>德真若渝，道隐无名；唯善道成，唯功善德。</p>
+
+<p>君子善德，以利万民；圣人善德，以利百姓。</p>
+
+<p>百姓善德，以利万物；万民善德，以利众生。</p>
+
+<p>第四十二章：</p>
+
+<p>道生玄一，一生玄二；二生玄三，三生万物。</p>
+
+<p>负阴抱阳，冲气以和；天地交泰，万物翀华。</p>
+
+<p>负阳抱阴，正气以秀；天地华育，万物优美。</p>
+
+<p>第四十三章：</p>
+
+<p>天下至极，败于至微；侵之无备，袭之无兆。</p>
+
+<p>天下至柔，驰骋至坚；入乎无间，出乎无隙。</p>
+
+<p>无为有益，不言之教；不为之益，天下希之。</p>
+
+<p>是以圣人，贵极尊微；成以极极，就于微微！</p>
+
+<p>第四十四章：</p>
+
+<p>名身孰亲，体货孰多；甚爱必费，多藏必亡。</p>
+
+<p>知足不辱，知止不殆；方可长久，故能永存。</p>
+
+<p>是以圣人，贵身疏名；贵体疏货，爱道藏德。</p>
+
+<p>第四十五章：</p>
+
+<p>大成若缺，其用不弊；<a href="https://www.zhihu.com/search?q=%E5%A4%A7%E7%9B%88%E8%8B%A5%E5%86%B2&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A2973115477%7D">大盈若冲</a>，其用不穷。</p>
+
+<p>大直若曲，其用不折；大巧若拙，其用不笨。</p>
+
+<p>大辩若讷，其用不讳；大论若诘，其用不诈。</p>
+
+<p>躁胜寒冷，静胜炎热；晴精仲整，天下自统。</p>
+
+<p>第四十六章：</p>
+
+<p>天下有德，万民以勤；天下失德，万民以乱。</p>
+
+<p>天下有道，走马以粪；天下无道，戎马生郊。</p>
+
+<p>罪大可欲，祸大不足；灾大贪图，咎大欲得。</p>
+
+<p>第四十七章：</p>
+
+<p>不出门户，遍知天下；不窥窗牖，预见天道。</p>
+
+<p>其出弥远，其知弥少；不行而知，不见而名。</p>
+
+<p>不作贵宾，即可利民；不作尊主，施发天德。</p>
+
+<p>其贵不作，大贵越多；其尊不作，大尊越圣。</p>
+
+<p>第四十八章：</p>
+
+<p><a href="https://www.zhihu.com/search?q=%E4%B8%BA%E5%AD%A6%E6%97%A5%E7%9B%8A&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra=%7B%22sourceType%22%3A%22answer%22%2C%22sourceId%22%3A2973115477%7D">为学日益</a>，为道日徇；徇之又徇，以至无为。</p>
+
+<p>无为而为，天下禧事；有其禧事，以取天下。</p>
+
+<p>第四十九章：</p>
+
+<p>圣人无心，百姓为心；圣人无意，百姓注目。</p>
+
+<p>善者善之，德者德之；善信信善，德信信德。</p>
+
+<p>圣人含德，天地发仁；百姓含德，社稷发义。</p>
+
+<p>万民含德，待机而发；万物含德，应时而放。</p>
+
+<p>第五十章：</p>
+
+<p>出生无死，生生之厚；有生无亡，华华之爱。</p>
+
+<p>圣人有德，万民无死；百姓有德，万物不亡。</p>
+
+<p>圣人喜天，万民乐地；百姓华道，万物普天。</p>
+
+<p>第五十一章：</p>
+
+<p>道生德蓄，物形成势；德生道华，惟象命革。</p>
+
+<p>生而不有，为而不恃；长而不宰，是谓玄德。</p>
+
+<p>尊道贵德，常而自然；行道尚德，自然而然。</p>
+
+<p>第五十二章：</p>
+
+<p>先天为始，始而无始；后天为母，母而有母。</p>
+
+<p>既明其始，既悟其母；既得其母，即知其子。</p>
+
+<p>既用其子，复守其母；既卫其始，没有不殆。</p>
+
+<p>塞兑闭门，终身补勤；开兑济事，终身补救。</p>
+
+<p>见小曰明，守柔曰强；开光复明，无遗身殃。</p>
+
+<p>通阴达阳，是为侑道；知实明虚，是为侑德。</p>
+
+<p>通道明道，通德明德；此为奇智，神慧袭常。</p>
+
+<p>故弄玄妙，是为道神；善解妙玄，是为德祥。</p>
+
+<p>第五十三章：</p>
+
+<p>介然有智，行于大道；大道甚玄，民甚好径。</p>
+
+<p>朝田荒芜，仓虚锅尽；厌饮恶食，是谓道乞。</p>
+
+<p>财货有余，唯威施畏；是谓道侉，非真道德。</p>
+
+<p>圣人明道，道用无穷；庶人明道，用道广大。</p>
+
+<p>百姓乐道，万物并优；万民乐道，万物精美。</p>
+
+<p>第五十四章：</p>
+
+<p>善为道者，建而不拔；抱而不脱，祀而不辍。</p>
+
+<p>修身德真，修家德余；修乡德长，修国德丰。</p>
+
+<p>修天德普，修道德华；以身观家，以乡观国。</p>
+
+<p>以地观天，以道观德；以德注世，天下善哉。</p>
+
+<p>第五十五章：</p>
+
+<p>抱道之宽，同于玄母；含德之厚，比于赤子。</p>
+
+<p>毒虫不螯，恶龙不触；猛兽不据，擢鸟不搏。</p>
+
+<p>软骨柔筋，常而握固；至精真炁，永生禧祥。</p>
+
+<p>幼者善道，道之老也；老者善道，道者幼也。</p>
+
+<p>第五十六章：</p>
+
+<p>智者不言，言者不智；若不言智，是谓玄同。</p>
+
+<p>塞兑闭门，挫锐解纷；和光同尘，为天下贵。</p>
+
+<p>圣人不言，君子不语；以身而为，道者启也。</p>
+
+<p>第五十七章：</p>
+
+<p>以正治国，以奇用兵；以法利地，以象取天。</p>
+
+<p>天下多忌，民而弥贫；天下多讳，民而越穷。</p>
+
+<p>王多利器，国家滋昏；人多技巧，奇物滋起。</p>
+
+<p>法多彰令，盗贼滋扰；官多迫压，国民滋抗。</p>
+
+<p>无为自华，无事自富，无奢自整，无欲自朴。</p>
+
+<p>第五十八章：</p>
+
+<p>其政闷闷，其民淳淳；其政察察，其民夬夬</p>
+
+<p>福祸所倚，祸福所伏；熟智其极，无其正邪。</p>
+
+<p>善正为奇，复奇为邪；民迷其久，必有所暴。</p>
+
+<p>方而不割，廉而不刿；亮而不肆，光而不耀。</p>
+
+<p>圣人照民，不迷其心；道心大明，此为德辉。</p>
+
+<p>第五十九章：</p>
+
+<p>治人事天，是谓早服；从道积德，是谓无克。</p>
+
+<p>莫知其极，可以有国；有国之母，可以长久。</p>
+
+<p>深根固蒂，可以长生；长生久真，道炁长存。</p>
+
+<p>第六十章：</p>
+
+<p>道莅天下，其神不神；德莅天下，圣人同民。</p>
+
+<p>道德相和，天地尊民；天地相和，神鬼敬物。</p>
+
+<p>互为相和，道之交焉；互为相往，德之归焉。</p>
+
+<p>第六十一章：</p>
+
+<p>天下交牝，以静胜牡；以静待动，以动制静。</p>
+
+<p>天地孕静，万物育动；动静相应，各得其所。</p>
+
+<p>天地旋转，日月辉煌；百姓做作，万物优美。</p>
+
+<p>第六十二章：</p>
+
+<p>夫大道者，天地之澳；故大德者，万道之宝。</p>
+
+<p>美言以市，尊行加仁；天地所敬，王侯所恭。</p>
+
+<p>是以圣人，以道治世；以德理民，此为德尚。</p>
+
+<p>第六十三章：</p>
+
+<p>天为吉事，报怨以德；地为善事，加情尽义。</p>
+
+<p>图难其易，为大知小；得成其败，总统明细。</p>
+
+<p>轻诺失信，重讼必奸；圣人犹难，终成无难。</p>
+
+<p>第六十四章：</p>
+
+<p>其安易持，未兆易谋；其脆易破，其微易散。</p>
+
+<p>为之未有，治之未乱；法之未作，理之未成。</p>
+
+<p>合抱之木，生于毫毛；九层之台，起于细土。</p>
+
+<p>千里之行，始于足下；万海之航，终于手上。</p>
+
+<p>妄为者败，强持者失；无为无败，无持无失。</p>
+
+<p>慎终如始，则无败事；以辅万道，自然而德。</p>
+
+<p>第六十五章：</p>
+
+<p>以道明民，以慧理人；常智楷式，是谓玄德。</p>
+
+<p>以德照天，以道普地；常觅模忒，是谓玄衡。</p>
+
+<p>圣人有道，以民为天；以物为地，是谓玄道。</p>
+
+<p>君子有德，以慈恩人；以悲惠物，是谓玄名。</p>
+
+<p>第六十六章：</p>
+
+<p>大海汪洋，以其善下；下而愈下，极下不下。</p>
+
+<p>泰山巍峨，不辞微埃；微埃积尘，基于大地。</p>
+
+<p>圣人欲上，以其言下；君子欲贵，不鄙凡民。</p>
+
+<p>处人不重，用人不害；以其不争，莫能与争。</p>
+
+<p>是以圣人，位尊泰山；身鄙汪洋，是谓道精。</p>
+
+<p>第六十七章：</p>
+
+<p>夫大道者，其德细也；吾有巨宝，保而持之。</p>
+
+<p>一慈二俭，三稳四重；审势察明，不枉为先。</p>
+
+<p>以战则胜，以守则固；天神保护，地神佐佑。</p>
+
+<p>圣人慈俭，万民鞠躬；君子稳重，百姓尽垂。</p>
+
+<p>是以圣人，忠心天下；万民为孝，此为道泰。</p>
+
+<p>第六十八章：</p>
+
+<p>善斗不武，善战不怒；善待不徼，善胜不争。</p>
+
+<p>用人之力，是谓配天；启人之慧，是谓得天。</p>
+
+<p>是以圣人，藏武息怒；以待而胜，是为道统。</p>
+
+<p>第六十九章：</p>
+
+<p>用兵至言，为客而退；祸于轻敌，轻敌丧宝。</p>
+
+<p>抗兵相加，哀者必胜；两军对峙，慎者必利。</p>
+
+<p>圣人之胜，哀其万民；君子之利，慎其百姓。</p>
+
+<p>第七十章：</p>
+
+<p>易知易行，天下有宗；夫惟无知，是以我知。</p>
+
+<p>知我者希，则我者贵；是以圣人，被褐怀玉。</p>
+
+<p>第七十一章：</p>
+
+<p>知不知尚，不知知病；夫惟病病，是以不病。</p>
+
+<p>圣人不病，以病利病；是以不病，然而无病。</p>
+
+<p>第七十二章：</p>
+
+<p>民不畏威，刚威柔勇；民不怕凶，智敢慧猛。</p>
+
+<p>无狎民居，民无所愤；无厌民生，民无所怒。</p>
+
+<p>夫惟不厌，是以无阿；自知自明，自爱自尊。</p>
+
+<p>第七十三章：</p>
+
+<p>狂猛者杀，智勇者活；或利或害，天之所恶。</p>
+
+<p>不争善胜，不言善应；不取自至，不召自来。</p>
+
+<p>惮然善谋，绣哉善计；天网恢恢，疏而不失。</p>
+
+<p>圣人善谋，百姓善计；谋利计活，是为道滋。</p>
+
+<p>第七十四章：</p>
+
+<p>民不畏死，何以死惧；民常畏死，天下怪者。</p>
+
+<p>执刹熟敢，司刹常敢；妄刹狂斫，必有自伤。</p>
+
+<p>圣人理世，治而不刹；民以待用，是以道备。</p>
+
+<p>第七十五章：</p>
+
+<p>税多民饥，官多世乱；民饥轻死，是以难治。</p>
+
+<p>求生之厚，民以安生；谋贤之惠，民以贵活。</p>
+
+<p>是以圣人，重民轻官；世之长安，此为道和。</p>
+
+<p>第七十六章：</p>
+
+<p>民生柔弱，其死坚强；草木柔脆，其死枯槁。</p>
+
+<p>坚强生徒，柔韧活徒；强大处下，柔弱处上。</p>
+
+<p>圣人治世，用坚使柔；启韧发强，此为道廉。</p>
+
+<p>第七十七章：</p>
+
+<p>夫天之道，犹强弓乎？高者仰之，下者举之。</p>
+
+<p>余者损之，欠者补之；为而不恃，功成不处。</p>
+
+<p>圣人之德，含天纳地；台举万民，是为道均。</p>
+
+<p>第七十八章：</p>
+
+<p>柔弱于水，坚强莫胜；以柔克刚，以弱胜强。</p>
+
+<p>正言若反，奇语若抗；善觉好悟，道者慧也。</p>
+
+<p>受国之垢，社稷之主；受国不祥，天下为王。</p>
+
+<p>是以圣人，载道参天；禀德普地，是为道理。</p>
+
+<p>第七十九章：</p>
+
+<p>和大余恕，安可为善；执契不责，有德司约。</p>
+
+<p>无德司彻，天道无亲；常与善人，无亲而亲。</p>
+
+<p>是以圣人，道成德就；同于万民，是为道仁。</p>
+
+<p>第八十章：</p>
+
+<p>废王之尊，利民万倍；大邦分治，小国寡民。</p>
+
+<p>百姓同尊，万民俱富；甘食美服，安居乐俗。</p>
+
+<p>圣人之道，代天普华；万民以尊，是以德尊。</p>
+
+<p>第八十一章：</p>
+
+<p>信言不美，美言不信；善者不辩，辩者不善。</p>
+
+<p>智者不博，博者不智；与人愈有，为人愈多。</p>
+
+<p>万民之道，忠信君主；万物之道，忠信人主。</p>
+
+<p>天地之道，利而不害；圣人之道，为而不争。</p>
+
+<p>万民之德，普于天地；万物之德，华于人民。</p>
+
+<p>天地之德，普华众生；圣人之德，教化万民。</p>
+
+<p>万物之道，同于玄道；玄道之德，同于道衡。</p>
+
+<p>万民之道，同于道德；道德之衡，同于德衡。</p>
+
+<p>备注:以下内容摘取自太上大道玉清经。</p>
+
+<p>善男子，</p>
+
+<p>后世男女，欲学道者，</p>
+
+<p>采用天经，吟咏宝文。</p>
+
+<p>此文，</p>
+
+<p>在天为经，在地为纬，</p>
+
+<p>南北为经，东西为纬，</p>
+
+<p>在中为神，在物为气，在人为灵。</p>
+
+<p>故曰</p>
+
+<p>天经地纬，织凡成圣。</p>
+
+<p>一切万物，有形无形，</p>
+
+<p>无非大道真气织成也。</p>
+
+<p>诸仙人曰：敢问慈尊，织成之方。</p>
+
+<p>天尊答曰：</p>
+
+<p>天无言而有信，故可轨之成仁，</p>
+
+<p>三景不言而明，故可则之成身；</p>
+
+<p>地不言而有义，故可范之养物；</p>
+
+<p>道无言而有灵，故能生天生地。</p>
+
+<p>天地万象亦经纬也，织凡成圣。</p>
+
+<p>仙人曰：</p>
+
+<p>敢问天地万象，非道之体，云何织凡成圣？</p>
+
+<p>答曰：</p>
+
+<p>大道生元气，元气生太极，</p>
+
+<p>太极生天地，天地生万物。</p>
+
+<p>是故天地万象，</p>
+
+<p>皆道之子孙也，</p>
+
+<p>何为不能，织凡成圣？</p>
+
+<p>大道经纬，罗列天地，</p>
+
+<p>所布日月、星辰风云、</p>
+
+<p>雨露金玉、土石、草木、杂类，</p>
+
+<p>皆可采用，以辅学人，甚疾成圣。</p>
+
+<p>既得圣道，能制御天地及以万物。</p>
+
+<p>尔时</p>
+
+<p>有一下仙，名曰证明，</p>
+
+<p>闻天尊所说迷惑不悟，</p>
+
+<p>重敢致问，而作是言：</p>
+
+<p>不审慈尊，金口法印，</p>
+
+<p>所云学道之士，</p>
+
+<p>采用日月星辰、风云、雨露、金玉、</p>
+
+<p>土石、草木杂类以辅学人，甚疾成圣，</p>
+
+<p>既得成圣，还能制御天地，及以万物。</p>
+
+<p>弟子蒙昧，不明妙理，</p>
+
+<p>祇言</p>
+
+<p>用天之道，德劣於天。</p>
+
+<p>惟愿慈尊，赐垂分别。</p>
+
+<p>天尊答曰：</p>
+
+<p>学道之士，用天之道，</p>
+
+<p>及以万象甚疾成圣者，</p>
+
+<p>无上大道，真精妙气，</p>
+
+<p>隐在天地，及以万物，</p>
+
+<p>善用天道，及以万物，大道感之。</p>
+
+<p>譬如孝子，供养父母，</p>
+
+<p>心无拒逆，四时温清，</p>
+
+<p>瞻视颜色，设复远行，</p>
+
+<p>心中忧念，存忆父母，</p>
+
+<p>如对目前，寤寐之间，精神不离，</p>
+
+<p>自天佑之，鬼神护之。</p>
+
+<p>孝至二亲，尚能感天；</p>
+
+<p>孝至於天，理应感道。</p>
+
+<p>尔时灯明，并诸后学，</p>
+
+<p>闻天尊所说心开意解，</p>
+
+<p>信知天地万物，皆於学人，深有利益。</p>
+
+<p>明知</p>
+
+<p>天地万物，无非是道，</p>
+
+<p>叹凡夫之徒不能用之，</p>
+
+<p>如我未悟，亦复如是。</p>
+
+<p>—摘自太上大道玉清经</p>
+
+<p>天尊告言：</p>
+
+<p>我无名之先，</p>
+
+<p>真道大行，言教未施，天下德化。</p>
+
+<p>我见世后，人民多智，</p>
+
+<p>各习异端，尚多闻见，</p>
+
+<p>仁义互兴，财食亲辅，</p>
+
+<p>弃贫贱弱，父子相嫌，</p>
+
+<p>君臣不忠，六亲怨争，</p>
+
+<p>邻国相雠，四海交兵。</p>
+
+<p>以是因缘，不善增长，</p>
+
+<p>轮转相报，无解脱时。</p>
+
+<p>不如今日，众生尚善。</p>
+
+<p>初来圣众，降四天下。</p>
+
+<p>一切众生，</p>
+
+<p>欲求智慧，以离愚道。</p>
+
+<p>渐渐工伪，百竞驰起。</p>
+
+<p>虽地狱空虚，不久盈满。</p>
+
+<p>以是因缘，故我弹指。</p>
+
+<p>众仙闻说，不觉悲悴。</p>
+
+<p>尔时，</p>
+
+<p>崆峒仙人，从座而起，</p>
+
+<p>稽首作礼，请问天尊：</p>
+
+<p>不审群化之心可回改不？</p>
+
+<p>欲请天尊，自在神力，</p>
+
+<p>防遏万原之端，拥未萌於机上，</p>
+
+<p>使合生复根，</p>
+
+<p>亿兆藏初，唯守一道。</p>
+
+<p>泯绝群生，心无起灭，形同太虚。</p>
+
+<p>天尊告曰：</p>
+
+<p>善哉善哉，善男子，</p>
+
+<p>汝所言者，是大道之第二十之子也。</p>
+
+<p>何以故？</p>
+
+<p>大道元乎虚朴，</p>
+
+<p>虚朴散为元气。</p>
+
+<p>元气自然，成形有生，从生立名。</p>
+
+<p>因名有言，因言生正教。</p>
+
+<p>正教生即智慧生，</p>
+
+<p>智慧生即巧伪工。</p>
+
+<p>巧伪工即愚智辩，</p>
+
+<p>愚智辩即是非起，</p>
+
+<p>是非起即憎爱生，</p>
+
+<p>憎爱生即攻战作，</p>
+
+<p>攻战作即君臣立，</p>
+
+<p>君臣立即萌赏罚，</p>
+
+<p>赏罚萌即利害见，</p>
+
+<p>利害见即阴贼生，</p>
+
+<p>阴贼生即罪目结，</p>
+
+<p>罪目结则冥司立，</p>
+
+<p>冥司立则有水火之罚。</p>
+
+<p>轮转无穷，自然如此，非道为之。</p>
+
+<p>汝所言者，居乎万机之下。</p>
+
+<p>故曰：</p>
+
+<p>我道虽明，背之则暗；</p>
+
+<p>我道中正，反之则邪；</p>
+
+<p>我道柔弱，舍之则刚；</p>
+
+<p>我道长生，轻之则亡。</p>
+
+<p>大道无亲，唯与善人。</p>
+
+<p>我观群化，非可卒正。</p>
+
+<p>自有万分之一，</p>
+
+<p>生感和气，归原复根。</p>
+
+<p>大道为此，下流正教，以表群目，</p>
+
+<p>欲其影从，而汝后学，即斯人也。</p>
+
+<p>–太上大道玉清经卷之四</p>
+</div><section class="article__sharing d-print-none"></section><div class="d-print-none"><footer class="article__footer"><meta itemprop="dateModified" content="1999-12-31T00:00:00+08:00"><!-- start custom article footer snippet -->
+
+<!-- end custom article footer snippet -->
+<div class="article__subscribe"><div class="subscribe"><i class="fas fa-rss"></i> <a type="application/rss+xml" href="/feed.xml">订阅</a></div>
+</div><div class="article__license"><div class="license">
+    <p>本文遵守 <a itemprop="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">Attribution-NonCommercial 4.0 International</a> 许可协议。
+      <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">
+        <img alt="Attribution-NonCommercial 4.0 International" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" />
+      </a>
+    </p>
+  </div></div></footer>
+<div class="article__section-navigator clearfix"><div class="next"><span>下篇</span><a href="/2020/09/11/%E5%89%A7%E6%83%85%E7%BC%96%E8%BE%91%E5%99%A8.html">AVG剧情编辑器</a></div></div></div>
+
+</div>
+
+<script>(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    $(function() {
+      var $this ,$scroll;
+      var $articleContent = $('.js-article-content');
+      var hasSidebar = $('.js-page-root').hasClass('layout--page--sidebar');
+      var scroll = hasSidebar ? '.js-page-main' : 'html, body';
+      $scroll = $(scroll);
+
+      $articleContent.find('.highlight').each(function() {
+        $this = $(this);
+        $this.attr('data-lang', $this.find('code').attr('data-lang'));
+      });
+      $articleContent.find('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]').each(function() {
+        $this = $(this);
+        $this.append($('<a class="anchor d-print-none" aria-hidden="true"></a>').html('<i class="fas fa-anchor"></i>'));
+      });
+      $articleContent.on('click', '.anchor', function() {
+        $scroll.scrollToAnchor('#' + $(this).parent().attr('id'), 400);
+      });
+    });
+  });
+})();
+</script>
+</div><section class="page__comments d-print-none"></section></article><!-- start custom main bottom snippet -->
+
+<!-- end custom main bottom snippet -->
+</div>
+            </div></div></div><div class="page__footer d-print-none">
+<footer class="footer py-4 js-page-footer">
+  <div class="main"><div itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FrozzenCJ"><meta itemprop="url" content="/"><meta itemprop="description" content="I am an amazing person."><div class="footer__author-links"><div class="author-links">
+  <ul class="menu menu--nowrap menu--inline"><li title="给我发邮件。">
+      <a class="button button--circle mail-button" itemprop="email" href="mailto:joeychou0805@gmail.com" target="_blank">
+        <i class="fas fa-envelope"></i>
+      </a><li title="在 Github 上关注我。">
+        <a class="button button--circle github-button" itemprop="sameAs" href="https://github.com/https://github.com/FrozzenCJ" target="_blank">
+          <div class="icon"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path class="svgpath" data-index="path_0" fill="#272636" d="M0 525.2c0 223.6 143.3 413.7 343 483.5 26.9 6.8 22.8-12.4 22.8-25.4l0-88.7c-155.3 18.2-161.5-84.6-172-101.7-21.1-36-70.8-45.2-56-62.3 35.4-18.2 71.4 4.6 113.1 66.3 30.2 44.7 89.1 37.2 119 29.7 6.5-26.9 20.5-50.9 39.7-69.6C248.8 728.2 181.7 630 181.7 513.2c0-56.6 18.7-108.7 55.3-150.7-23.3-69.3 2.2-128.5 5.6-137.3 66.5-6 135.5 47.6 140.9 51.8 37.8-10.2 80.9-15.6 129.1-15.6 48.5 0 91.8 5.6 129.8 15.9 12.9-9.8 77-55.8 138.8-50.2 3.3 8.8 28.2 66.7 6.3 135 37.1 42.1 56 94.6 56 151.4 0 117-67.5 215.3-228.8 243.7 26.9 26.6 43.6 63.4 43.6 104.2l0 128.8c0.9 10.3 0 20.5 17.2 20.5C878.1 942.4 1024 750.9 1024 525.3c0-282.9-229.3-512-512-512C229.1 13.2 0 242.3 0 525.2L0 525.2z" />
+</svg>
+</div>
+        </a>
+      </li></ul>
+</div>
+</div>
+    </div><div class="site-info mt-2">
+      <div>© Frozzen's Blog 2023,
+        Powered by <a title="Jekyll is a simple, blog-aware, static site generator." href="http://jekyllrb.com/">Jekyll</a> & <a
+        title="TeXt is a super customizable Jekyll theme." href="https://github.com/kitian616/jekyll-TeXt-theme">TeXt Theme</a>.
+      </div>
+    </div>
+  </div>
+</footer>
+</div></div>
+    </div><script>(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    var $body = $('body'), $window = $(window);
+    var $pageRoot = $('.js-page-root'), $pageMain = $('.js-page-main');
+    var activeCount = 0;
+    function modal(options) {
+      var $root = this, visible, onChange, hideWhenWindowScroll = false;
+      var scrollTop;
+      function setOptions(options) {
+        var _options = options || {};
+        visible = _options.initialVisible === undefined ? false : show;
+        onChange = _options.onChange;
+        hideWhenWindowScroll = _options.hideWhenWindowScroll;
+      }
+      function init() {
+        setState(visible);
+      }
+      function setState(isShow) {
+        if (isShow === visible) {
+          return;
+        }
+        visible = isShow;
+        if (visible) {
+          activeCount++;
+          scrollTop = $(window).scrollTop() || $pageMain.scrollTop();
+          $root.addClass('modal--show');
+          $pageMain.scrollTop(scrollTop);
+          activeCount === 1 && ($pageRoot.addClass('show-modal'), $body.addClass('of-hidden'));
+          hideWhenWindowScroll && window.hasEvent('touchstart') && $window.on('scroll', hide);
+          $window.on('keyup', handleKeyup);
+        } else {
+          activeCount > 0 && activeCount--;
+          $root.removeClass('modal--show');
+          $window.scrollTop(scrollTop);
+          activeCount === 0 && ($pageRoot.removeClass('show-modal'), $body.removeClass('of-hidden'));
+          hideWhenWindowScroll && window.hasEvent('touchstart') && $window.off('scroll', hide);
+          $window.off('keyup', handleKeyup);
+        }
+        onChange && onChange(visible);
+      }
+      function show() {
+        setState(true);
+      }
+      function hide() {
+        setState(false);
+      }
+      function handleKeyup(e) {
+        // Char Code: 27  ESC
+        if (e.which ===  27) {
+          hide();
+        }
+      }
+      setOptions(options);
+      init();
+      return {
+        show: show,
+        hide: hide,
+        $el: $root
+      };
+    }
+    $.fn.modal = modal;
+  });
+})();
+</script><div class="modal modal--overflow page__search-modal d-print-none js-page-search-modal"><script>
+(function () {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    // search panel
+    var search = (window.search || (window.search = {}));
+    var useDefaultSearchBox = window.useDefaultSearchBox === undefined ?
+      true : window.useDefaultSearchBox ;
+
+    var $searchModal = $('.js-page-search-modal');
+    var $searchToggle = $('.js-search-toggle');
+    var searchModal = $searchModal.modal({ onChange: handleModalChange, hideWhenWindowScroll: true });
+    var modalVisible = false;
+    search.searchModal = searchModal;
+
+    var $searchBox = null;
+    var $searchInput = null;
+    var $searchClear = null;
+
+    function getModalVisible() {
+      return modalVisible;
+    }
+    search.getModalVisible = getModalVisible;
+
+    function handleModalChange(visible) {
+      modalVisible = visible;
+      if (visible) {
+        search.onShow && search.onShow();
+        useDefaultSearchBox && $searchInput[0] && $searchInput[0].focus();
+      } else {
+        search.onShow && search.onHide();
+        useDefaultSearchBox && $searchInput[0] && $searchInput[0].blur();
+        setTimeout(function() {
+          useDefaultSearchBox && ($searchInput.val(''), $searchBox.removeClass('not-empty'));
+          search.clear && search.clear();
+          window.pageAsideAffix && window.pageAsideAffix.refresh();
+        }, 400);
+      }
+    }
+
+    $searchToggle.on('click', function() {
+      modalVisible ? searchModal.hide() : searchModal.show();
+    });
+    // Char Code: 83  S, 191 /
+    $(window).on('keyup', function(e) {
+      if (!modalVisible && !window.isFormElement(e.target || e.srcElement) && (e.which === 83 || e.which === 191)) {
+        modalVisible || searchModal.show();
+      }
+    });
+
+    if (useDefaultSearchBox) {
+      $searchBox = $('.js-search-box');
+      $searchInput = $searchBox.children('input');
+      $searchClear = $searchBox.children('.js-icon-clear');
+      search.getSearchInput = function() {
+        return $searchInput.get(0);
+      };
+      search.getVal = function() {
+        return $searchInput.val();
+      };
+      search.setVal = function(val) {
+        $searchInput.val(val);
+      };
+
+      $searchInput.on('focus', function() {
+        $(this).addClass('focus');
+      });
+      $searchInput.on('blur', function() {
+        $(this).removeClass('focus');
+      });
+      $searchInput.on('input', window.throttle(function() {
+        var val = $(this).val();
+        if (val === '' || typeof val !== 'string') {
+          search.clear && search.clear();
+        } else {
+          $searchBox.addClass('not-empty');
+          search.onInputNotEmpty && search.onInputNotEmpty(val);
+        }
+      }, 400));
+      $searchClear.on('click', function() {
+        $searchInput.val(''); $searchBox.removeClass('not-empty');
+        search.clear && search.clear();
+      });
+    }
+  });
+})();
+</script><div class="search search--dark">
+  <div class="main">
+    <div class="search__header">搜索</div>
+    <div class="search-bar">
+      <div class="search-box js-search-box">
+        <div class="search-box__icon-search"><i class="fas fa-search"></i></div>
+        <input type="text" />
+        <div class="search-box__icon-clear js-icon-clear">
+          <a><i class="fas fa-times"></i></a>
+        </div>
+      </div>
+      <button class="button button--theme-dark button--pill search__cancel js-search-toggle">
+        取消</button>
+    </div>
+    <div class="search-result js-search-result"></div>
+  </div>
+</div>
+<script>var SOURCES = window.TEXT_VARIABLES.sources;
+var PAHTS = window.TEXT_VARIABLES.paths;
+window.Lazyload.js([SOURCES.jquery, PAHTS.search_js], function() {
+  var search = (window.search || (window.search = {}));
+  var searchData = window.TEXT_SEARCH_DATA || {};
+
+  function memorize(f) {
+    var cache = {};
+    return function () {
+      var key = Array.prototype.join.call(arguments, ',');
+      if (key in cache) return cache[key];
+      else return cache[key] = f.apply(this, arguments);
+    };
+  }
+
+  /// search
+  function searchByQuery(query) {
+    var i, j, key, keys, cur, _title, result = {};
+    keys = Object.keys(searchData);
+    for (i = 0; i < keys.length; i++) {
+      key = keys[i];
+      for (j = 0; j < searchData[key].length; j++) {
+        cur = searchData[key][j], _title = cur.title;
+        if ((result[key] === undefined || result[key] && result[key].length < 4 )
+          && _title.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
+          if (result[key] === undefined) {
+            result[key] = [];
+          }
+          result[key].push(cur);
+        }
+      }
+    }
+    return result;
+  }
+
+  var renderHeader = memorize(function(header) {
+    return $('<p class="search-result__header">' + header + '</p>');
+  });
+
+  var renderItem = function(index, title, url) {
+    return $('<li class="search-result__item" data-index="' + index + '"><a class="button" href="' + url + '">' + title + '</a></li>');
+  };
+
+  function render(data) {
+    if (!data) { return null; }
+    var $root = $('<ul></ul>'), i, j, key, keys, cur, itemIndex = 0;
+    keys = Object.keys(data);
+    for (i = 0; i < keys.length; i++) {
+      key = keys[i];
+      $root.append(renderHeader(key));
+      for (j = 0; j < data[key].length; j++) {
+        cur = data[key][j];
+        $root.append(renderItem(itemIndex++, cur.title, cur.url));
+      }
+    }
+    return $root;
+  }
+
+  // search box
+  var $result = $('.js-search-result'), $resultItems;
+  var lastActiveIndex, activeIndex;
+
+  function clear() {
+    $result.html(null);
+    $resultItems = $('.search-result__item'); activeIndex = 0;
+  }
+  function onInputNotEmpty(val) {
+    $result.html(render(searchByQuery(val)));
+    $resultItems = $('.search-result__item'); activeIndex = 0;
+    $resultItems.eq(0).addClass('active');
+  }
+
+  search.clear = clear;
+  search.onInputNotEmpty = onInputNotEmpty;
+
+  function updateResultItems() {
+    lastActiveIndex >= 0 && $resultItems.eq(lastActiveIndex).removeClass('active');
+    activeIndex >= 0 && $resultItems.eq(activeIndex).addClass('active');
+  }
+
+  function moveActiveIndex(direction) {
+    var itemsCount = $resultItems ? $resultItems.length : 0;
+    if (itemsCount > 1) {
+      lastActiveIndex = activeIndex;
+      if (direction === 'up') {
+        activeIndex = (activeIndex - 1 + itemsCount) % itemsCount;
+      } else if (direction === 'down') {
+        activeIndex = (activeIndex + 1 + itemsCount) % itemsCount;
+      }
+      updateResultItems();
+    }
+  }
+
+  // Char Code: 13  Enter, 37  ⬅, 38  ⬆, 39  ➡, 40  ⬇
+  $(window).on('keyup', function(e) {
+    var modalVisible = search.getModalVisible && search.getModalVisible();
+    if (modalVisible) {
+      if (e.which === 38) {
+        modalVisible && moveActiveIndex('up');
+      } else if (e.which === 40) {
+        modalVisible && moveActiveIndex('down');
+      } else if (e.which === 13) {
+        modalVisible && $resultItems && activeIndex >= 0 && $resultItems.eq(activeIndex).children('a')[0].click();
+      }
+    }
+  });
+
+  $result.on('mouseover', '.search-result__item > a', function() {
+    var itemIndex = $(this).parent().data('index');
+    itemIndex >= 0 && (lastActiveIndex = activeIndex, activeIndex = itemIndex, updateResultItems());
+  });
+});
+</script>
+</div></div>
+
+
+<script>(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    function scrollToAnchor(anchor, duration, callback) {
+      var $root = this;
+      $root.animate({ scrollTop: $(anchor).position().top }, duration, function() {
+        window.history.replaceState(null, '', window.location.href.split('#')[0] + anchor);
+        callback && callback();
+      });
+    }
+    $.fn.scrollToAnchor = scrollToAnchor;
+  });
+})();
+(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    function affix(options) {
+      var $root = this, $window = $(window), $scrollTarget, $scroll,
+        offsetBottom = 0, scrollTarget = window, scroll = window.document, disabled = false, isOverallScroller = true,
+        rootTop, rootLeft, rootHeight, scrollBottom, rootBottomTop,
+        hasInit = false, curState;
+
+      function setOptions(options) {
+        var _options = options || {};
+        _options.offsetBottom && (offsetBottom = _options.offsetBottom);
+        _options.scrollTarget && (scrollTarget = _options.scrollTarget);
+        _options.scroll && (scroll = _options.scroll);
+        _options.disabled !== undefined && (disabled = _options.disabled);
+        $scrollTarget = $(scrollTarget);
+        isOverallScroller = window.isOverallScroller($scrollTarget[0]);
+        $scroll = $(scroll);
+      }
+      function preCalc() {
+        top();
+        rootHeight = $root.outerHeight();
+        rootTop = $root.offset().top + (isOverallScroller ? 0 :  $scrollTarget.scrollTop());
+        rootLeft = $root.offset().left;
+      }
+      function calc(needPreCalc) {
+        needPreCalc && preCalc();
+        scrollBottom = $scroll.outerHeight() - offsetBottom - rootHeight;
+        rootBottomTop = scrollBottom - rootTop;
+      }
+      function top() {
+        if (curState !== 'top') {
+          $root.removeClass('fixed').css({
+            left: 0,
+            top: 0
+          });
+          curState = 'top';
+        }
+      }
+      function fixed() {
+        if (curState !== 'fixed') {
+          $root.addClass('fixed').css({
+            left: rootLeft + 'px',
+            top: 0
+          });
+          curState = 'fixed';
+        }
+      }
+      function bottom() {
+        if (curState !== 'bottom') {
+          $root.removeClass('fixed').css({
+            left: 0,
+            top: rootBottomTop + 'px'
+          });
+          curState = 'bottom';
+        }
+      }
+      function setState() {
+        var scrollTop = $scrollTarget.scrollTop();
+        if (scrollTop >= rootTop && scrollTop <= scrollBottom) {
+          fixed();
+        } else if (scrollTop < rootTop) {
+          top();
+        } else {
+          bottom();
+        }
+      }
+      function init() {
+        if(!hasInit) {
+          var interval, timeout;
+          calc(true); setState();
+          // run calc every 100 millisecond
+          interval = setInterval(function() {
+            calc();
+          }, 100);
+          timeout = setTimeout(function() {
+            clearInterval(interval);
+          }, 45000);
+          window.pageLoad.then(function() {
+            setTimeout(function() {
+              clearInterval(interval);
+              clearTimeout(timeout);
+            }, 3000);
+          });
+          $scrollTarget.on('scroll', function() {
+            disabled || setState();
+          });
+          $window.on('resize', function() {
+            disabled || (calc(true), setState());
+          });
+          hasInit = true;
+        }
+      }
+
+      setOptions(options);
+      if (!disabled) {
+        init();
+      }
+      $window.on('resize', window.throttle(function() {
+        init();
+      }, 200));
+      return {
+        setOptions: setOptions,
+        refresh: function() {
+          calc(true, { animation: false }); setState();
+        }
+      };
+    }
+    $.fn.affix = affix;
+  });
+})();
+(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    function toc(options) {
+      var $root = this, $window = $(window), $scrollTarget, $scroller, $tocUl = $('<ul class="toc toc--ellipsis"></ul>'), $tocLi, $headings, $activeLast, $activeCur,
+        selectors = 'h1,h2,h3', container = 'body', scrollTarget = window, scroller = 'html, body', disabled = false,
+        headingsPos, scrolling = false, hasRendered = false, hasInit = false;
+
+      function setOptions(options) {
+        var _options = options || {};
+        _options.selectors && (selectors = _options.selectors);
+        _options.container && (container = _options.container);
+        _options.scrollTarget && (scrollTarget = _options.scrollTarget);
+        _options.scroller && (scroller = _options.scroller);
+        _options.disabled !== undefined && (disabled = _options.disabled);
+        $headings = $(container).find(selectors).filter('[id]');
+        $scrollTarget = $(scrollTarget);
+        $scroller = $(scroller);
+      }
+      function calc() {
+        headingsPos = [];
+        $headings.each(function() {
+          headingsPos.push(Math.floor($(this).position().top));
+        });
+      }
+      function setState(element, disabled) {
+        var scrollTop = $scrollTarget.scrollTop(), i;
+        if (disabled || !headingsPos || headingsPos.length < 1) { return; }
+        if (element) {
+          $activeCur = element;
+        } else {
+          for (i = 0; i < headingsPos.length; i++) {
+            if (scrollTop >= headingsPos[i]) {
+              $activeCur = $tocLi.eq(i);
+            } else {
+              $activeCur || ($activeCur = $tocLi.eq(i));
+              break;
+            }
+          }
+        }
+        $activeLast && $activeLast.removeClass('active');
+        ($activeLast = $activeCur).addClass('active');
+      }
+      function render() {
+        if(!hasRendered) {
+          $root.append($tocUl);
+          $headings.each(function() {
+            var $this = $(this);
+            $tocUl.append($('<li></li>').addClass('toc-' + $this.prop('tagName').toLowerCase())
+              .append($('<a></a>').text($this.text()).attr('href', '#' + $this.prop('id'))));
+          });
+          $tocLi = $tocUl.children('li');
+          $tocUl.on('click', 'a', function(e) {
+            e.preventDefault();
+            var $this = $(this);
+            scrolling = true;
+            setState($this.parent());
+            $scroller.scrollToAnchor($this.attr('href'), 400, function() {
+              scrolling = false;
+            });
+          });
+        }
+        hasRendered = true;
+      }
+      function init() {
+        var interval, timeout;
+        if(!hasInit) {
+          render(); calc(); setState(null, scrolling);
+          // run calc every 100 millisecond
+          interval = setInterval(function() {
+            calc();
+          }, 100);
+          timeout = setTimeout(function() {
+            clearInterval(interval);
+          }, 45000);
+          window.pageLoad.then(function() {
+            setTimeout(function() {
+              clearInterval(interval);
+              clearTimeout(timeout);
+            }, 3000);
+          });
+          $scrollTarget.on('scroll', function() {
+            disabled || setState(null, scrolling);
+          });
+          $window.on('resize', window.throttle(function() {
+            if (!disabled) {
+              render(); calc(); setState(null, scrolling);
+            }
+          }, 100));
+        }
+        hasInit = true;
+      }
+
+      setOptions(options);
+      if (!disabled) {
+        init();
+      }
+      $window.on('resize', window.throttle(function() {
+        init();
+      }, 200));
+      return {
+        setOptions: setOptions
+      };
+    }
+    $.fn.toc = toc;
+  });
+})();
+/*(function () {
+
+})();*/
+</script><script>
+  /* toc must before affix, since affix need to konw toc' height. */(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  var TOC_SELECTOR = window.TEXT_VARIABLES.site.toc.selectors;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    var $window = $(window);
+    var $articleContent = $('.js-article-content');
+    var $tocRoot = $('.js-toc-root'), $col2 = $('.js-col-aside');
+    var toc;
+    var tocDisabled = false;
+    var hasSidebar = $('.js-page-root').hasClass('layout--page--sidebar');
+    var hasToc = $articleContent.find(TOC_SELECTOR).length > 0;
+
+    function disabled() {
+      return $col2.css('display') === 'none' || !hasToc;
+    }
+
+    tocDisabled = disabled();
+
+    toc = $tocRoot.toc({
+      selectors: TOC_SELECTOR,
+      container: $articleContent,
+      scrollTarget: hasSidebar ? '.js-page-main' : null,
+      scroller: hasSidebar ? '.js-page-main' : null,
+      disabled: tocDisabled
+    });
+
+    $window.on('resize', window.throttle(function() {
+      tocDisabled = disabled();
+      toc && toc.setOptions({
+        disabled: tocDisabled
+      });
+    }, 100));
+
+  });
+})();
+(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    var $window = $(window), $pageFooter = $('.js-page-footer');
+    var $pageAside = $('.js-page-aside');
+    var affix;
+    var tocDisabled = false;
+    var hasSidebar = $('.js-page-root').hasClass('layout--page--sidebar');
+
+    affix = $pageAside.affix({
+      offsetBottom: $pageFooter.outerHeight(),
+      scrollTarget: hasSidebar ? '.js-page-main' : null,
+      scroller: hasSidebar ? '.js-page-main' : null,
+      scroll: hasSidebar ? $('.js-page-main').children() : null,
+      disabled: tocDisabled
+    });
+
+    $window.on('resize', window.throttle(function() {
+      affix && affix.setOptions({
+        disabled: tocDisabled
+      });
+    }, 100));
+
+    window.pageAsideAffix = affix;
+  });
+})();
+</script><script type="text/x-mathjax-config">
+	var _config = { tex2jax: {
+		inlineMath: [['$','$'], ['\\(','\\)']]
+	}};_config.TeX = { equationNumbers: { autoNumber: "all" } };MathJax.Hub.Config(_config);
+</script>
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+<script>
+  window.Lazyload.js('https://cdn.jsdelivr.net/npm/mermaid@8.14.0/dist/mermaid.min.js', function() {
+    mermaid.initialize({
+      startOnLoad: true
+    });
+    mermaid.init(undefined, '.language-mermaid');
+  });
+</script>
+
+    </div>
+    <script>(function () {
+  var $root = document.getElementsByClassName('root')[0];
+  if (window.hasEvent('touchstart')) {
+    $root.dataset.isTouch = true;
+    document.addEventListener('touchstart', function(){}, false);
+  }
+})();
+</script>
+  </body>
+</html>
+

@@ -1,0 +1,1502 @@
+<!DOCTYPE html><html lang="zh-Hans">
+  <head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>表格导出数据检查工具 - Frozzen's Blog</title>
+
+<meta name="description" content="项目简记使用项目：《明日之后》2023年4月 - now解决问题2023年伊始，运营付费活动，已经出现两个一级事故，一个影响涉及千万额度，一个及时发现损失较小但性质恶劣，主要都是策划填表中数据填错而对应QA未及时发现导致的（涉及工作流程问题，更改频繁，导表检查未发现）。因此，关键数值要导表检查过一遍（确保数据格式...">
+<link rel="canonical" href="http://localhost:4000/2023/04/26/%E8%A1%A8%E6%A0%BC%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E6%A3%80%E6%9F%A5%E5%B7%A5%E5%85%B7.html"><link rel="alternate" type="application/rss+xml" title="Frozzen's Blog" href="/feed.xml"><!-- start favicons snippet, use https://realfavicongenerator.net/ --><link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png"><link rel="manifest" href="/assets/site.webmanifest"><link rel="mask-icon" href="/assets/safari-pinned-tab.svg" color="#fc4d50"><link rel="shortcut icon" href="/assets/favicon.ico">
+
+<meta name="msapplication-TileColor" content="#ffc40d"><meta name="msapplication-config" content="/assets/browserconfig.xml">
+
+<meta name="theme-color" content="#ffffff">
+<!-- end favicons snippet --><link rel="stylesheet" href="/assets/css/main.css"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.3/css/all.css" ><!-- start custom head snippets -->
+
+<!-- end custom head snippets -->
+<script>(function() {
+  window.isArray = function(val) {
+    return Object.prototype.toString.call(val) === '[object Array]';
+  };
+  window.isString = function(val) {
+    return typeof val === 'string';
+  };
+
+  window.hasEvent = function(event) {
+    return 'on'.concat(event) in window.document;
+  };
+
+  window.isOverallScroller = function(node) {
+    return node === document.documentElement || node === document.body || node === window;
+  };
+
+  window.isFormElement = function(node) {
+    var tagName = node.tagName;
+    return tagName === 'INPUT' || tagName === 'SELECT' || tagName === 'TEXTAREA';
+  };
+
+  window.pageLoad = (function () {
+    var loaded = false, cbs = [];
+    window.addEventListener('load', function () {
+      var i;
+      loaded = true;
+      if (cbs.length > 0) {
+        for (i = 0; i < cbs.length; i++) {
+          cbs[i]();
+        }
+      }
+    });
+    return {
+      then: function(cb) {
+        cb && (loaded ? cb() : (cbs.push(cb)));
+      }
+    };
+  })();
+})();
+(function() {
+  window.throttle = function(func, wait) {
+    var args, result, thisArg, timeoutId, lastCalled = 0;
+
+    function trailingCall() {
+      lastCalled = new Date;
+      timeoutId = null;
+      result = func.apply(thisArg, args);
+    }
+    return function() {
+      var now = new Date,
+        remaining = wait - (now - lastCalled);
+
+      args = arguments;
+      thisArg = this;
+
+      if (remaining <= 0) {
+        clearTimeout(timeoutId);
+        timeoutId = null;
+        lastCalled = now;
+        result = func.apply(thisArg, args);
+      } else if (!timeoutId) {
+        timeoutId = setTimeout(trailingCall, remaining);
+      }
+      return result;
+    };
+  };
+})();
+(function() {
+  var Set = (function() {
+    var add = function(item) {
+      var i, data = this._data;
+      for (i = 0; i < data.length; i++) {
+        if (data[i] === item) {
+          return;
+        }
+      }
+      this.size ++;
+      data.push(item);
+      return data;
+    };
+
+    var Set = function(data) {
+      this.size = 0;
+      this._data = [];
+      var i;
+      if (data.length > 0) {
+        for (i = 0; i < data.length; i++) {
+          add.call(this, data[i]);
+        }
+      }
+    };
+    Set.prototype.add = add;
+    Set.prototype.get = function(index) { return this._data[index]; };
+    Set.prototype.has = function(item) {
+      var i, data = this._data;
+      for (i = 0; i < data.length; i++) {
+        if (this.get(i) === item) {
+          return true;
+        }
+      }
+      return false;
+    };
+    Set.prototype.is = function(map) {
+      if (map._data.length !== this._data.length) { return false; }
+      var i, j, flag, tData = this._data, mData = map._data;
+      for (i = 0; i < tData.length; i++) {
+        for (flag = false, j = 0; j < mData.length; j++) {
+          if (tData[i] === mData[j]) {
+            flag = true;
+            break;
+          }
+        }
+        if (!flag) { return false; }
+      }
+      return true;
+    };
+    Set.prototype.values = function() {
+      return this._data;
+    };
+    return Set;
+  })();
+
+  window.Lazyload = (function(doc) {
+    var queue = {js: [], css: []}, sources = {js: {}, css: {}}, context = this;
+    var createNode = function(name, attrs) {
+      var node = doc.createElement(name), attr;
+      for (attr in attrs) {
+        if (attrs.hasOwnProperty(attr)) {
+          node.setAttribute(attr, attrs[attr]);
+        }
+      }
+      return node;
+    };
+    var end = function(type, url) {
+      var s, q, qi, cbs, i, j, cur, val, flag;
+      if (type === 'js' || type ==='css') {
+        s = sources[type], q = queue[type];
+        s[url] = true;
+        for (i = 0; i < q.length; i++) {
+          cur = q[i];
+          if (cur.urls.has(url)) {
+            qi = cur, val = qi.urls.values();
+            qi && (cbs = qi.callbacks);
+            for (flag = true, j = 0; j < val.length; j++) {
+              cur = val[j];
+              if (!s[cur]) {
+                flag = false;
+              }
+            }
+            if (flag && cbs && cbs.length > 0) {
+              for (j = 0; j < cbs.length; j++) {
+                cbs[j].call(context);
+              }
+              qi.load = true;
+            }
+          }
+        }
+      }
+    };
+    var load = function(type, urls, callback) {
+      var s, q, qi, node, i, cur,
+        _urls = typeof urls === 'string' ? new Set([urls]) : new Set(urls), val, url;
+      if (type === 'js' || type ==='css') {
+        s = sources[type], q = queue[type];
+        for (i = 0; i < q.length; i++) {
+          cur = q[i];
+          if (_urls.is(cur.urls)) {
+            qi = cur;
+            break;
+          }
+        }
+        val = _urls.values();
+        if (qi) {
+          callback && (qi.load || qi.callbacks.push(callback));
+          callback && (qi.load && callback());
+        } else {
+          q.push({
+            urls: _urls,
+            callbacks: callback ? [callback] : [],
+            load: false
+          });
+          for (i = 0; i < val.length; i++) {
+            node = null, url = val[i];
+            if (s[url] === undefined) {
+              (type === 'js' ) && (node = createNode('script', { src: url }));
+              (type === 'css') && (node = createNode('link', { rel: 'stylesheet', href: url }));
+              if (node) {
+                node.onload = (function(type, url) {
+                  return function() {
+                    end(type, url);
+                  };
+                })(type, url);
+                (doc.head || doc.body).appendChild(node);
+                s[url] = false;
+              }
+            }
+          }
+        }
+      }
+    };
+    return {
+      js: function(url, callback) {
+        load('js', url, callback);
+      },
+      css: function(url, callback) {
+        load('css', url, callback);
+      }
+    };
+  })(this.document);
+})();
+</script><script>
+  (function() {
+    var TEXT_VARIABLES = {
+      version: '2.2.6',
+      sources: {
+        font_awesome: 'https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.3/css/all.css',
+        jquery: 'https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js',
+        leancloud_js_sdk: '//cdn.jsdelivr.net/npm/leancloud-storage@3.13.2/dist/av-min.js',
+        chart: 'https://cdn.bootcss.com/Chart.js/2.7.2/Chart.bundle.min.js',
+        gitalk: {
+          js: 'https://cdn.bootcss.com/gitalk/1.2.2/gitalk.min.js',
+          css: 'https://cdn.bootcss.com/gitalk/1.2.2/gitalk.min.css'
+        },
+        valine: 'https://unpkg.com/valine/dist/Valine.min.js',
+        mathjax: 'https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML',
+        mermaid: 'https://cdn.jsdelivr.net/npm/mermaid@8.14.0/dist/mermaid.min.js'
+      },
+      site: {
+        toc: {
+          selectors: 'h1,h2,h3'
+        }
+      },
+      paths: {
+        search_js: '/assets/search.js'
+      }
+    };
+    window.TEXT_VARIABLES = TEXT_VARIABLES;
+  })();
+</script>
+</head>
+  <body>
+    <div class="root" data-is-touch="false">
+      <div class="layout--page js-page-root"><div class="page__main js-page-main page__viewport has-aside cell cell--auto">
+
+      <div class="page__main-inner"><div class="page__header d-print-none"><header class="header"><div class="main">
+      <div class="header__title">
+        <div class="header__brand"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="24px" height="24px" viewBox="0 0 24 24">
+<style type="text/css">
+	.st0{fill:#515151;}
+</style>
+<path class="st0" d="M1.7,22.3c5.7-5.7,11.3-5.7,17,0c3.3-3.3,3.5-5.3,0.8-6c2.7,0.7,3.5-1.1,2.3-5.6s-3.3-5.2-6.3-2.1
+	c3-3,2.3-5.2-2.1-6.3S7,1.8,7.7,4.6C7,1.8,5,2.1,1.7,5.3C7.3,11,7.3,16.7,1.7,22.3"/>
+</svg>
+<a title="非常欢迎您浏览我的网站！非常希望能与您积极交流。在这里，您可以找到许多有趣的内容，希望您能喜欢并与我分享您的想法!
+" href="/">Frozzen's Blog</a></div><button class="button button--secondary button--circle search-button js-search-toggle"><i class="fas fa-search"></i></button></div><nav class="navigation">
+        <ul><li class="navigation__item"><a href="/archive.html">归档</a></li><li class="navigation__item"><a href="/about.html">关于</a></li><li><button class="button button--secondary button--circle search-button js-search-toggle"><i class="fas fa-search"></i></button></li></ul>
+      </nav></div>
+  </header>
+</div><div class="page__content"><div class ="main"><div class="grid grid--reverse">
+
+              <div class="col-aside d-print-none js-col-aside"><aside class="page__aside js-page-aside"><div class="toc-aside js-toc-root"></div>
+</aside></div>
+
+              <div class="col-main cell cell--auto"><!-- start custom main top snippet -->
+
+<!-- end custom main top snippet -->
+<article itemscope itemtype="http://schema.org/Article"><div class="article__header"><header><h1>表格导出数据检查工具</h1></header><span class="split-space">&nbsp;</span>
+          <a class="edit-on-github"
+            title="在 Github 上修改"
+            href="https://github.com/frozzenCJ/Notes/tree/master/_posts/2023-04-26-表格导出数据检查工具.md">
+            <i class="far fa-edit"></i></a></div><meta itemprop="headline" content="表格导出数据检查工具"><div class="article__info clearfix"><ul class="left-col menu"><li>
+              <a class="button button--secondary button--pill button--sm"
+                href="/archive.html?tag=Work">Work</a>
+            </li><li>
+              <a class="button button--secondary button--pill button--sm"
+                href="/archive.html?tag=Tools">Tools</a>
+            </li></ul><ul class="right-col menu"><li><i class="far fa-calendar-alt"></i> <span>2023年 04月26日</span>
+            </li></ul></div><meta itemprop="author" content="FrozzenCJ"/><meta itemprop="datePublished" content="2023-04-26T00:00:00+08:00">
+    <meta itemprop="keywords" content="Work,Tools"><div class="js-article-content"><div class="layout--article"><!-- start custom article top snippet -->
+
+<!-- end custom article top snippet -->
+<div class="article__content" itemprop="articleBody"><h2 id="项目简记">项目简记</h2>
+
+<p>使用项目：《明日之后》</p>
+
+<p>2023年4月 - now</p>
+
+<h2 id="解决问题">解决问题</h2>
+
+<p>2023年伊始，运营付费活动，已经出现两个一级事故，一个影响涉及千万额度，一个及时发现损失较小但性质恶劣，主要都是策划填表中数据填错而对应QA未及时发现导致的（涉及工作流程问题，更改频繁，导表检查未发现）。</p>
+
+<p>因此，关键数值要导表检查过一遍（确保数据格式正确），生成py数据后再过一遍（确保具体数据正确合理）。</p>
+
+<p>目前是根据相关的十几张表格进行关联，但是每次都要手动检查，而且有些数据是需要关联的，比如活动类型，活动版本，活动时间，活动奖励等等。</p>
+
+<p>涉及的相关活动：</p>
+
+<blockquote>
+  <p>典藏武器, 典藏载具, 典藏时装, 典藏家具, 典藏蓝图, 典藏庄园, 幸运礼盒, 时尚品鉴, 不放回抽奖, 晶核抽奖, 集训礼包, 分阶段礼包 等 觉得很赞 (abtest, 海外地区不同奖池 等策划的小心思 紧随其后)</p>
+
+  <p>可乐大亨, 南瓜大盗, 圣诞树装扮, 春节饭店, 玫瑰爱意, 樱花绽放 等 觉得很赞</p>
+</blockquote>
+
+<h2 id="实际方案">实际方案</h2>
+
+<blockquote>
+  <p>针对每个活动都有一些特殊处理，但大体上流程类似</p>
+</blockquote>
+
+<ul>
+  <li>路径解析 + SVN自动更新：</li>
+</ul>
+
+<p>导表是有自己的一套规则，增删表和sheet需要手动记录, sheet中表头和实际数据是有工具按照之前记录进行生成的 (“def”, “table/sheet”, “data”)，而海外数据主要是生成对应_auto_oversea 之类的文件。</p>
+
+<ul>
+  <li>数据关联：</li>
+</ul>
+
+<p>在游戏中逻辑关联的数据是由多个文件共同组成，代码中分散调用。</p>
+
+<p>实际活动中关联的数据很难一个个看的出来，这里特意提取表头关联的数据类似下面这种，做特殊处理：</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"活动显示配置表"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+
+</span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="p">{</span><span class="w">
+
+</span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="nl">"from"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+
+</span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="nl">"excel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"运营活动配置表.xlsx"</span><span class="p">,</span><span class="w">
+
+</span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="nl">"sheet"</span><span class="p">:</span><span class="w"> </span><span class="s2">"活动显示配置表"</span><span class="p">,</span><span class="w">
+
+</span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"活动类型"</span><span class="w">
+
+</span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="p">},</span><span class="w">
+
+</span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="nl">"to"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+
+</span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="nl">"excel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"抽奖-幸运礼盒.xlsx"</span><span class="p">,</span><span class="w">
+
+</span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="nl">"sheet"</span><span class="p">:</span><span class="w"> </span><span class="s2">"基础配置"</span><span class="p">,</span><span class="w">
+
+</span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ID"</span><span class="w">
+
+</span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="p">},</span><span class="w">
+
+</span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="err"> </span><span class="w"> </span><span class="nl">"special"</span><span class="p">:</span><span class="w"> </span><span class="s2">"幸运礼盒2"</span><span class="w">
+                    </span><span class="err">......</span><span class="w">
+</span></code></pre></div></div>
+
+<p>最后会生成关联数据，special和special_check是一些检查的关键词</p>
+
+<p>数据检查：
+目前是hard code，对易错点：代币，数值 做了数据检查
+由于非常熟悉数值区间，并且开发时间非常紧张将就处理一下</p>
+
+<h3 id="流程图">流程图</h3>
+
+<pre><code class="language-mermaid">
+graph TD
+    A[Start] --&gt; huodong_conf[活动配置表遍历];
+    json_conf[/配置数据/];
+    json_conf -.- huodong_conf;
+    huodong_conf --&gt; huodongs_judge{活动类型 &amp; 当前版本?};
+    huodongs_judge -- Yes --&gt; huodong_dict["hddict:活动遍历"];
+    huodong_dict --&gt; huodongs1[类型对应class];
+    huodong_dict --&gt; huodongs2[/关联参数:int/tuple/];
+    huodongs1 --&gt; svn_up[SVN数据更新];
+    svn_up --&gt; get_data[获取全部表数据];
+    get_data --&gt; get_data_conf[获取对应数据];
+    json_conf -.- get_data_conf;
+    get_data_conf --&gt; get_data_info[解析关键数据];
+    huodongs2 -.- get_data_info;
+    get_data_info --&gt; connect_data_info[/获取组合关联数据/];
+    json_conf -.- connect_data_info;
+    get_data_info --&gt; check_data[关键数据检查 list];
+    connect_data_info -.- check_data;
+    check_data --&gt; check_data_res{each 检查通过?};
+    check_data_res -- No --&gt; message_fail[失败记录];
+    check_data_res -- Yes --&gt; message_succ[成功记录];
+    message_fail --&gt; check_data;
+    message_succ --&gt; check_data;
+    check_data_res --&gt; message_res[最终记录];
+    message_res --&gt; info[通知消息];
+    info --&gt; E[end];
+</code></pre>
+
+<h3 id="完整设计">完整设计</h3>
+
+<blockquote>
+  <p>没被催之前的一套完整设计方案(全自动，网站配置，可多人分开处理)</p>
+</blockquote>
+
+<ul>
+  <li>自动配置生成参数</li>
+</ul>
+
+<p>os.walk 自动获取 对应脚本并记录
+关联内容和数据检查抽象出来单独配置</p>
+
+<ul>
+  <li>网站配置</li>
+</ul>
+
+<p>接到奖励监控平台  或  前后端网站框架 已接open_id, 管理页面等通用模块
+上述配置参数,  构建的配置项存入数据库</p>
+
+<ul>
+  <li>导表检查和导出检查匹配</li>
+  <li>个人配置项，供相关策划和QA使用</li>
+  <li>定时报警</li>
+</ul>
+
+<h2 id="配置项">配置项</h2>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"类型对照"</span><span class="p">:{</span><span class="w">
+        </span><span class="nl">"幸运礼盒2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"抽奖-幸运礼盒"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"典藏抽奖活动"</span><span class="p">:</span><span class="w"> </span><span class="s2">"抽奖-典藏抽奖活动"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"限时建筑抽奖2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"抽奖-限时建筑抽奖"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"配置活动"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"运营活动配置表"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"SVN"</span><span class="p">:</span><span class="w"> </span><span class="s2">"huodong_conf_data.py"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"活动显示配置表"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"活动开始时间"</span><span class="p">:</span><span class="w"> </span><span class="s2">"start_ts"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"活动结束时间"</span><span class="p">:</span><span class="w"> </span><span class="s2">"end_ts"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"活动编号"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"活动名称"</span><span class="p">:</span><span class="w"> </span><span class="s2">"name"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"活动类型"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hd_type"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"额外参数"</span><span class="p">:</span><span class="w"> </span><span class="s2">"extra_param"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"关联"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"活动显示配置表"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                    </span><span class="p">{</span><span class="w">
+                        </span><span class="nl">"from"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"excel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"运营活动配置表.xlsx"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"sheet"</span><span class="p">:</span><span class="w"> </span><span class="s2">"活动显示配置表"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"活动类型"</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"to"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"excel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"抽奖-幸运礼盒.xlsx"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"sheet"</span><span class="p">:</span><span class="w"> </span><span class="s2">"基础配置"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ID"</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"special"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"幸运礼盒2"</span><span class="p">],</span><span class="w">
+                        </span><span class="nl">"param"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"参数"</span><span class="p">]</span><span class="w">
+                    </span><span class="p">},</span><span class="w">
+                    </span><span class="p">{</span><span class="w">
+                        </span><span class="nl">"from"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"excel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"运营活动配置表.xlsx"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"sheet"</span><span class="p">:</span><span class="w"> </span><span class="s2">"活动显示配置表"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"活动类型"</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"to"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"excel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"抽奖-典藏抽奖活动.xlsx"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"sheet"</span><span class="p">:</span><span class="w"> </span><span class="s2">"基础配置"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ID"</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"special"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"典藏抽奖活动"</span><span class="p">],</span><span class="w">
+                        </span><span class="nl">"param"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"参数"</span><span class="p">]</span><span class="w">
+                    </span><span class="p">},</span><span class="w">
+                    </span><span class="p">{</span><span class="w">
+                        </span><span class="nl">"from"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"excel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"运营活动配置表.xlsx"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"sheet"</span><span class="p">:</span><span class="w"> </span><span class="s2">"活动显示配置表"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"活动类型"</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"to"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"excel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"抽奖-限时建筑抽奖.xlsx"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"sheet"</span><span class="p">:</span><span class="w"> </span><span class="s2">"基础配置"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ID"</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"special"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"限时建筑抽奖2"</span><span class="p">],</span><span class="w">
+                        </span><span class="nl">"param"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"参数"</span><span class="p">]</span><span class="w">
+                    </span><span class="p">}</span><span class="w">
+                </span><span class="p">]</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"抽奖-幸运礼盒"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"SVN"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"zh-hans"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"基础配置"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tmp/lucky_box_basic_conf_data.py"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"抽奖配置"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tmp/common_lottery_conf_data_lucky_box.py"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"阶段奖励配置"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tmp/lucky_box_stage_conf_data.py"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="nl">"zh-hant"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+                </span><span class="nl">"en"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+                </span><span class="nl">"jp"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"基础配置"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"阶段奖励配置ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"stage_reward_conf_id"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"每日最大抽取次数"</span><span class="p">:</span><span class="w"> </span><span class="s2">"max_per_day"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"活动期间最大抽取次数"</span><span class="p">:</span><span class="w"> </span><span class="s2">"max_draw_times"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"道具随机奖池ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"reward_pool_conf_id"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"抽奖组ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lottery_group_id"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"奖池展示配置编号"</span><span class="p">:</span><span class="w"> </span><span class="s2">"show_reward_id"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"展示道具"</span><span class="p">:</span><span class="w"> </span><span class="s2">"show_item_ids"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"大奖判断"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jackpot_ids"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"下期代币"</span><span class="p">:</span><span class="w"> </span><span class="s2">"next_hd_token_id"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"阶段奖励配置表"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"阶段奖励ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"所需抽数"</span><span class="p">:</span><span class="w"> </span><span class="s2">"stage"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"奖励道具"</span><span class="p">:</span><span class="w"> </span><span class="s2">"reward"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"单日限定发放次数"</span><span class="p">:</span><span class="w"> </span><span class="s2">"day_limit_count"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"单周限定发放次数"</span><span class="p">:</span><span class="w"> </span><span class="s2">"week_limit_count"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"活动限定发放总次数报警"</span><span class="p">:</span><span class="w"> </span><span class="s2">"alarm_total_limit_count"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"单日累计发放报警次数"</span><span class="p">:</span><span class="w"> </span><span class="s2">"alarm_limit_count"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"活动限定发放总次数"</span><span class="p">:</span><span class="w"> </span><span class="s2">"total_limit_count"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"抽奖配置"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"抽奖组ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lottery_group_id"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"按钮抽取次数"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lottery_cnt"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"每日最大抽取次数"</span><span class="p">:</span><span class="w"> </span><span class="s2">"max_lottery_cnt"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"本期投放代币"</span><span class="p">:</span><span class="w"> </span><span class="s2">"money_ids"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"抽奖代币配置"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lottery_money_params"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"抽奖代币兑换配置"</span><span class="p">:</span><span class="w"> </span><span class="s2">"money_c_2_money_b"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"折扣券配置"</span><span class="p">:</span><span class="w"> </span><span class="s2">"coupon_discount"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"关联"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"基础配置"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                    </span><span class="p">{</span><span class="w">
+                        </span><span class="nl">"from"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"excel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"抽奖-幸运礼盒.xlsx"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"sheet"</span><span class="p">:</span><span class="w"> </span><span class="s2">"基础配置"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"阶段奖励配置ID"</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"to"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"excel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"抽奖-幸运礼盒.xlsx"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"sheet"</span><span class="p">:</span><span class="w"> </span><span class="s2">"阶段奖励配置"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"阶段奖励ID"</span><span class="w">
+                        </span><span class="p">}</span><span class="w">
+                    </span><span class="p">},</span><span class="w">
+                    </span><span class="p">{</span><span class="w">
+                        </span><span class="nl">"from"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"excel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"抽奖-幸运礼盒.xlsx"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"sheet"</span><span class="p">:</span><span class="w"> </span><span class="s2">"基础配置"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"道具随机奖池ID"</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"to"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"excel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"道具随机奖池表.xlsx"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"sheet"</span><span class="p">:</span><span class="w"> </span><span class="s2">"道具随机奖池配置表"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ID"</span><span class="w">
+                        </span><span class="p">}</span><span class="w">
+                    </span><span class="p">},</span><span class="w">
+                    </span><span class="p">{</span><span class="w">
+                        </span><span class="nl">"from"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"excel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"抽奖-幸运礼盒.xlsx"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"sheet"</span><span class="p">:</span><span class="w"> </span><span class="s2">"基础配置"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"抽奖组ID"</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"to"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"excel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"抽奖-幸运礼盒.xlsx"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"sheet"</span><span class="p">:</span><span class="w"> </span><span class="s2">"抽奖配置"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"抽奖组ID"</span><span class="w">
+                        </span><span class="p">}</span><span class="w">
+                    </span><span class="p">}</span><span class="w">
+                </span><span class="p">],</span><span class="w">
+                </span><span class="nl">"抽奖配置"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                    </span><span class="p">{</span><span class="w">
+                        </span><span class="nl">"from"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"excel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"抽奖-幸运礼盒.xlsx"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"sheet"</span><span class="p">:</span><span class="w"> </span><span class="s2">"抽奖配置"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"按钮抽取次数"</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"to"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                            </span><span class="nl">"excel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"抽奖-幸运礼盒.xlsx"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"sheet"</span><span class="p">:</span><span class="w"> </span><span class="s2">"抽奖配置"</span><span class="p">,</span><span class="w">
+                            </span><span class="nl">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"抽奖代币配置"</span><span class="w">
+                        </span><span class="p">},</span><span class="w">
+                        </span><span class="nl">"special_check"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+                    </span><span class="p">}</span><span class="w">
+                </span><span class="p">]</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"抽奖-典藏抽奖活动"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"SVN"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"zh-hans"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"基础配置"</span><span class="p">:</span><span class="w"> </span><span class="s2">"super_fashion_lottery_conf_data.py"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"抽奖配置"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tmp/common_lottery_conf_data_super_fashion_lottery_hd.py"</span><span class="w">                </span><span class="p">},</span><span class="w">
+                </span><span class="nl">"zh-hant"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+                </span><span class="nl">"en"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+                </span><span class="nl">"jp"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+                </span><span class="nl">"oversea"</span><span class="p">:{</span><span class="w">
+                    </span><span class="nl">"基础配置"</span><span class="p">:</span><span class="w"> </span><span class="s2">"oversea/tmp/super_fashion_lottery_conf_data_auto_oversea_data.py"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"基础配置"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"奖池ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lottery_id"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"抽奖组ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lottery_group_id"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"规则说明编号"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rule_id"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"抽奖配置"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"抽奖组ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lottery_group_id"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"每日最大抽取次数"</span><span class="p">:</span><span class="w"> </span><span class="s2">"max_lottery_cnt"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"最大抽取次数"</span><span class="p">:</span><span class="w"> </span><span class="s2">"total_max_lottery_cnt"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"本期投放代币"</span><span class="p">:</span><span class="w"> </span><span class="s2">"money_ids"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"抽奖代币配置"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lottery_money_params"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"抽奖代币兑换配置"</span><span class="p">:</span><span class="w"> </span><span class="s2">"money_c_2_money_b"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"折扣券配置"</span><span class="p">:</span><span class="w"> </span><span class="s2">"coupon_discount"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"关联"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"基础配置"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">],</span><span class="w">
+                </span><span class="nl">"抽奖配置"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">]</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"抽奖-限时建筑抽奖"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"SVN"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"zh-hans"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"抽取配置表"</span><span class="p">:</span><span class="w"> </span><span class="s2">"building_lottery_v2_conf_data.py"</span><span class="p">,</span><span class="w">
+                    </span><span class="nl">"抽奖配置"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tmp/common_lottery_conf_data_building_lottery_hd_v2.py"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="nl">"zh-hant"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+                </span><span class="nl">"en"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+                </span><span class="nl">"jp"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+                </span><span class="nl">"oversea"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nl">"抽取配置表"</span><span class="p">:</span><span class="w"> </span><span class="s2">"oversea/tmp/building_lottery_v2_conf_data_auto_oversea_data.py"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"抽取配置表"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"id"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"奖池ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lottery_pool_id"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"抽奖组ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lottery_group_id"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"家具模型展示"</span><span class="p">:</span><span class="w"> </span><span class="s2">"furniture_item_ids"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"抽奖配置"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"抽奖组ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lottery_group_id"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"按钮抽取次数"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lottery_cnt"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"每日最大抽取次数"</span><span class="p">:</span><span class="w"> </span><span class="s2">"max_lottery_cnt"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"本期投放代币"</span><span class="p">:</span><span class="w"> </span><span class="s2">"money_ids"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"抽奖代币配置"</span><span class="p">:</span><span class="w"> </span><span class="s2">"lottery_money_params"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"抽奖代币兑换配置"</span><span class="p">:</span><span class="w"> </span><span class="s2">"money_c_2_money_b"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"关联"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"抽取配置表"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">],</span><span class="w">
+                </span><span class="nl">"抽奖配置"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">]</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="其中一个类修改部分关键代码">其中一个类(修改部分关键代码)</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/env/ python
+# -*- coding:utf-8 -*-
+</span>
+<span class="kn">from</span> <span class="n">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+<span class="kn">from</span> <span class="n">utils</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">class</span> <span class="nc">LuckyBox</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">file_path_svn</span> <span class="o">=</span> <span class="nf">get_key_def_by_key_path</span><span class="p">([</span><span class="s">'配置活动'</span><span class="p">,</span> <span class="s">'抽奖-幸运礼盒'</span><span class="p">,</span> <span class="s">'SVN'</span><span class="p">,</span> <span class="s">'zh-hans'</span><span class="p">])</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">conf_key_def</span> <span class="o">=</span> <span class="nf">get_key_def_by_key_path</span><span class="p">([</span><span class="s">'配置活动'</span><span class="p">,</span> <span class="s">'抽奖-幸运礼盒'</span><span class="p">,</span> <span class="s">'基础配置'</span><span class="p">])</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">lottery_key_def</span> <span class="o">=</span> <span class="nf">get_key_def_by_key_path</span><span class="p">([</span><span class="s">'配置活动'</span><span class="p">,</span> <span class="s">'抽奖-幸运礼盒'</span><span class="p">,</span> <span class="s">'抽奖配置'</span><span class="p">])</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">stage_key_def</span> <span class="o">=</span> <span class="nf">get_key_def_by_key_path</span><span class="p">([</span><span class="s">'配置活动'</span><span class="p">,</span> <span class="s">'抽奖-幸运礼盒'</span><span class="p">,</span> <span class="s">'阶段奖励配置'</span><span class="p">])</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">connect</span> <span class="o">=</span> <span class="nf">get_key_def_by_key_path</span><span class="p">([</span><span class="s">'配置活动'</span><span class="p">,</span> <span class="s">'抽奖-幸运礼盒'</span><span class="p">,</span> <span class="s">'关联'</span><span class="p">])</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">lucky_box_cache</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        
+        <span class="k">for</span> <span class="n">file_name</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">file_path_svn</span><span class="p">.</span><span class="nf">values</span><span class="p">():</span>
+            <span class="n">file_name</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span><span class="s">'file_res\cdata'</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
+            <span class="nf">svn_update</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">lucky_box</span> <span class="o">=</span> <span class="nf">get_file_dict</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">file_path_svn</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s">'基础配置'</span><span class="p">),</span> <span class="s">'data'</span><span class="p">)</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">lucky_box_lottery</span> <span class="o">=</span> <span class="nf">get_file_dict</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">file_path_svn</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s">'抽奖配置'</span><span class="p">),</span> <span class="s">'data'</span><span class="p">)</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">lucky_box_stage</span> <span class="o">=</span> <span class="nf">get_file_dict</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">file_path_svn</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s">'阶段奖励配置'</span><span class="p">),</span> <span class="s">'data'</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">extra_param</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">""</span><span class="p">,</span> <span class="n">is_oversea</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        
+        <span class="n">message</span> <span class="o">=</span> <span class="s">"%s-国服(幸运礼盒):</span><span class="se">\n\n</span><span class="s">"</span> <span class="o">%</span> <span class="n">name</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">is_oversea</span> <span class="k">else</span> <span class="s">"%s-海外(幸运礼盒):</span><span class="se">\n\n</span><span class="s">"</span> <span class="o">%</span> <span class="n">name</span>
+        
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="s">"幸运礼盒-国服:</span><span class="se">\n\n</span><span class="s">"</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">is_oversea</span> <span class="k">else</span> <span class="s">"幸运礼盒-海外:</span><span class="se">\n\n</span><span class="s">"</span>
+   
+        <span class="n">extra_param</span> <span class="o">+=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">is_oversea</span> <span class="k">else</span> <span class="mi">0</span>
+    
+        <span class="n">lucky_box_data</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">lucky_box</span><span class="p">[</span><span class="n">extra_param</span><span class="p">]</span>
+        <span class="n">lucky_box_lottery_data</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">lucky_box_lottery</span><span class="p">[(</span><span class="s">'StoreLuckyBoxHDV2'</span><span class="p">,</span> <span class="n">lucky_box_data</span><span class="p">[</span><span class="s">'lottery_group_id'</span><span class="p">])]</span>
+        <span class="n">lucky_box_stage_data</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">lucky_box_stage</span><span class="p">.</span><span class="nf">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">lucky_box_data</span><span class="p">[</span><span class="s">'stage_reward_conf_id'</span><span class="p">]</span> <span class="o">==</span> <span class="n">key</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="n">lucky_box_stage_data</span><span class="p">.</span><span class="nf">append</span><span class="p">((</span><span class="n">key</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">value</span><span class="p">[</span><span class="s">'reward'</span><span class="p">]))</span>
+
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">conf_key_def</span><span class="p">.</span><span class="nf">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">lucky_box_data</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+
+                <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s">'lottery_group_id'</span><span class="p">:</span>
+                    <span class="n">lottery_data</span> <span class="o">=</span> <span class="n">lucky_box_lottery_data</span>
+                    <span class="n">self</span><span class="p">.</span><span class="n">lucky_box_cache</span><span class="p">[</span><span class="n">value</span><span class="p">]</span> <span class="o">=</span> <span class="n">lottery_data</span>
+                    <span class="n">message</span> <span class="o">+=</span> <span class="s">"%s:</span><span class="se">\n</span><span class="s">%s"</span> <span class="o">%</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nf">get_info_from_dict</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">lottery_key_def</span><span class="p">,</span> <span class="n">lucky_box_lottery_data</span><span class="p">))</span>
+                <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="s">'stage_reward_conf_id'</span><span class="p">:</span>
+                    <span class="n">self</span><span class="p">.</span><span class="n">lucky_box_cache</span><span class="p">[</span><span class="n">value</span><span class="p">]</span> <span class="o">=</span> <span class="n">lucky_box_stage_data</span>
+                    <span class="n">message</span> <span class="o">+=</span> <span class="s">"%s:</span><span class="se">\n</span><span class="s">%s</span><span class="se">\n</span><span class="s">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">lucky_box_stage_data</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">self</span><span class="p">.</span><span class="n">lucky_box_cache</span><span class="p">[</span><span class="n">value</span><span class="p">]</span> <span class="o">=</span> <span class="n">lucky_box_data</span><span class="p">[</span><span class="n">value</span><span class="p">]</span>
+                    <span class="n">message</span> <span class="o">+=</span> <span class="s">"%s: %s</span><span class="se">\n</span><span class="s">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">lucky_box_data</span><span class="p">[</span><span class="n">value</span><span class="p">])</span>
+
+        <span class="n">message</span> <span class="o">+=</span> <span class="n">self</span><span class="p">.</span><span class="nf">deal_connect_check</span><span class="p">(</span><span class="n">is_oversea</span><span class="p">)</span>
+
+        <span class="nf">send_info</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">deal_connect_check</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">is_oversea</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        
+        <span class="c1"># print(self.lucky_box_cache)
+</span>        <span class="c1"># 关联1：抽奖配置 按钮抽取次数 与 抽奖配置 抽奖代币配置
+</span>        <span class="n">lottery_group_id</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">lucky_box_cache</span><span class="p">[</span><span class="s">'lottery_group_id'</span><span class="p">]</span>
+        <span class="n">money_ids</span> <span class="o">=</span> <span class="n">lottery_group_id</span><span class="p">[</span><span class="s">'money_ids'</span><span class="p">]</span>
+        <span class="n">lottery_name</span> <span class="o">=</span> <span class="n">lottery_group_id</span><span class="p">[</span><span class="s">'lottery_name'</span><span class="p">]</span>
+        <span class="n">lottery_cnt</span> <span class="o">=</span> <span class="n">lottery_group_id</span><span class="p">[</span><span class="s">'lottery_cnt'</span><span class="p">]</span>
+        <span class="n">lottery_money_params</span> <span class="o">=</span> <span class="n">lottery_group_id</span><span class="p">[</span><span class="s">'lottery_money_params'</span><span class="p">]</span>
+
+        <span class="n">message</span> <span class="o">=</span> <span class="s">"</span><span class="se">\n</span><span class="s">关联检查:</span><span class="se">\n</span><span class="s">"</span>
+
+        <span class="n">has_error</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="c1"># 抽奖代币检查
+</span>        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">lottery_money_params</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">money_ids</span><span class="p">:</span>
+                <span class="n">has_error</span> <span class="o">=</span> <span class="bp">True</span>
+                <span class="n">message</span> <span class="o">+=</span> <span class="s">"抽奖代币配置错误: %s</span><span class="se">\n</span><span class="s">"</span> <span class="o">%</span> <span class="nf">str</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">has_error</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">+=</span> <span class="s">"抽奖代币配置检查通过: %s</span><span class="se">\n\n</span><span class="s">"</span> <span class="o">%</span> <span class="nf">str</span><span class="p">(</span><span class="n">money_ids</span><span class="p">)</span>
+
+        <span class="c1"># 代币数值检查
+</span>        <span class="n">cost</span> <span class="o">=</span> <span class="n">xinyongdian</span> <span class="k">if</span> <span class="n">is_oversea</span> <span class="k">else</span> <span class="n">lihe</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">lottery_cnt</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">lottery_cnt</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">fee</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="n">lottery_money_params</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">lottery_cnt</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">message</span> <span class="o">+=</span> <span class="s">"按钮描述: %s</span><span class="se">\n</span><span class="s">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">lottery_name</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">message</span> <span class="o">+=</span> <span class="s">"抽奖次数: %s</span><span class="se">\n</span><span class="s">"</span> <span class="o">%</span> <span class="n">lottery_cnt</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">message</span> <span class="o">+=</span> <span class="s">"抽奖代币: %s</span><span class="se">\n</span><span class="s">"</span> <span class="o">%</span> <span class="nf">str</span><span class="p">(</span><span class="n">lottery_money_params</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">message</span> <span class="o">+=</span> <span class="s">"每抽价格: %d (换算RMB: %f)</span><span class="se">\n</span><span class="s">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">fee</span><span class="p">,</span> <span class="nf">float</span><span class="p">(</span><span class="n">fee</span><span class="p">)</span><span class="o">*</span><span class="n">cost</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">message</span>        
+</code></pre></div></div>
+
+<h3 id="最终结果">最终结果</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>幸运礼盒-国服(幸运礼盒): 【数据已完全修改】
+
+  
+
+阶段奖励配置ID:
+
+[(5, (150496, 2)), (25, (150141, 10)), (50, (150059, 600)), (150, (151784, 15)), (300, (240034, 1))]
+
+每日最大抽取次数: 50
+
+活动期间最大抽取次数: 2000
+
+道具随机奖池ID: 390539
+
+抽奖组ID:
+
+-按钮抽取次数: (1, 10)
+
+-每日最大抽取次数: 50
+
+-本期投放代币: (150058, 152355)
+
+-抽奖代币配置: ((152355, 12), (152355, 100))
+
+-抽奖代币兑换配置: {152355: ((150058, 10),)}
+
+-折扣券配置: (((152385, 0.5),), ((152386, 0.6),))
+
+奖池展示配置编号: 1
+
+展示道具: (103248, 103245, 103204, 103201)
+
+下期代币: 152387
+
+  
+
+关联检查:
+
+抽奖代币配置检查通过: (150058, 152355)
+
+  
+
+按钮描述: 初级礼盒
+
+抽奖次数: 1
+
+抽奖代币: (152355, 12)
+
+每抽价格: 12 (换算RMB: 10.010299)
+
+按钮描述: 珍贵礼盒
+
+抽奖次数: 10
+
+抽奖代币: (152355, 100)
+
+每抽价格: 10 (换算RMB: 8.341916)
+
+</code></pre></div></div>
+</div><section class="article__sharing d-print-none"></section><div class="d-print-none"><footer class="article__footer"><meta itemprop="dateModified" content="2023-04-26T00:00:00+08:00"><!-- start custom article footer snippet -->
+
+<!-- end custom article footer snippet -->
+<div class="article__subscribe"><div class="subscribe"><i class="fas fa-rss"></i> <a type="application/rss+xml" href="/feed.xml">订阅</a></div>
+</div><div class="article__license"><div class="license">
+    <p>本文遵守 <a itemprop="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">Attribution-NonCommercial 4.0 International</a> 许可协议。
+      <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">
+        <img alt="Attribution-NonCommercial 4.0 International" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" />
+      </a>
+    </p>
+  </div></div></footer>
+<div class="article__section-navigator clearfix"><div class="previous"><span>上篇</span><a href="/2023/03/29/%E7%A4%BE%E4%BA%A4%E7%8E%A9%E6%B3%95.html">游戏社交玩法思考</a></div><div class="next"><span>下篇</span><a href="/2023/04/28/%E5%85%B6%E4%BB%96%E5%B0%8F%E5%B7%A5%E5%85%B7.html">工作小工具</a></div></div></div>
+
+</div>
+
+<script>(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    $(function() {
+      var $this ,$scroll;
+      var $articleContent = $('.js-article-content');
+      var hasSidebar = $('.js-page-root').hasClass('layout--page--sidebar');
+      var scroll = hasSidebar ? '.js-page-main' : 'html, body';
+      $scroll = $(scroll);
+
+      $articleContent.find('.highlight').each(function() {
+        $this = $(this);
+        $this.attr('data-lang', $this.find('code').attr('data-lang'));
+      });
+      $articleContent.find('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]').each(function() {
+        $this = $(this);
+        $this.append($('<a class="anchor d-print-none" aria-hidden="true"></a>').html('<i class="fas fa-anchor"></i>'));
+      });
+      $articleContent.on('click', '.anchor', function() {
+        $scroll.scrollToAnchor('#' + $(this).parent().attr('id'), 400);
+      });
+    });
+  });
+})();
+</script>
+</div><section class="page__comments d-print-none"></section></article><!-- start custom main bottom snippet -->
+
+<!-- end custom main bottom snippet -->
+</div>
+            </div></div></div><div class="page__footer d-print-none">
+<footer class="footer py-4 js-page-footer">
+  <div class="main"><div itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FrozzenCJ"><meta itemprop="url" content="/"><meta itemprop="description" content="I am an amazing person."><div class="footer__author-links"><div class="author-links">
+  <ul class="menu menu--nowrap menu--inline"><li title="给我发邮件。">
+      <a class="button button--circle mail-button" itemprop="email" href="mailto:joeychou0805@gmail.com" target="_blank">
+        <i class="fas fa-envelope"></i>
+      </a><li title="在 Github 上关注我。">
+        <a class="button button--circle github-button" itemprop="sameAs" href="https://github.com/https://github.com/FrozzenCJ" target="_blank">
+          <div class="icon"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path class="svgpath" data-index="path_0" fill="#272636" d="M0 525.2c0 223.6 143.3 413.7 343 483.5 26.9 6.8 22.8-12.4 22.8-25.4l0-88.7c-155.3 18.2-161.5-84.6-172-101.7-21.1-36-70.8-45.2-56-62.3 35.4-18.2 71.4 4.6 113.1 66.3 30.2 44.7 89.1 37.2 119 29.7 6.5-26.9 20.5-50.9 39.7-69.6C248.8 728.2 181.7 630 181.7 513.2c0-56.6 18.7-108.7 55.3-150.7-23.3-69.3 2.2-128.5 5.6-137.3 66.5-6 135.5 47.6 140.9 51.8 37.8-10.2 80.9-15.6 129.1-15.6 48.5 0 91.8 5.6 129.8 15.9 12.9-9.8 77-55.8 138.8-50.2 3.3 8.8 28.2 66.7 6.3 135 37.1 42.1 56 94.6 56 151.4 0 117-67.5 215.3-228.8 243.7 26.9 26.6 43.6 63.4 43.6 104.2l0 128.8c0.9 10.3 0 20.5 17.2 20.5C878.1 942.4 1024 750.9 1024 525.3c0-282.9-229.3-512-512-512C229.1 13.2 0 242.3 0 525.2L0 525.2z" />
+</svg>
+</div>
+        </a>
+      </li></ul>
+</div>
+</div>
+    </div><div class="site-info mt-2">
+      <div>© Frozzen's Blog 2023,
+        Powered by <a title="Jekyll is a simple, blog-aware, static site generator." href="http://jekyllrb.com/">Jekyll</a> & <a
+        title="TeXt is a super customizable Jekyll theme." href="https://github.com/kitian616/jekyll-TeXt-theme">TeXt Theme</a>.
+      </div>
+    </div>
+  </div>
+</footer>
+</div></div>
+    </div><script>(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    var $body = $('body'), $window = $(window);
+    var $pageRoot = $('.js-page-root'), $pageMain = $('.js-page-main');
+    var activeCount = 0;
+    function modal(options) {
+      var $root = this, visible, onChange, hideWhenWindowScroll = false;
+      var scrollTop;
+      function setOptions(options) {
+        var _options = options || {};
+        visible = _options.initialVisible === undefined ? false : show;
+        onChange = _options.onChange;
+        hideWhenWindowScroll = _options.hideWhenWindowScroll;
+      }
+      function init() {
+        setState(visible);
+      }
+      function setState(isShow) {
+        if (isShow === visible) {
+          return;
+        }
+        visible = isShow;
+        if (visible) {
+          activeCount++;
+          scrollTop = $(window).scrollTop() || $pageMain.scrollTop();
+          $root.addClass('modal--show');
+          $pageMain.scrollTop(scrollTop);
+          activeCount === 1 && ($pageRoot.addClass('show-modal'), $body.addClass('of-hidden'));
+          hideWhenWindowScroll && window.hasEvent('touchstart') && $window.on('scroll', hide);
+          $window.on('keyup', handleKeyup);
+        } else {
+          activeCount > 0 && activeCount--;
+          $root.removeClass('modal--show');
+          $window.scrollTop(scrollTop);
+          activeCount === 0 && ($pageRoot.removeClass('show-modal'), $body.removeClass('of-hidden'));
+          hideWhenWindowScroll && window.hasEvent('touchstart') && $window.off('scroll', hide);
+          $window.off('keyup', handleKeyup);
+        }
+        onChange && onChange(visible);
+      }
+      function show() {
+        setState(true);
+      }
+      function hide() {
+        setState(false);
+      }
+      function handleKeyup(e) {
+        // Char Code: 27  ESC
+        if (e.which ===  27) {
+          hide();
+        }
+      }
+      setOptions(options);
+      init();
+      return {
+        show: show,
+        hide: hide,
+        $el: $root
+      };
+    }
+    $.fn.modal = modal;
+  });
+})();
+</script><div class="modal modal--overflow page__search-modal d-print-none js-page-search-modal"><script>
+(function () {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    // search panel
+    var search = (window.search || (window.search = {}));
+    var useDefaultSearchBox = window.useDefaultSearchBox === undefined ?
+      true : window.useDefaultSearchBox ;
+
+    var $searchModal = $('.js-page-search-modal');
+    var $searchToggle = $('.js-search-toggle');
+    var searchModal = $searchModal.modal({ onChange: handleModalChange, hideWhenWindowScroll: true });
+    var modalVisible = false;
+    search.searchModal = searchModal;
+
+    var $searchBox = null;
+    var $searchInput = null;
+    var $searchClear = null;
+
+    function getModalVisible() {
+      return modalVisible;
+    }
+    search.getModalVisible = getModalVisible;
+
+    function handleModalChange(visible) {
+      modalVisible = visible;
+      if (visible) {
+        search.onShow && search.onShow();
+        useDefaultSearchBox && $searchInput[0] && $searchInput[0].focus();
+      } else {
+        search.onShow && search.onHide();
+        useDefaultSearchBox && $searchInput[0] && $searchInput[0].blur();
+        setTimeout(function() {
+          useDefaultSearchBox && ($searchInput.val(''), $searchBox.removeClass('not-empty'));
+          search.clear && search.clear();
+          window.pageAsideAffix && window.pageAsideAffix.refresh();
+        }, 400);
+      }
+    }
+
+    $searchToggle.on('click', function() {
+      modalVisible ? searchModal.hide() : searchModal.show();
+    });
+    // Char Code: 83  S, 191 /
+    $(window).on('keyup', function(e) {
+      if (!modalVisible && !window.isFormElement(e.target || e.srcElement) && (e.which === 83 || e.which === 191)) {
+        modalVisible || searchModal.show();
+      }
+    });
+
+    if (useDefaultSearchBox) {
+      $searchBox = $('.js-search-box');
+      $searchInput = $searchBox.children('input');
+      $searchClear = $searchBox.children('.js-icon-clear');
+      search.getSearchInput = function() {
+        return $searchInput.get(0);
+      };
+      search.getVal = function() {
+        return $searchInput.val();
+      };
+      search.setVal = function(val) {
+        $searchInput.val(val);
+      };
+
+      $searchInput.on('focus', function() {
+        $(this).addClass('focus');
+      });
+      $searchInput.on('blur', function() {
+        $(this).removeClass('focus');
+      });
+      $searchInput.on('input', window.throttle(function() {
+        var val = $(this).val();
+        if (val === '' || typeof val !== 'string') {
+          search.clear && search.clear();
+        } else {
+          $searchBox.addClass('not-empty');
+          search.onInputNotEmpty && search.onInputNotEmpty(val);
+        }
+      }, 400));
+      $searchClear.on('click', function() {
+        $searchInput.val(''); $searchBox.removeClass('not-empty');
+        search.clear && search.clear();
+      });
+    }
+  });
+})();
+</script><div class="search search--dark">
+  <div class="main">
+    <div class="search__header">搜索</div>
+    <div class="search-bar">
+      <div class="search-box js-search-box">
+        <div class="search-box__icon-search"><i class="fas fa-search"></i></div>
+        <input type="text" />
+        <div class="search-box__icon-clear js-icon-clear">
+          <a><i class="fas fa-times"></i></a>
+        </div>
+      </div>
+      <button class="button button--theme-dark button--pill search__cancel js-search-toggle">
+        取消</button>
+    </div>
+    <div class="search-result js-search-result"></div>
+  </div>
+</div>
+<script>var SOURCES = window.TEXT_VARIABLES.sources;
+var PAHTS = window.TEXT_VARIABLES.paths;
+window.Lazyload.js([SOURCES.jquery, PAHTS.search_js], function() {
+  var search = (window.search || (window.search = {}));
+  var searchData = window.TEXT_SEARCH_DATA || {};
+
+  function memorize(f) {
+    var cache = {};
+    return function () {
+      var key = Array.prototype.join.call(arguments, ',');
+      if (key in cache) return cache[key];
+      else return cache[key] = f.apply(this, arguments);
+    };
+  }
+
+  /// search
+  function searchByQuery(query) {
+    var i, j, key, keys, cur, _title, result = {};
+    keys = Object.keys(searchData);
+    for (i = 0; i < keys.length; i++) {
+      key = keys[i];
+      for (j = 0; j < searchData[key].length; j++) {
+        cur = searchData[key][j], _title = cur.title;
+        if ((result[key] === undefined || result[key] && result[key].length < 4 )
+          && _title.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
+          if (result[key] === undefined) {
+            result[key] = [];
+          }
+          result[key].push(cur);
+        }
+      }
+    }
+    return result;
+  }
+
+  var renderHeader = memorize(function(header) {
+    return $('<p class="search-result__header">' + header + '</p>');
+  });
+
+  var renderItem = function(index, title, url) {
+    return $('<li class="search-result__item" data-index="' + index + '"><a class="button" href="' + url + '">' + title + '</a></li>');
+  };
+
+  function render(data) {
+    if (!data) { return null; }
+    var $root = $('<ul></ul>'), i, j, key, keys, cur, itemIndex = 0;
+    keys = Object.keys(data);
+    for (i = 0; i < keys.length; i++) {
+      key = keys[i];
+      $root.append(renderHeader(key));
+      for (j = 0; j < data[key].length; j++) {
+        cur = data[key][j];
+        $root.append(renderItem(itemIndex++, cur.title, cur.url));
+      }
+    }
+    return $root;
+  }
+
+  // search box
+  var $result = $('.js-search-result'), $resultItems;
+  var lastActiveIndex, activeIndex;
+
+  function clear() {
+    $result.html(null);
+    $resultItems = $('.search-result__item'); activeIndex = 0;
+  }
+  function onInputNotEmpty(val) {
+    $result.html(render(searchByQuery(val)));
+    $resultItems = $('.search-result__item'); activeIndex = 0;
+    $resultItems.eq(0).addClass('active');
+  }
+
+  search.clear = clear;
+  search.onInputNotEmpty = onInputNotEmpty;
+
+  function updateResultItems() {
+    lastActiveIndex >= 0 && $resultItems.eq(lastActiveIndex).removeClass('active');
+    activeIndex >= 0 && $resultItems.eq(activeIndex).addClass('active');
+  }
+
+  function moveActiveIndex(direction) {
+    var itemsCount = $resultItems ? $resultItems.length : 0;
+    if (itemsCount > 1) {
+      lastActiveIndex = activeIndex;
+      if (direction === 'up') {
+        activeIndex = (activeIndex - 1 + itemsCount) % itemsCount;
+      } else if (direction === 'down') {
+        activeIndex = (activeIndex + 1 + itemsCount) % itemsCount;
+      }
+      updateResultItems();
+    }
+  }
+
+  // Char Code: 13  Enter, 37  ⬅, 38  ⬆, 39  ➡, 40  ⬇
+  $(window).on('keyup', function(e) {
+    var modalVisible = search.getModalVisible && search.getModalVisible();
+    if (modalVisible) {
+      if (e.which === 38) {
+        modalVisible && moveActiveIndex('up');
+      } else if (e.which === 40) {
+        modalVisible && moveActiveIndex('down');
+      } else if (e.which === 13) {
+        modalVisible && $resultItems && activeIndex >= 0 && $resultItems.eq(activeIndex).children('a')[0].click();
+      }
+    }
+  });
+
+  $result.on('mouseover', '.search-result__item > a', function() {
+    var itemIndex = $(this).parent().data('index');
+    itemIndex >= 0 && (lastActiveIndex = activeIndex, activeIndex = itemIndex, updateResultItems());
+  });
+});
+</script>
+</div></div>
+
+
+<script>(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    function scrollToAnchor(anchor, duration, callback) {
+      var $root = this;
+      $root.animate({ scrollTop: $(anchor).position().top }, duration, function() {
+        window.history.replaceState(null, '', window.location.href.split('#')[0] + anchor);
+        callback && callback();
+      });
+    }
+    $.fn.scrollToAnchor = scrollToAnchor;
+  });
+})();
+(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    function affix(options) {
+      var $root = this, $window = $(window), $scrollTarget, $scroll,
+        offsetBottom = 0, scrollTarget = window, scroll = window.document, disabled = false, isOverallScroller = true,
+        rootTop, rootLeft, rootHeight, scrollBottom, rootBottomTop,
+        hasInit = false, curState;
+
+      function setOptions(options) {
+        var _options = options || {};
+        _options.offsetBottom && (offsetBottom = _options.offsetBottom);
+        _options.scrollTarget && (scrollTarget = _options.scrollTarget);
+        _options.scroll && (scroll = _options.scroll);
+        _options.disabled !== undefined && (disabled = _options.disabled);
+        $scrollTarget = $(scrollTarget);
+        isOverallScroller = window.isOverallScroller($scrollTarget[0]);
+        $scroll = $(scroll);
+      }
+      function preCalc() {
+        top();
+        rootHeight = $root.outerHeight();
+        rootTop = $root.offset().top + (isOverallScroller ? 0 :  $scrollTarget.scrollTop());
+        rootLeft = $root.offset().left;
+      }
+      function calc(needPreCalc) {
+        needPreCalc && preCalc();
+        scrollBottom = $scroll.outerHeight() - offsetBottom - rootHeight;
+        rootBottomTop = scrollBottom - rootTop;
+      }
+      function top() {
+        if (curState !== 'top') {
+          $root.removeClass('fixed').css({
+            left: 0,
+            top: 0
+          });
+          curState = 'top';
+        }
+      }
+      function fixed() {
+        if (curState !== 'fixed') {
+          $root.addClass('fixed').css({
+            left: rootLeft + 'px',
+            top: 0
+          });
+          curState = 'fixed';
+        }
+      }
+      function bottom() {
+        if (curState !== 'bottom') {
+          $root.removeClass('fixed').css({
+            left: 0,
+            top: rootBottomTop + 'px'
+          });
+          curState = 'bottom';
+        }
+      }
+      function setState() {
+        var scrollTop = $scrollTarget.scrollTop();
+        if (scrollTop >= rootTop && scrollTop <= scrollBottom) {
+          fixed();
+        } else if (scrollTop < rootTop) {
+          top();
+        } else {
+          bottom();
+        }
+      }
+      function init() {
+        if(!hasInit) {
+          var interval, timeout;
+          calc(true); setState();
+          // run calc every 100 millisecond
+          interval = setInterval(function() {
+            calc();
+          }, 100);
+          timeout = setTimeout(function() {
+            clearInterval(interval);
+          }, 45000);
+          window.pageLoad.then(function() {
+            setTimeout(function() {
+              clearInterval(interval);
+              clearTimeout(timeout);
+            }, 3000);
+          });
+          $scrollTarget.on('scroll', function() {
+            disabled || setState();
+          });
+          $window.on('resize', function() {
+            disabled || (calc(true), setState());
+          });
+          hasInit = true;
+        }
+      }
+
+      setOptions(options);
+      if (!disabled) {
+        init();
+      }
+      $window.on('resize', window.throttle(function() {
+        init();
+      }, 200));
+      return {
+        setOptions: setOptions,
+        refresh: function() {
+          calc(true, { animation: false }); setState();
+        }
+      };
+    }
+    $.fn.affix = affix;
+  });
+})();
+(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    function toc(options) {
+      var $root = this, $window = $(window), $scrollTarget, $scroller, $tocUl = $('<ul class="toc toc--ellipsis"></ul>'), $tocLi, $headings, $activeLast, $activeCur,
+        selectors = 'h1,h2,h3', container = 'body', scrollTarget = window, scroller = 'html, body', disabled = false,
+        headingsPos, scrolling = false, hasRendered = false, hasInit = false;
+
+      function setOptions(options) {
+        var _options = options || {};
+        _options.selectors && (selectors = _options.selectors);
+        _options.container && (container = _options.container);
+        _options.scrollTarget && (scrollTarget = _options.scrollTarget);
+        _options.scroller && (scroller = _options.scroller);
+        _options.disabled !== undefined && (disabled = _options.disabled);
+        $headings = $(container).find(selectors).filter('[id]');
+        $scrollTarget = $(scrollTarget);
+        $scroller = $(scroller);
+      }
+      function calc() {
+        headingsPos = [];
+        $headings.each(function() {
+          headingsPos.push(Math.floor($(this).position().top));
+        });
+      }
+      function setState(element, disabled) {
+        var scrollTop = $scrollTarget.scrollTop(), i;
+        if (disabled || !headingsPos || headingsPos.length < 1) { return; }
+        if (element) {
+          $activeCur = element;
+        } else {
+          for (i = 0; i < headingsPos.length; i++) {
+            if (scrollTop >= headingsPos[i]) {
+              $activeCur = $tocLi.eq(i);
+            } else {
+              $activeCur || ($activeCur = $tocLi.eq(i));
+              break;
+            }
+          }
+        }
+        $activeLast && $activeLast.removeClass('active');
+        ($activeLast = $activeCur).addClass('active');
+      }
+      function render() {
+        if(!hasRendered) {
+          $root.append($tocUl);
+          $headings.each(function() {
+            var $this = $(this);
+            $tocUl.append($('<li></li>').addClass('toc-' + $this.prop('tagName').toLowerCase())
+              .append($('<a></a>').text($this.text()).attr('href', '#' + $this.prop('id'))));
+          });
+          $tocLi = $tocUl.children('li');
+          $tocUl.on('click', 'a', function(e) {
+            e.preventDefault();
+            var $this = $(this);
+            scrolling = true;
+            setState($this.parent());
+            $scroller.scrollToAnchor($this.attr('href'), 400, function() {
+              scrolling = false;
+            });
+          });
+        }
+        hasRendered = true;
+      }
+      function init() {
+        var interval, timeout;
+        if(!hasInit) {
+          render(); calc(); setState(null, scrolling);
+          // run calc every 100 millisecond
+          interval = setInterval(function() {
+            calc();
+          }, 100);
+          timeout = setTimeout(function() {
+            clearInterval(interval);
+          }, 45000);
+          window.pageLoad.then(function() {
+            setTimeout(function() {
+              clearInterval(interval);
+              clearTimeout(timeout);
+            }, 3000);
+          });
+          $scrollTarget.on('scroll', function() {
+            disabled || setState(null, scrolling);
+          });
+          $window.on('resize', window.throttle(function() {
+            if (!disabled) {
+              render(); calc(); setState(null, scrolling);
+            }
+          }, 100));
+        }
+        hasInit = true;
+      }
+
+      setOptions(options);
+      if (!disabled) {
+        init();
+      }
+      $window.on('resize', window.throttle(function() {
+        init();
+      }, 200));
+      return {
+        setOptions: setOptions
+      };
+    }
+    $.fn.toc = toc;
+  });
+})();
+/*(function () {
+
+})();*/
+</script><script>
+  /* toc must before affix, since affix need to konw toc' height. */(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  var TOC_SELECTOR = window.TEXT_VARIABLES.site.toc.selectors;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    var $window = $(window);
+    var $articleContent = $('.js-article-content');
+    var $tocRoot = $('.js-toc-root'), $col2 = $('.js-col-aside');
+    var toc;
+    var tocDisabled = false;
+    var hasSidebar = $('.js-page-root').hasClass('layout--page--sidebar');
+    var hasToc = $articleContent.find(TOC_SELECTOR).length > 0;
+
+    function disabled() {
+      return $col2.css('display') === 'none' || !hasToc;
+    }
+
+    tocDisabled = disabled();
+
+    toc = $tocRoot.toc({
+      selectors: TOC_SELECTOR,
+      container: $articleContent,
+      scrollTarget: hasSidebar ? '.js-page-main' : null,
+      scroller: hasSidebar ? '.js-page-main' : null,
+      disabled: tocDisabled
+    });
+
+    $window.on('resize', window.throttle(function() {
+      tocDisabled = disabled();
+      toc && toc.setOptions({
+        disabled: tocDisabled
+      });
+    }, 100));
+
+  });
+})();
+(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    var $window = $(window), $pageFooter = $('.js-page-footer');
+    var $pageAside = $('.js-page-aside');
+    var affix;
+    var tocDisabled = false;
+    var hasSidebar = $('.js-page-root').hasClass('layout--page--sidebar');
+
+    affix = $pageAside.affix({
+      offsetBottom: $pageFooter.outerHeight(),
+      scrollTarget: hasSidebar ? '.js-page-main' : null,
+      scroller: hasSidebar ? '.js-page-main' : null,
+      scroll: hasSidebar ? $('.js-page-main').children() : null,
+      disabled: tocDisabled
+    });
+
+    $window.on('resize', window.throttle(function() {
+      affix && affix.setOptions({
+        disabled: tocDisabled
+      });
+    }, 100));
+
+    window.pageAsideAffix = affix;
+  });
+})();
+</script><script type="text/x-mathjax-config">
+	var _config = { tex2jax: {
+		inlineMath: [['$','$'], ['\\(','\\)']]
+	}};_config.TeX = { equationNumbers: { autoNumber: "all" } };MathJax.Hub.Config(_config);
+</script>
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+<script>
+  window.Lazyload.js('https://cdn.jsdelivr.net/npm/mermaid@8.14.0/dist/mermaid.min.js', function() {
+    mermaid.initialize({
+      startOnLoad: true
+    });
+    mermaid.init(undefined, '.language-mermaid');
+  });
+</script>
+
+    </div>
+    <script>(function () {
+  var $root = document.getElementsByClassName('root')[0];
+  if (window.hasEvent('touchstart')) {
+    $root.dataset.isTouch = true;
+    document.addEventListener('touchstart', function(){}, false);
+  }
+})();
+</script>
+  </body>
+</html>
+

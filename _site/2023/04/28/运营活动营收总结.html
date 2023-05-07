@@ -1,0 +1,1359 @@
+<!DOCTYPE html><html lang="zh-Hans">
+  <head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>运营活动营收总结 - Frozzen's Blog</title>
+
+<meta name="description" content="MMORPG类投放框架 - 数值设计主要付费来源 集训-商城-福利            类型      人民币      信用点      金条                  XX      1      12      1200      整体投放 - 回收， 稳定游戏内物价1：10000  -&gt; ...">
+<link rel="canonical" href="http://localhost:4000/2023/04/28/%E8%BF%90%E8%90%A5%E6%B4%BB%E5%8A%A8%E8%90%A5%E6%94%B6%E6%80%BB%E7%BB%93.html"><link rel="alternate" type="application/rss+xml" title="Frozzen's Blog" href="/feed.xml"><!-- start favicons snippet, use https://realfavicongenerator.net/ --><link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png"><link rel="manifest" href="/assets/site.webmanifest"><link rel="mask-icon" href="/assets/safari-pinned-tab.svg" color="#fc4d50"><link rel="shortcut icon" href="/assets/favicon.ico">
+
+<meta name="msapplication-TileColor" content="#ffc40d"><meta name="msapplication-config" content="/assets/browserconfig.xml">
+
+<meta name="theme-color" content="#ffffff">
+<!-- end favicons snippet --><link rel="stylesheet" href="/assets/css/main.css"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.3/css/all.css" ><!-- start custom head snippets -->
+
+<!-- end custom head snippets -->
+<script>(function() {
+  window.isArray = function(val) {
+    return Object.prototype.toString.call(val) === '[object Array]';
+  };
+  window.isString = function(val) {
+    return typeof val === 'string';
+  };
+
+  window.hasEvent = function(event) {
+    return 'on'.concat(event) in window.document;
+  };
+
+  window.isOverallScroller = function(node) {
+    return node === document.documentElement || node === document.body || node === window;
+  };
+
+  window.isFormElement = function(node) {
+    var tagName = node.tagName;
+    return tagName === 'INPUT' || tagName === 'SELECT' || tagName === 'TEXTAREA';
+  };
+
+  window.pageLoad = (function () {
+    var loaded = false, cbs = [];
+    window.addEventListener('load', function () {
+      var i;
+      loaded = true;
+      if (cbs.length > 0) {
+        for (i = 0; i < cbs.length; i++) {
+          cbs[i]();
+        }
+      }
+    });
+    return {
+      then: function(cb) {
+        cb && (loaded ? cb() : (cbs.push(cb)));
+      }
+    };
+  })();
+})();
+(function() {
+  window.throttle = function(func, wait) {
+    var args, result, thisArg, timeoutId, lastCalled = 0;
+
+    function trailingCall() {
+      lastCalled = new Date;
+      timeoutId = null;
+      result = func.apply(thisArg, args);
+    }
+    return function() {
+      var now = new Date,
+        remaining = wait - (now - lastCalled);
+
+      args = arguments;
+      thisArg = this;
+
+      if (remaining <= 0) {
+        clearTimeout(timeoutId);
+        timeoutId = null;
+        lastCalled = now;
+        result = func.apply(thisArg, args);
+      } else if (!timeoutId) {
+        timeoutId = setTimeout(trailingCall, remaining);
+      }
+      return result;
+    };
+  };
+})();
+(function() {
+  var Set = (function() {
+    var add = function(item) {
+      var i, data = this._data;
+      for (i = 0; i < data.length; i++) {
+        if (data[i] === item) {
+          return;
+        }
+      }
+      this.size ++;
+      data.push(item);
+      return data;
+    };
+
+    var Set = function(data) {
+      this.size = 0;
+      this._data = [];
+      var i;
+      if (data.length > 0) {
+        for (i = 0; i < data.length; i++) {
+          add.call(this, data[i]);
+        }
+      }
+    };
+    Set.prototype.add = add;
+    Set.prototype.get = function(index) { return this._data[index]; };
+    Set.prototype.has = function(item) {
+      var i, data = this._data;
+      for (i = 0; i < data.length; i++) {
+        if (this.get(i) === item) {
+          return true;
+        }
+      }
+      return false;
+    };
+    Set.prototype.is = function(map) {
+      if (map._data.length !== this._data.length) { return false; }
+      var i, j, flag, tData = this._data, mData = map._data;
+      for (i = 0; i < tData.length; i++) {
+        for (flag = false, j = 0; j < mData.length; j++) {
+          if (tData[i] === mData[j]) {
+            flag = true;
+            break;
+          }
+        }
+        if (!flag) { return false; }
+      }
+      return true;
+    };
+    Set.prototype.values = function() {
+      return this._data;
+    };
+    return Set;
+  })();
+
+  window.Lazyload = (function(doc) {
+    var queue = {js: [], css: []}, sources = {js: {}, css: {}}, context = this;
+    var createNode = function(name, attrs) {
+      var node = doc.createElement(name), attr;
+      for (attr in attrs) {
+        if (attrs.hasOwnProperty(attr)) {
+          node.setAttribute(attr, attrs[attr]);
+        }
+      }
+      return node;
+    };
+    var end = function(type, url) {
+      var s, q, qi, cbs, i, j, cur, val, flag;
+      if (type === 'js' || type ==='css') {
+        s = sources[type], q = queue[type];
+        s[url] = true;
+        for (i = 0; i < q.length; i++) {
+          cur = q[i];
+          if (cur.urls.has(url)) {
+            qi = cur, val = qi.urls.values();
+            qi && (cbs = qi.callbacks);
+            for (flag = true, j = 0; j < val.length; j++) {
+              cur = val[j];
+              if (!s[cur]) {
+                flag = false;
+              }
+            }
+            if (flag && cbs && cbs.length > 0) {
+              for (j = 0; j < cbs.length; j++) {
+                cbs[j].call(context);
+              }
+              qi.load = true;
+            }
+          }
+        }
+      }
+    };
+    var load = function(type, urls, callback) {
+      var s, q, qi, node, i, cur,
+        _urls = typeof urls === 'string' ? new Set([urls]) : new Set(urls), val, url;
+      if (type === 'js' || type ==='css') {
+        s = sources[type], q = queue[type];
+        for (i = 0; i < q.length; i++) {
+          cur = q[i];
+          if (_urls.is(cur.urls)) {
+            qi = cur;
+            break;
+          }
+        }
+        val = _urls.values();
+        if (qi) {
+          callback && (qi.load || qi.callbacks.push(callback));
+          callback && (qi.load && callback());
+        } else {
+          q.push({
+            urls: _urls,
+            callbacks: callback ? [callback] : [],
+            load: false
+          });
+          for (i = 0; i < val.length; i++) {
+            node = null, url = val[i];
+            if (s[url] === undefined) {
+              (type === 'js' ) && (node = createNode('script', { src: url }));
+              (type === 'css') && (node = createNode('link', { rel: 'stylesheet', href: url }));
+              if (node) {
+                node.onload = (function(type, url) {
+                  return function() {
+                    end(type, url);
+                  };
+                })(type, url);
+                (doc.head || doc.body).appendChild(node);
+                s[url] = false;
+              }
+            }
+          }
+        }
+      }
+    };
+    return {
+      js: function(url, callback) {
+        load('js', url, callback);
+      },
+      css: function(url, callback) {
+        load('css', url, callback);
+      }
+    };
+  })(this.document);
+})();
+</script><script>
+  (function() {
+    var TEXT_VARIABLES = {
+      version: '2.2.6',
+      sources: {
+        font_awesome: 'https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.3/css/all.css',
+        jquery: 'https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js',
+        leancloud_js_sdk: '//cdn.jsdelivr.net/npm/leancloud-storage@3.13.2/dist/av-min.js',
+        chart: 'https://cdn.bootcss.com/Chart.js/2.7.2/Chart.bundle.min.js',
+        gitalk: {
+          js: 'https://cdn.bootcss.com/gitalk/1.2.2/gitalk.min.js',
+          css: 'https://cdn.bootcss.com/gitalk/1.2.2/gitalk.min.css'
+        },
+        valine: 'https://unpkg.com/valine/dist/Valine.min.js',
+        mathjax: 'https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML',
+        mermaid: 'https://cdn.jsdelivr.net/npm/mermaid@8.14.0/dist/mermaid.min.js'
+      },
+      site: {
+        toc: {
+          selectors: 'h1,h2,h3'
+        }
+      },
+      paths: {
+        search_js: '/assets/search.js'
+      }
+    };
+    window.TEXT_VARIABLES = TEXT_VARIABLES;
+  })();
+</script>
+</head>
+  <body>
+    <div class="root" data-is-touch="false">
+      <div class="layout--page js-page-root"><div class="page__main js-page-main page__viewport has-aside cell cell--auto">
+
+      <div class="page__main-inner"><div class="page__header d-print-none"><header class="header"><div class="main">
+      <div class="header__title">
+        <div class="header__brand"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="24px" height="24px" viewBox="0 0 24 24">
+<style type="text/css">
+	.st0{fill:#515151;}
+</style>
+<path class="st0" d="M1.7,22.3c5.7-5.7,11.3-5.7,17,0c3.3-3.3,3.5-5.3,0.8-6c2.7,0.7,3.5-1.1,2.3-5.6s-3.3-5.2-6.3-2.1
+	c3-3,2.3-5.2-2.1-6.3S7,1.8,7.7,4.6C7,1.8,5,2.1,1.7,5.3C7.3,11,7.3,16.7,1.7,22.3"/>
+</svg>
+<a title="非常欢迎您浏览我的网站！非常希望能与您积极交流。在这里，您可以找到许多有趣的内容，希望您能喜欢并与我分享您的想法!
+" href="/">Frozzen's Blog</a></div><button class="button button--secondary button--circle search-button js-search-toggle"><i class="fas fa-search"></i></button></div><nav class="navigation">
+        <ul><li class="navigation__item"><a href="/archive.html">归档</a></li><li class="navigation__item"><a href="/about.html">关于</a></li><li><button class="button button--secondary button--circle search-button js-search-toggle"><i class="fas fa-search"></i></button></li></ul>
+      </nav></div>
+  </header>
+</div><div class="page__content"><div class ="main"><div class="grid grid--reverse">
+
+              <div class="col-aside d-print-none js-col-aside"><aside class="page__aside js-page-aside"><div class="toc-aside js-toc-root"></div>
+</aside></div>
+
+              <div class="col-main cell cell--auto"><!-- start custom main top snippet -->
+
+<!-- end custom main top snippet -->
+<article itemscope itemtype="http://schema.org/Article"><div class="article__header"><header><h1>运营活动营收总结</h1></header><span class="split-space">&nbsp;</span>
+          <a class="edit-on-github"
+            title="在 Github 上修改"
+            href="https://github.com/frozzenCJ/Notes/tree/master/_posts/2023-04-28-运营活动营收总结.md">
+            <i class="far fa-edit"></i></a></div><meta itemprop="headline" content="运营活动营收总结"><div class="article__info clearfix"><ul class="left-col menu"><li>
+              <a class="button button--secondary button--pill button--sm"
+                href="/archive.html?tag=Work">Work</a>
+            </li><li>
+              <a class="button button--secondary button--pill button--sm"
+                href="/archive.html?tag=Design">Design</a>
+            </li></ul><ul class="right-col menu"><li><i class="far fa-calendar-alt"></i> <span>2023年 04月28日</span>
+            </li></ul></div><meta itemprop="author" content="FrozzenCJ"/><meta itemprop="datePublished" content="2023-04-28T00:00:00+08:00">
+    <meta itemprop="keywords" content="Work,Design"><div class="js-article-content"><div class="layout--article"><!-- start custom article top snippet -->
+
+<!-- end custom article top snippet -->
+<div class="article__content" itemprop="articleBody"><h3 id="mmorpg类">MMORPG类</h3>
+
+<h4 id="投放框架---数值设计">投放框架 - 数值设计</h4>
+
+<p>主要付费来源 集训-商城-福利</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">类型</th>
+      <th style="text-align: center">人民币</th>
+      <th style="text-align: center">信用点</th>
+      <th style="text-align: center">金条</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">XX</td>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">12</td>
+      <td style="text-align: center">1200</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>整体投放 - 回收， 稳定游戏内物价
+1：10000  -&gt; 1:8000</p>
+
+<p>付费能力 - 付费等级 - 付费投放预期</p>
+
+<p>付费等级预期X通常付费人数</p>
+
+<h5 id="活跃活动---福利活动">活跃活动 - 福利活动</h5>
+
+<p>投放价值比较低，主要配合日常集训完成活跃度，提高DAU用的，最终效果还是要看次留等数据
+是活动代币的主要产出来源</p>
+
+<p>签到、游戏内任务、特殊活动玩法（主要）</p>
+
+<h5 id="付费活动---奖池类活动">付费活动 - 奖池类活动</h5>
+<p>时装奖池、武器奖池、幸运礼盒、载具奖池等主要营收抽奖</p>
+
+<p>抽奖概率-数值设计</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>编号</th>
+      <th>名称</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>H</td>
+      <td>item</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>I</td>
+      <td>id</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>J</td>
+      <td>数量</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>K</td>
+      <td>限购</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>L</td>
+      <td>前置配方</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>M</td>
+      <td>前置道具</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>N</td>
+      <td>展示组</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>O</td>
+      <td>公共组</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>P</td>
+      <td>组价值折扣</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>Q</td>
+      <td>价值系数</td>
+      <td>游戏中投放导致数值需求上的一定价值平衡</td>
+    </tr>
+    <tr>
+      <td>R</td>
+      <td>序号</td>
+      <td>一个公共组的序号</td>
+    </tr>
+    <tr>
+      <td>S</td>
+      <td>单价(RMB)</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>T</td>
+      <td>单价（信）</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>U</td>
+      <td>总价（信）</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>V</td>
+      <td>定价概率</td>
+      <td>单抽信用点价格/总价, 理论上玩家所花一定钱能够抽到的概率</td>
+    </tr>
+    <tr>
+      <td>W</td>
+      <td><strong><em>系数</em></strong></td>
+      <td>调整大数的计算，如果展示组1的道具系数很小，公共组来平衡概率</td>
+    </tr>
+    <tr>
+      <td>X</td>
+      <td>内部概率</td>
+      <td>一个展示组的内部的概率,指稀有&amp;普通, 第一个乘了系数, 第二个进行权重</td>
+    </tr>
+    <tr>
+      <td>Y</td>
+      <td>大数概率</td>
+      <td>分组2是按照分组1的剩余概率来内部划分</td>
+    </tr>
+    <tr>
+      <td>Z</td>
+      <td><strong><em>权重</em></strong></td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>AA</td>
+      <td>最终的概率</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>AB</td>
+      <td>手动权重</td>
+      <td>是否有保底</td>
+    </tr>
+    <tr>
+      <td>AC</td>
+      <td>期望权重</td>
+      <td>用来计算目标概率的权重</td>
+    </tr>
+    <tr>
+      <td>AD</td>
+      <td>初始权重</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>AE</td>
+      <td>累加权重</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>AF</td>
+      <td>调节变量</td>
+      <td>初始权重/累加权重</td>
+    </tr>
+    <tr>
+      <td>AG</td>
+      <td>目标概率</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>AH</td>
+      <td>期望次数</td>
+      <td>实际单个玩家抽的预期次数</td>
+    </tr>
+    <tr>
+      <td>AI</td>
+      <td>定价次数</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>AJ</td>
+      <td>验算保底</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>AK</td>
+      <td>手动保底</td>
+      <td>在验算保底的基础上，手动调整保底次数，一般会提高低价值的保底</td>
+    </tr>
+    <tr>
+      <td>AL</td>
+      <td>实际保底</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>AM</td>
+      <td>保底概率</td>
+      <td>概率应该小于目标概率</td>
+    </tr>
+    <tr>
+      <td>AN</td>
+      <td>浮动保底</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>AO</td>
+      <td>抽取门槛</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>AP</td>
+      <td>冷却次数</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>AQ</td>
+      <td>填写冷却次数</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>AR</td>
+      <td>首次获得</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>AS</td>
+      <td>首次天数</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>AT</td>
+      <td>表格填写</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<pre><code class="language-excel">
+'固定值'
+$B$3 单抽价格(信)
+$B$4 必得倍数 - 保底次数  1.5
+$B$5 浮动比例 手动影响保底次数 0.05
+
+'SUM(单价X数量X大数概率) / (单抽信用点价格/12)'
+返利比=SUMPRODUCT(S2:S29,J2:J29,Y2:Y29)/(B3/12)
+返利比相当于 单位消费，实际获得返利比X单位消费的 收益 (计算收益)
+
+单价  数量
+价值系数：游戏中投放导致数值需求上的一定价值平衡
+组价值折扣：一般为1-同组道具数量, 不填单人成组，避免系数太小
+公共组：0 单人成组  
+系数：调整大数的计算，如果展示组1的道具系数很小，公共组来平衡概率
+
+'IFERROR(IF(公共组&lt;1,单价*总价,IF(序号=1,IF(组价值折扣="","",数量*组价值折扣*单价),""))*IF(价值系数="",1,价值系数),"")'
+总价=IFERROR(IF(O4&lt;1,T4*J4,IF(R4=1,IF(P4="","",J4*P4*T4),""))*IF(Q4="",1,Q4),"")
+
+'单抽信用点价格/总价'
+定价概率=IFERROR(IF(U6="","",$B$3/U6),"")
+
+'IF(OR(总价="",展示组=2),"",IF(IF(限购="",999,限购)*U2/(单抽价格/12*14*50)&gt;1,1,IF(限购="",9999999,限购)*总价/(单抽价格*14*50)))'
+系数=
+IF(OR(U2="",N2=2),"",IF(IF(K2="",999,K2)*U2/($B$3/12*14*50)&gt;1,1,IF(K2="",9999999,K2)*U2/($B$3*14*50)))
+
+'IF(定价概率="","",IF(展示组=1,定价概率*系数,定价概率/SUMIF(N:N,2,V:V))) 展示组2的定价概率的和'
+内部概率=IF(V8="","",IF(N8=1,V8*W8,V8/SUMIF(N:N,2,V:V)))
+
+'IF(展示组=1,IF(定价概率="","",IF(展示组=1,系数*定价概率,SUMIF(N:N,1,$X:$X)*内部概率)),IF(定价概率="","",(1-SUMIF(N:N,1,$Y:$Y))*内部概率))  X 内部概率  Y 大数概率'
+大数概率=IF(N2=1,IF(V2="","",IF(N2=1,W2*V2,SUMIF(N:N,1,$X:$X)*X2)),IF(V2="","",(1-SUMIF(N:N,1,$Y:$Y))*X2))
+
+'IF(大数概率="",IF(序号=1,$U$2*$Z$2/(单价*IF(价值系数="",1,价值系数)*数量),""),ROUND(大数概率*100000,0)) U2 是最贵物品的总价 Z2 是最贵物品的权重'
+权重=IF(Y2="",IF(R2=1,$U$2*$Z$2/(T2*IF(Q2="",1,Q2)*J2),""),ROUND(Y2*100000,0))
+
+'权重占比'
+最终概率=IFERROR(Z2/SUM(Z:Z),"")
+
+'IF(手动权重="",INT(IF(序号&gt;1,上一个道具的期望权重,IF(序号=1,权重/COUNTIF(O:O,O2),权重))),手动权重) 权重/COUNTIF(O:O,O2) O是公共组，即同公共组等分权重'
+期望权重=IF(AB2="",INT(IF(R2&gt;1,AC1,IF(R2=1,Z2/COUNTIF(O:O,O2),Z2))),AB2)
+
+'IF(调节变量="累加权重",1,IF(展示组=1,期望权重,期望权重*15))'
+初始权重=IF(AF2="累加权重",1,IF(N2=1,AC2,AC2*15))
+
+'期望权重/SUM(AC:AC) AC: 期望权重'
+目标概率=AC2/SUM(AC:AC)
+
+'1/目标概率/IF(序号&gt;=1,COUNTIF(O:O,O2),1)'
+期望次数=1/AG2/IF(R2&gt;=1,COUNTIF(O:O,O2),1)
+
+'IF(展示组&gt;1,"",IF(总价="",IF(展示组=1,单价*IF(价值系数="",1,价值系数)*数量/$B$3,上一个道具的定价次数),总价/$B$3))'
+定价次数=IF(N2&gt;1,"",IF(U2="",IF(R2=1,T2*IF(Q2="",1,Q2)*J2/$B$3,AI1),U2/$B$3))
+
+'IF(定价次数="","",INT(定价次数*必得倍率))'
+验算保底=IF(AI2="","",INT(AI2*$B$4))
+
+'IF(OR(验算保底="",展示组=2,手动保底="无保底"),"",IF(手动保底="",验算保底,手动保底))'
+实际保底=IF(OR(AJ2="",N2=2,AK2="无保底"),"",IF(AK2="",AJ2,AK2))
+
+'1/实际保底'
+保底概率=1/AL2
+
+'IF(实际保底="","",INT(实际保底*(1-$B$5))&amp;","&amp;INT(实际保底*(1+$B$5))) 实际保底的上下限'
+浮动保底=IF(AL4="","",INT(AL4*(1-$B$5))&amp;","&amp;INT(AL4*(1+$B$5)))
+
+'实际保底*2+冷却次数
+INT(实际保底/4)'
+抽取门槛1(特殊)=AL4*2+AP3
+抽取门槛2(通用)=INT(AL4/4)
+
+冷却次数=抽取门槛
+
+'IF(浮动保底="",实际保底+抽取门槛-冷却次数,"")'
+首次获得=IF(AN2="",AL2+AO2-AP2,"")
+</code></pre>
+
+<p>基础计算 - 大数概率</p>
+<blockquote>
+  <p>定价概率 -&gt; 内部概率 -&gt; 大数概率
+分组1：
+定价概率 = 内部概率 = 大数概率
+分组2：
+在分组1的剩余概率中划分</p>
+</blockquote>
+
+<p>对外概率：大数概率-奖池和</p>
+
+<p>权重变换 - 抽奖感觉，提升独立成组的出货率</p>
+<blockquote>
+  <p>特别调整：
+大数概率 -&gt; 权重
+存在大数概率的道具，直接按照100000抽来算权重
+不存在大数概率并且独立成组的物品  引入最贵物品的总价X权重 / (价值系数X单价X数量)，提升权重
+最终稀释目标权重</p>
+</blockquote>
+
+<p>实际抽奖</p>
+<blockquote>
+  <p>权重 -&gt; 期望权重
+权重 -&gt; 最终概率 -&gt; 目标概率</p>
+</blockquote>
+
+<p>保底</p>
+<blockquote>
+  <p>调整奖池1中相对低价值物品的保底，奖池2无保底，看起来奖池1前期出货率高一点</p>
+</blockquote>
+
+<p>同奖励分阶段抽奖</p>
+<blockquote>
+  <p>比如某大奖道具2个， 是1+1，第一个按照正常抽奖来，第二个则有首次获得需求，如果大佬要全拿到，一般门槛都会非常的高，导致首次获得的次数会比较大，然后国服由于有限制，会计算一个理论获得的天数，跨度不能太大，保证大佬能抽到</p>
+</blockquote>
+
+<h5 id="付费活动---集训礼包">付费活动 - 集训礼包</h5>
+
+<p>活动礼包： 产出活动代币、抽奖代币、特殊物料、稀有材料等
+商城礼包： 商城一般投放是比较固定的，基本上都有限制</p>
+
+<h5 id="付费活动---消费小队">付费活动 - 消费小队</h5>
+
+<p>吸引消费玩家抱团，提供一些消费返利</p>
+
+<h5 id="付费活动---不放回抽奖">付费活动 - 不放回抽奖</h5>
+
+<p>限时金券的主要产出来源</p>
+
+<h5 id="付费活动---金券商店">付费活动 - 金券商店</h5>
+
+<p>一些非常珍稀的游戏内道具来源，以限时金券作为一般锚定物</p>
+
+<h5 id="付费活动---商队集市">付费活动 - 商队集市</h5>
+
+<p>往期家具投放，游戏内一般物资产出投放（方便大佬跳过交易之城直接购买，生产需要的物品）</p>
+
+<h5 id="固定投放---集训任务--商城">固定投放 - 集训任务 &amp; 商城</h5>
+
+<p>除开所有付费活动外，基础玩家可以体验的基础渠道</p>
+</div><section class="article__sharing d-print-none"></section><div class="d-print-none"><footer class="article__footer"><meta itemprop="dateModified" content="2023-04-28T00:00:00+08:00"><!-- start custom article footer snippet -->
+
+<!-- end custom article footer snippet -->
+<div class="article__subscribe"><div class="subscribe"><i class="fas fa-rss"></i> <a type="application/rss+xml" href="/feed.xml">订阅</a></div>
+</div><div class="article__license"><div class="license">
+    <p>本文遵守 <a itemprop="license" rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">Attribution-NonCommercial 4.0 International</a> 许可协议。
+      <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/">
+        <img alt="Attribution-NonCommercial 4.0 International" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" />
+      </a>
+    </p>
+  </div></div></footer>
+<div class="article__section-navigator clearfix"><div class="previous"><span>上篇</span><a href="/2023/04/28/%E5%85%B6%E4%BB%96%E5%B0%8F%E5%B7%A5%E5%85%B7.html">工作小工具</a></div><div class="next"><span>下篇</span><a href="/2023/04/30/%E5%89%A7%E6%83%85%E6%B8%B8%E6%88%8F.html">梦境侦探</a></div></div></div>
+
+</div>
+
+<script>(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    $(function() {
+      var $this ,$scroll;
+      var $articleContent = $('.js-article-content');
+      var hasSidebar = $('.js-page-root').hasClass('layout--page--sidebar');
+      var scroll = hasSidebar ? '.js-page-main' : 'html, body';
+      $scroll = $(scroll);
+
+      $articleContent.find('.highlight').each(function() {
+        $this = $(this);
+        $this.attr('data-lang', $this.find('code').attr('data-lang'));
+      });
+      $articleContent.find('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]').each(function() {
+        $this = $(this);
+        $this.append($('<a class="anchor d-print-none" aria-hidden="true"></a>').html('<i class="fas fa-anchor"></i>'));
+      });
+      $articleContent.on('click', '.anchor', function() {
+        $scroll.scrollToAnchor('#' + $(this).parent().attr('id'), 400);
+      });
+    });
+  });
+})();
+</script>
+</div><section class="page__comments d-print-none"></section></article><!-- start custom main bottom snippet -->
+
+<!-- end custom main bottom snippet -->
+</div>
+            </div></div></div><div class="page__footer d-print-none">
+<footer class="footer py-4 js-page-footer">
+  <div class="main"><div itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FrozzenCJ"><meta itemprop="url" content="/"><meta itemprop="description" content="I am an amazing person."><div class="footer__author-links"><div class="author-links">
+  <ul class="menu menu--nowrap menu--inline"><li title="给我发邮件。">
+      <a class="button button--circle mail-button" itemprop="email" href="mailto:joeychou0805@gmail.com" target="_blank">
+        <i class="fas fa-envelope"></i>
+      </a><li title="在 Github 上关注我。">
+        <a class="button button--circle github-button" itemprop="sameAs" href="https://github.com/https://github.com/FrozzenCJ" target="_blank">
+          <div class="icon"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path class="svgpath" data-index="path_0" fill="#272636" d="M0 525.2c0 223.6 143.3 413.7 343 483.5 26.9 6.8 22.8-12.4 22.8-25.4l0-88.7c-155.3 18.2-161.5-84.6-172-101.7-21.1-36-70.8-45.2-56-62.3 35.4-18.2 71.4 4.6 113.1 66.3 30.2 44.7 89.1 37.2 119 29.7 6.5-26.9 20.5-50.9 39.7-69.6C248.8 728.2 181.7 630 181.7 513.2c0-56.6 18.7-108.7 55.3-150.7-23.3-69.3 2.2-128.5 5.6-137.3 66.5-6 135.5 47.6 140.9 51.8 37.8-10.2 80.9-15.6 129.1-15.6 48.5 0 91.8 5.6 129.8 15.9 12.9-9.8 77-55.8 138.8-50.2 3.3 8.8 28.2 66.7 6.3 135 37.1 42.1 56 94.6 56 151.4 0 117-67.5 215.3-228.8 243.7 26.9 26.6 43.6 63.4 43.6 104.2l0 128.8c0.9 10.3 0 20.5 17.2 20.5C878.1 942.4 1024 750.9 1024 525.3c0-282.9-229.3-512-512-512C229.1 13.2 0 242.3 0 525.2L0 525.2z" />
+</svg>
+</div>
+        </a>
+      </li></ul>
+</div>
+</div>
+    </div><div class="site-info mt-2">
+      <div>© Frozzen's Blog 2023,
+        Powered by <a title="Jekyll is a simple, blog-aware, static site generator." href="http://jekyllrb.com/">Jekyll</a> & <a
+        title="TeXt is a super customizable Jekyll theme." href="https://github.com/kitian616/jekyll-TeXt-theme">TeXt Theme</a>.
+      </div>
+    </div>
+  </div>
+</footer>
+</div></div>
+    </div><script>(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    var $body = $('body'), $window = $(window);
+    var $pageRoot = $('.js-page-root'), $pageMain = $('.js-page-main');
+    var activeCount = 0;
+    function modal(options) {
+      var $root = this, visible, onChange, hideWhenWindowScroll = false;
+      var scrollTop;
+      function setOptions(options) {
+        var _options = options || {};
+        visible = _options.initialVisible === undefined ? false : show;
+        onChange = _options.onChange;
+        hideWhenWindowScroll = _options.hideWhenWindowScroll;
+      }
+      function init() {
+        setState(visible);
+      }
+      function setState(isShow) {
+        if (isShow === visible) {
+          return;
+        }
+        visible = isShow;
+        if (visible) {
+          activeCount++;
+          scrollTop = $(window).scrollTop() || $pageMain.scrollTop();
+          $root.addClass('modal--show');
+          $pageMain.scrollTop(scrollTop);
+          activeCount === 1 && ($pageRoot.addClass('show-modal'), $body.addClass('of-hidden'));
+          hideWhenWindowScroll && window.hasEvent('touchstart') && $window.on('scroll', hide);
+          $window.on('keyup', handleKeyup);
+        } else {
+          activeCount > 0 && activeCount--;
+          $root.removeClass('modal--show');
+          $window.scrollTop(scrollTop);
+          activeCount === 0 && ($pageRoot.removeClass('show-modal'), $body.removeClass('of-hidden'));
+          hideWhenWindowScroll && window.hasEvent('touchstart') && $window.off('scroll', hide);
+          $window.off('keyup', handleKeyup);
+        }
+        onChange && onChange(visible);
+      }
+      function show() {
+        setState(true);
+      }
+      function hide() {
+        setState(false);
+      }
+      function handleKeyup(e) {
+        // Char Code: 27  ESC
+        if (e.which ===  27) {
+          hide();
+        }
+      }
+      setOptions(options);
+      init();
+      return {
+        show: show,
+        hide: hide,
+        $el: $root
+      };
+    }
+    $.fn.modal = modal;
+  });
+})();
+</script><div class="modal modal--overflow page__search-modal d-print-none js-page-search-modal"><script>
+(function () {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    // search panel
+    var search = (window.search || (window.search = {}));
+    var useDefaultSearchBox = window.useDefaultSearchBox === undefined ?
+      true : window.useDefaultSearchBox ;
+
+    var $searchModal = $('.js-page-search-modal');
+    var $searchToggle = $('.js-search-toggle');
+    var searchModal = $searchModal.modal({ onChange: handleModalChange, hideWhenWindowScroll: true });
+    var modalVisible = false;
+    search.searchModal = searchModal;
+
+    var $searchBox = null;
+    var $searchInput = null;
+    var $searchClear = null;
+
+    function getModalVisible() {
+      return modalVisible;
+    }
+    search.getModalVisible = getModalVisible;
+
+    function handleModalChange(visible) {
+      modalVisible = visible;
+      if (visible) {
+        search.onShow && search.onShow();
+        useDefaultSearchBox && $searchInput[0] && $searchInput[0].focus();
+      } else {
+        search.onShow && search.onHide();
+        useDefaultSearchBox && $searchInput[0] && $searchInput[0].blur();
+        setTimeout(function() {
+          useDefaultSearchBox && ($searchInput.val(''), $searchBox.removeClass('not-empty'));
+          search.clear && search.clear();
+          window.pageAsideAffix && window.pageAsideAffix.refresh();
+        }, 400);
+      }
+    }
+
+    $searchToggle.on('click', function() {
+      modalVisible ? searchModal.hide() : searchModal.show();
+    });
+    // Char Code: 83  S, 191 /
+    $(window).on('keyup', function(e) {
+      if (!modalVisible && !window.isFormElement(e.target || e.srcElement) && (e.which === 83 || e.which === 191)) {
+        modalVisible || searchModal.show();
+      }
+    });
+
+    if (useDefaultSearchBox) {
+      $searchBox = $('.js-search-box');
+      $searchInput = $searchBox.children('input');
+      $searchClear = $searchBox.children('.js-icon-clear');
+      search.getSearchInput = function() {
+        return $searchInput.get(0);
+      };
+      search.getVal = function() {
+        return $searchInput.val();
+      };
+      search.setVal = function(val) {
+        $searchInput.val(val);
+      };
+
+      $searchInput.on('focus', function() {
+        $(this).addClass('focus');
+      });
+      $searchInput.on('blur', function() {
+        $(this).removeClass('focus');
+      });
+      $searchInput.on('input', window.throttle(function() {
+        var val = $(this).val();
+        if (val === '' || typeof val !== 'string') {
+          search.clear && search.clear();
+        } else {
+          $searchBox.addClass('not-empty');
+          search.onInputNotEmpty && search.onInputNotEmpty(val);
+        }
+      }, 400));
+      $searchClear.on('click', function() {
+        $searchInput.val(''); $searchBox.removeClass('not-empty');
+        search.clear && search.clear();
+      });
+    }
+  });
+})();
+</script><div class="search search--dark">
+  <div class="main">
+    <div class="search__header">搜索</div>
+    <div class="search-bar">
+      <div class="search-box js-search-box">
+        <div class="search-box__icon-search"><i class="fas fa-search"></i></div>
+        <input type="text" />
+        <div class="search-box__icon-clear js-icon-clear">
+          <a><i class="fas fa-times"></i></a>
+        </div>
+      </div>
+      <button class="button button--theme-dark button--pill search__cancel js-search-toggle">
+        取消</button>
+    </div>
+    <div class="search-result js-search-result"></div>
+  </div>
+</div>
+<script>var SOURCES = window.TEXT_VARIABLES.sources;
+var PAHTS = window.TEXT_VARIABLES.paths;
+window.Lazyload.js([SOURCES.jquery, PAHTS.search_js], function() {
+  var search = (window.search || (window.search = {}));
+  var searchData = window.TEXT_SEARCH_DATA || {};
+
+  function memorize(f) {
+    var cache = {};
+    return function () {
+      var key = Array.prototype.join.call(arguments, ',');
+      if (key in cache) return cache[key];
+      else return cache[key] = f.apply(this, arguments);
+    };
+  }
+
+  /// search
+  function searchByQuery(query) {
+    var i, j, key, keys, cur, _title, result = {};
+    keys = Object.keys(searchData);
+    for (i = 0; i < keys.length; i++) {
+      key = keys[i];
+      for (j = 0; j < searchData[key].length; j++) {
+        cur = searchData[key][j], _title = cur.title;
+        if ((result[key] === undefined || result[key] && result[key].length < 4 )
+          && _title.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
+          if (result[key] === undefined) {
+            result[key] = [];
+          }
+          result[key].push(cur);
+        }
+      }
+    }
+    return result;
+  }
+
+  var renderHeader = memorize(function(header) {
+    return $('<p class="search-result__header">' + header + '</p>');
+  });
+
+  var renderItem = function(index, title, url) {
+    return $('<li class="search-result__item" data-index="' + index + '"><a class="button" href="' + url + '">' + title + '</a></li>');
+  };
+
+  function render(data) {
+    if (!data) { return null; }
+    var $root = $('<ul></ul>'), i, j, key, keys, cur, itemIndex = 0;
+    keys = Object.keys(data);
+    for (i = 0; i < keys.length; i++) {
+      key = keys[i];
+      $root.append(renderHeader(key));
+      for (j = 0; j < data[key].length; j++) {
+        cur = data[key][j];
+        $root.append(renderItem(itemIndex++, cur.title, cur.url));
+      }
+    }
+    return $root;
+  }
+
+  // search box
+  var $result = $('.js-search-result'), $resultItems;
+  var lastActiveIndex, activeIndex;
+
+  function clear() {
+    $result.html(null);
+    $resultItems = $('.search-result__item'); activeIndex = 0;
+  }
+  function onInputNotEmpty(val) {
+    $result.html(render(searchByQuery(val)));
+    $resultItems = $('.search-result__item'); activeIndex = 0;
+    $resultItems.eq(0).addClass('active');
+  }
+
+  search.clear = clear;
+  search.onInputNotEmpty = onInputNotEmpty;
+
+  function updateResultItems() {
+    lastActiveIndex >= 0 && $resultItems.eq(lastActiveIndex).removeClass('active');
+    activeIndex >= 0 && $resultItems.eq(activeIndex).addClass('active');
+  }
+
+  function moveActiveIndex(direction) {
+    var itemsCount = $resultItems ? $resultItems.length : 0;
+    if (itemsCount > 1) {
+      lastActiveIndex = activeIndex;
+      if (direction === 'up') {
+        activeIndex = (activeIndex - 1 + itemsCount) % itemsCount;
+      } else if (direction === 'down') {
+        activeIndex = (activeIndex + 1 + itemsCount) % itemsCount;
+      }
+      updateResultItems();
+    }
+  }
+
+  // Char Code: 13  Enter, 37  ⬅, 38  ⬆, 39  ➡, 40  ⬇
+  $(window).on('keyup', function(e) {
+    var modalVisible = search.getModalVisible && search.getModalVisible();
+    if (modalVisible) {
+      if (e.which === 38) {
+        modalVisible && moveActiveIndex('up');
+      } else if (e.which === 40) {
+        modalVisible && moveActiveIndex('down');
+      } else if (e.which === 13) {
+        modalVisible && $resultItems && activeIndex >= 0 && $resultItems.eq(activeIndex).children('a')[0].click();
+      }
+    }
+  });
+
+  $result.on('mouseover', '.search-result__item > a', function() {
+    var itemIndex = $(this).parent().data('index');
+    itemIndex >= 0 && (lastActiveIndex = activeIndex, activeIndex = itemIndex, updateResultItems());
+  });
+});
+</script>
+</div></div>
+
+
+<script>(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    function scrollToAnchor(anchor, duration, callback) {
+      var $root = this;
+      $root.animate({ scrollTop: $(anchor).position().top }, duration, function() {
+        window.history.replaceState(null, '', window.location.href.split('#')[0] + anchor);
+        callback && callback();
+      });
+    }
+    $.fn.scrollToAnchor = scrollToAnchor;
+  });
+})();
+(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    function affix(options) {
+      var $root = this, $window = $(window), $scrollTarget, $scroll,
+        offsetBottom = 0, scrollTarget = window, scroll = window.document, disabled = false, isOverallScroller = true,
+        rootTop, rootLeft, rootHeight, scrollBottom, rootBottomTop,
+        hasInit = false, curState;
+
+      function setOptions(options) {
+        var _options = options || {};
+        _options.offsetBottom && (offsetBottom = _options.offsetBottom);
+        _options.scrollTarget && (scrollTarget = _options.scrollTarget);
+        _options.scroll && (scroll = _options.scroll);
+        _options.disabled !== undefined && (disabled = _options.disabled);
+        $scrollTarget = $(scrollTarget);
+        isOverallScroller = window.isOverallScroller($scrollTarget[0]);
+        $scroll = $(scroll);
+      }
+      function preCalc() {
+        top();
+        rootHeight = $root.outerHeight();
+        rootTop = $root.offset().top + (isOverallScroller ? 0 :  $scrollTarget.scrollTop());
+        rootLeft = $root.offset().left;
+      }
+      function calc(needPreCalc) {
+        needPreCalc && preCalc();
+        scrollBottom = $scroll.outerHeight() - offsetBottom - rootHeight;
+        rootBottomTop = scrollBottom - rootTop;
+      }
+      function top() {
+        if (curState !== 'top') {
+          $root.removeClass('fixed').css({
+            left: 0,
+            top: 0
+          });
+          curState = 'top';
+        }
+      }
+      function fixed() {
+        if (curState !== 'fixed') {
+          $root.addClass('fixed').css({
+            left: rootLeft + 'px',
+            top: 0
+          });
+          curState = 'fixed';
+        }
+      }
+      function bottom() {
+        if (curState !== 'bottom') {
+          $root.removeClass('fixed').css({
+            left: 0,
+            top: rootBottomTop + 'px'
+          });
+          curState = 'bottom';
+        }
+      }
+      function setState() {
+        var scrollTop = $scrollTarget.scrollTop();
+        if (scrollTop >= rootTop && scrollTop <= scrollBottom) {
+          fixed();
+        } else if (scrollTop < rootTop) {
+          top();
+        } else {
+          bottom();
+        }
+      }
+      function init() {
+        if(!hasInit) {
+          var interval, timeout;
+          calc(true); setState();
+          // run calc every 100 millisecond
+          interval = setInterval(function() {
+            calc();
+          }, 100);
+          timeout = setTimeout(function() {
+            clearInterval(interval);
+          }, 45000);
+          window.pageLoad.then(function() {
+            setTimeout(function() {
+              clearInterval(interval);
+              clearTimeout(timeout);
+            }, 3000);
+          });
+          $scrollTarget.on('scroll', function() {
+            disabled || setState();
+          });
+          $window.on('resize', function() {
+            disabled || (calc(true), setState());
+          });
+          hasInit = true;
+        }
+      }
+
+      setOptions(options);
+      if (!disabled) {
+        init();
+      }
+      $window.on('resize', window.throttle(function() {
+        init();
+      }, 200));
+      return {
+        setOptions: setOptions,
+        refresh: function() {
+          calc(true, { animation: false }); setState();
+        }
+      };
+    }
+    $.fn.affix = affix;
+  });
+})();
+(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    function toc(options) {
+      var $root = this, $window = $(window), $scrollTarget, $scroller, $tocUl = $('<ul class="toc toc--ellipsis"></ul>'), $tocLi, $headings, $activeLast, $activeCur,
+        selectors = 'h1,h2,h3', container = 'body', scrollTarget = window, scroller = 'html, body', disabled = false,
+        headingsPos, scrolling = false, hasRendered = false, hasInit = false;
+
+      function setOptions(options) {
+        var _options = options || {};
+        _options.selectors && (selectors = _options.selectors);
+        _options.container && (container = _options.container);
+        _options.scrollTarget && (scrollTarget = _options.scrollTarget);
+        _options.scroller && (scroller = _options.scroller);
+        _options.disabled !== undefined && (disabled = _options.disabled);
+        $headings = $(container).find(selectors).filter('[id]');
+        $scrollTarget = $(scrollTarget);
+        $scroller = $(scroller);
+      }
+      function calc() {
+        headingsPos = [];
+        $headings.each(function() {
+          headingsPos.push(Math.floor($(this).position().top));
+        });
+      }
+      function setState(element, disabled) {
+        var scrollTop = $scrollTarget.scrollTop(), i;
+        if (disabled || !headingsPos || headingsPos.length < 1) { return; }
+        if (element) {
+          $activeCur = element;
+        } else {
+          for (i = 0; i < headingsPos.length; i++) {
+            if (scrollTop >= headingsPos[i]) {
+              $activeCur = $tocLi.eq(i);
+            } else {
+              $activeCur || ($activeCur = $tocLi.eq(i));
+              break;
+            }
+          }
+        }
+        $activeLast && $activeLast.removeClass('active');
+        ($activeLast = $activeCur).addClass('active');
+      }
+      function render() {
+        if(!hasRendered) {
+          $root.append($tocUl);
+          $headings.each(function() {
+            var $this = $(this);
+            $tocUl.append($('<li></li>').addClass('toc-' + $this.prop('tagName').toLowerCase())
+              .append($('<a></a>').text($this.text()).attr('href', '#' + $this.prop('id'))));
+          });
+          $tocLi = $tocUl.children('li');
+          $tocUl.on('click', 'a', function(e) {
+            e.preventDefault();
+            var $this = $(this);
+            scrolling = true;
+            setState($this.parent());
+            $scroller.scrollToAnchor($this.attr('href'), 400, function() {
+              scrolling = false;
+            });
+          });
+        }
+        hasRendered = true;
+      }
+      function init() {
+        var interval, timeout;
+        if(!hasInit) {
+          render(); calc(); setState(null, scrolling);
+          // run calc every 100 millisecond
+          interval = setInterval(function() {
+            calc();
+          }, 100);
+          timeout = setTimeout(function() {
+            clearInterval(interval);
+          }, 45000);
+          window.pageLoad.then(function() {
+            setTimeout(function() {
+              clearInterval(interval);
+              clearTimeout(timeout);
+            }, 3000);
+          });
+          $scrollTarget.on('scroll', function() {
+            disabled || setState(null, scrolling);
+          });
+          $window.on('resize', window.throttle(function() {
+            if (!disabled) {
+              render(); calc(); setState(null, scrolling);
+            }
+          }, 100));
+        }
+        hasInit = true;
+      }
+
+      setOptions(options);
+      if (!disabled) {
+        init();
+      }
+      $window.on('resize', window.throttle(function() {
+        init();
+      }, 200));
+      return {
+        setOptions: setOptions
+      };
+    }
+    $.fn.toc = toc;
+  });
+})();
+/*(function () {
+
+})();*/
+</script><script>
+  /* toc must before affix, since affix need to konw toc' height. */(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  var TOC_SELECTOR = window.TEXT_VARIABLES.site.toc.selectors;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    var $window = $(window);
+    var $articleContent = $('.js-article-content');
+    var $tocRoot = $('.js-toc-root'), $col2 = $('.js-col-aside');
+    var toc;
+    var tocDisabled = false;
+    var hasSidebar = $('.js-page-root').hasClass('layout--page--sidebar');
+    var hasToc = $articleContent.find(TOC_SELECTOR).length > 0;
+
+    function disabled() {
+      return $col2.css('display') === 'none' || !hasToc;
+    }
+
+    tocDisabled = disabled();
+
+    toc = $tocRoot.toc({
+      selectors: TOC_SELECTOR,
+      container: $articleContent,
+      scrollTarget: hasSidebar ? '.js-page-main' : null,
+      scroller: hasSidebar ? '.js-page-main' : null,
+      disabled: tocDisabled
+    });
+
+    $window.on('resize', window.throttle(function() {
+      tocDisabled = disabled();
+      toc && toc.setOptions({
+        disabled: tocDisabled
+      });
+    }, 100));
+
+  });
+})();
+(function() {
+  var SOURCES = window.TEXT_VARIABLES.sources;
+  window.Lazyload.js(SOURCES.jquery, function() {
+    var $window = $(window), $pageFooter = $('.js-page-footer');
+    var $pageAside = $('.js-page-aside');
+    var affix;
+    var tocDisabled = false;
+    var hasSidebar = $('.js-page-root').hasClass('layout--page--sidebar');
+
+    affix = $pageAside.affix({
+      offsetBottom: $pageFooter.outerHeight(),
+      scrollTarget: hasSidebar ? '.js-page-main' : null,
+      scroller: hasSidebar ? '.js-page-main' : null,
+      scroll: hasSidebar ? $('.js-page-main').children() : null,
+      disabled: tocDisabled
+    });
+
+    $window.on('resize', window.throttle(function() {
+      affix && affix.setOptions({
+        disabled: tocDisabled
+      });
+    }, 100));
+
+    window.pageAsideAffix = affix;
+  });
+})();
+</script><script type="text/x-mathjax-config">
+	var _config = { tex2jax: {
+		inlineMath: [['$','$'], ['\\(','\\)']]
+	}};_config.TeX = { equationNumbers: { autoNumber: "all" } };MathJax.Hub.Config(_config);
+</script>
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+<script>
+  window.Lazyload.js('https://cdn.jsdelivr.net/npm/mermaid@8.14.0/dist/mermaid.min.js', function() {
+    mermaid.initialize({
+      startOnLoad: true
+    });
+    mermaid.init(undefined, '.language-mermaid');
+  });
+</script>
+
+    </div>
+    <script>(function () {
+  var $root = document.getElementsByClassName('root')[0];
+  if (window.hasEvent('touchstart')) {
+    $root.dataset.isTouch = true;
+    document.addEventListener('touchstart', function(){}, false);
+  }
+})();
+</script>
+  </body>
+</html>
+
