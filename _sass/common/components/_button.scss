@@ -17,8 +17,7 @@
 
 .button {
   @include button();
-  @debug $base;
-  @debug $button-height;
+  padding: 0.45rem 0.6333333333rem;
 }
 
 .button--primary {
