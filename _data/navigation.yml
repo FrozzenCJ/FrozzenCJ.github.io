@@ -1,0 +1,70 @@
+header:
+
+  # - titles:
+  #   zh-Hans : &ZH_HANS  首页
+  #   url: /home.html
+ 
+  # - title: 随笔
+  #   url: /notes/
+
+  - title: 归档
+    url: /archive.html
+
+  - title: 关于
+    url: /about.html
+
+  # - title: 工具
+  #   url: /tool.html
+
+docs-en:
+
+  - title:      As a Thinker
+    children:
+      - title:  Configuration
+        url:    /archive/configuration
+      - title:  Navigation
+        url:    /archive/navigation
+
+  - title:      As a Designer
+    children:
+      - title:  Quick Start
+        url:    /archive/quick-start
+      - title:  Structure
+        url:    /archive/structure
+
+  - title:      As a Coder
+    children:
+      - title:  Configuration
+        url:    /archive/configuration
+      - title:  Navigation
+        url:    /archive/navigation
+
+  - title:      As a Worker
+    children:
+      - title:  Quick Start
+        url:    /archive/quick-start
+      - title:  Structure
+        url:    /archive/structure
+
+work_exp:
+
+  - title:      Work Experience
+    children:
+      - title:  Quick Start
+        url:    /archive/quick-start
+      - title:  Structure
+        url:    /archive/structure
+
+  - title:      Game Comprehension
+    children:
+      - title:  Configuration
+        url:    /archive/configuration
+      - title:  Navigation
+        url:    /archive/navigation
+
+  - title:      Tools Development
+    children:
+      - title:  Quick Start
+        url:    /archive/quick-start
+      - title:  Structure
+        url:    /archive/structure

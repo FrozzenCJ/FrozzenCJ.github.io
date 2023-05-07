@@ -22,10 +22,11 @@ yarn.lock
 package-lock.json
 Gemfile.lock
 
-# _site/
+_site/
 .jekyll-metadata
 .jekyll-cache/
 
 test/
 docs/
 docker/
+_notes/
