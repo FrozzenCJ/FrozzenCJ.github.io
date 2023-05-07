@@ -1,4 +1,5 @@
 @mixin button() {
+  padding: 0.45rem 0.6333333333rem;
   display: inline-block;
   font-weight: map-get($button, font-weight);
   line-height: 1 !important;
@@ -17,7 +18,6 @@
 
 .button {
   @include button();
-  padding: 0.45rem 0.6333333333rem;
 }
 
 .button--primary {
