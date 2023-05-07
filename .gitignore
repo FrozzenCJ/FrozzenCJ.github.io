@@ -29,5 +29,3 @@ _site/
 test/
 docs/
 docker/
-tools/
-Dockerfile.dev
