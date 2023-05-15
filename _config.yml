@@ -104,7 +104,7 @@ theme: shoka
 deploy:
   type: git
   repo: git@github.com:FrozzenCJ/FrozzenCJ.github.io.git # 仓库地址
-  branch: master
+  branch: gh-pages # 分支
 
 # multi markdown render
 markdown:
