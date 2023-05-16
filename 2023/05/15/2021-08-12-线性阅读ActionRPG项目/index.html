@@ -1,0 +1,1748 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="FrozzenCJ's Game Site" href="http://frozzencj.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="FrozzenCJ's Game Site" href="http://frozzencj.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="FrozzenCJ's Game Site" href="http://frozzencj.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="Game Program" />
+
+
+<link rel="canonical" href="http://frozzencj.github.io/2023/05/15/2021-08-12-%E7%BA%BF%E6%80%A7%E9%98%85%E8%AF%BBActionRPG%E9%A1%B9%E7%9B%AE/">
+
+
+
+  <title>
+UE4 GAS 方案探究 |
+FrozzenCJ = FrozzenCJ's Game Site = It means, I will accomplish it!</title>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">UE4 GAS 方案探究
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2023-05-15 13:31:38">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2023-05-15T13:31:38+08:00">2023-05-15</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">FrozzenCJ</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipet4bz0yj20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipevgoki5j20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipevo9j1jj20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclfdu6exj20zk0m87hw.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipewf5l51j20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclhfehz7j20zk0m8u0x.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="http://frozzencj.github.io/2023/05/15/2021-08-12-%E7%BA%BF%E6%80%A7%E9%98%85%E8%AF%BBActionRPG%E9%A1%B9%E7%9B%AE/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.png">
+    <meta itemprop="name" content="Frozzen·J·Chou">
+    <meta itemprop="description" content="It means, I will accomplish it!, ">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="FrozzenCJ's Game Site">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h2 id="简介"><a class="anchor" href="#简介">#</a> 简介</h2>
+<p>本文是我的一篇 UE 引擎的学习笔记，在此之前，我看过不少文档和资料，但看过之后仍然觉得 UE 是个很抽象的东西，不够具体，不足以支撑实践。所以，我整理了这篇笔记，尽量以相对线性的方式，一步不落的从头开始介绍一个比较完整的 Demo 项目。帮助那些想要入门 UE，但是又不知道从何学起的同学。</p>
+<h3 id="项目"><a class="anchor" href="#项目">#</a> 项目</h3>
+<p>本文介绍的是 UE4 的官方项目《ActionRPG》，相关信息如下：</p>
+<ol>
+<li>项目地址： <span class="exturl" data-url="aHR0cHM6Ly93d3cudW5yZWFsZW5naW5lLmNvbS9tYXJrZXRwbGFjZS9lbi1VUy9wcm9kdWN0L2FjdGlvbi1ycGc=">https://www.unrealengine.com/marketplace/en-US/product/action-rpg</span></li>
+<li>文档说明： <span class="exturl" data-url="aHR0cHM6Ly9kb2NzLnVucmVhbGVuZ2luZS5jb20vNC4yNi9lbi1VUy9SZXNvdXJjZXMvU2FtcGxlR2FtZXMvQVJQRy8=">https://docs.unrealengine.com/4.26/en-US/Resources/SampleGames/ARPG/</span></li>
+<li>项目升级 5.1 方法（我试过，但是失败了） <span class="exturl" data-url="aHR0cHM6Ly9kZXYuZXBpY2dhbWVzLmNvbS9jb21tdW5pdHkvbGVhcm5pbmcvdHV0b3JpYWxzL2Q4UmEvdW5yZWFsLWVuZ2luZS11cGRhdGluZy1hY3Rpb24tcnBnLXRvLXVlNS0x">https://dev.epicgames.com/community/learning/tutorials/d8Ra/unreal-engine-updating-action-rpg-to-ue5-1</span><br />
+ 虽然这是个 4.27 的项目，但是仍然极具学习价值。</li>
+</ol>
+<h3 id="内容"><a class="anchor" href="#内容">#</a> 内容</h3>
+<p>本文的主要内容包括两方面：</p>
+<ol>
+<li>游戏基础配置，关卡逻辑，玩家角色，HUD 等构成的整体结构</li>
+<li>如何定义一个玩家技能，它的运作逻辑，以及最终如何生效。</li>
+</ol>
+<h3 id="学习方法"><a class="anchor" href="#学习方法">#</a> 学习方法</h3>
+<p>关于学习方法：</p>
+<ol>
+<li>UE 的项目逻辑配置极多，蓝图类型很多，之间会有网状结构，乍一看很乱。但任何杂乱的内容，最会有个头，我们最终可以理出一个线性流程来学习。从而最大程度上降低学习者的心智负担。</li>
+<li>偶尔会有环，这需要一点点的忍受未知的能力，以及需要你多做点猜想、假设。偶尔会需要逆向查找和学习一些前置知识，这需要把握好逆向学习的度，从而避免偏离主线太远。</li>
+<li>使用 Obsidian 笔记软件，配合 BlueTopaz 主题阅读本文，效果更佳。<br />
+<img data-src="/images/Pasted image 20230316175700.png"/></li>
+</ol>
+<h2 id="游戏的全局配置"><a class="anchor" href="#游戏的全局配置">#</a> 游戏的全局配置</h2>
+<p>了解 UE 项目，需要从配置开始，首先从菜单栏 Edit-&gt;Project Settings-&gt;Maps&amp;Modes 打开游戏的全局配置页面</p>
+<h3 id="project-settings-maps-modes"><a class="anchor" href="#project-settings-maps-modes">#</a> Project Settings / Maps &amp; Modes</h3>
+<p>配置的核心内容如下：</p>
+<ol>
+<li>Default Maps（也就是一些地图相关的配置，本文中的 level、map、关卡、地图，基本上说的都是一个东西，约等于 Messiah 的 World，或者 Unity 的 Scene）
+<ol>
+<li>Game Default Map 为 ActionRPG_Main 说明点击编辑器 Play 按钮（你偶尔会听到 PIE——Play In Editor 也是这个概念，约等于 Unity 点击编辑器上的绿色三角）启动的会是这个 Level（level 就是地图）</li>
+<li>Editor Startup Map 为 ActionRPG_P 则说明我们打开编辑器看到的 Level</li>
+</ol>
+</li>
+<li>Default Modes
+<ol>
+<li>Default GameMode 实际上是一个默认值
+<ol>
+<li>如果某 Level 没有定义 GameMode（也就是值为 None），则使用这里的 GameMode。</li>
+<li>GameMode 包含的是一套玩法逻辑，它本质上是个蓝图或者 C++ 类，可以相应各种事件执行对应逻辑，也可用于提供一些方法给其它类。</li>
+<li>通常每个 level 也就是地图都会配置一个 GameMode，多个 level 可以应用同一个 GameMode</li>
+</ol>
+</li>
+<li>Selected GameMode 下面的列表则定义了每个 GameMode 下具体运用的 Class
+<ol>
+<li><code>TODO</code> ：进一步说明每个选项的意义</li>
+<li>每个 GameMode 比较核心的配置时 创建一个什么样的角色（类似 Unity 中的 Prefab，UE 中的 Prefab 其实就是蓝图），以及用什么样的控制器 PlayerController 来控制这个角色。</li>
+<li>蓝图在 UE 中的概念比较多，但无外乎就两个大类，一个是纯粹的逻辑模块，比如各种控制器。一个是类似 Unity 的 Prefab 那样的角色预制件，附带一个逻辑模块，比如角色蓝图。</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>Game Instance Class
+<ol>
+<li>关于 GameInstance
+<ol>
+<li>详见： <span class="exturl" data-url="aHR0cHM6Ly96aHVhbmxhbi56aGlodS5jb20vcC8yMzE2NzA2OA==">https://zhuanlan.zhihu.com/p/23167068</span></li>
+<li>概括一下：里面编写了应用于整个游戏范围的逻辑，那些独立于 Level 的逻辑或数据要在 GameInstance 中存储。</li>
+</ol>
+</li>
+<li>这里配置了一个具体的蓝图资源：BP_GameInstance，则也是我们首先要去了解的一个蓝图。</li>
+</ol>
+</li>
+</ol>
+<img data-src="/images/Pasted image 20230316180501.png"/>
+<h2 id="游戏全局控制器bp_gameinstance和技能资源"><a class="anchor" href="#游戏全局控制器bp_gameinstance和技能资源">#</a> 游戏全局控制器：BP_GameInstance 和技能资源</h2>
+<p>作者认为，UE 中的蓝图主要有两个大类</p>
+<ol>
+<li>“控制器逻辑”，和代码中的各种 Manager 或 Controller 等价，控制着游戏某个层级上的逻辑，提供相关的函数接口，处理相关的事件。比如 GameInstance 蓝图，GameMode 蓝图，LevelScript 蓝图，PlayerController 蓝图。</li>
+<li>类似 Unity 的 Prefab 预制件，是逻辑和资源的组合，用来定义一个玩家预制件，一个 UI 界面预制件，一个技能预制件等等。</li>
+</ol>
+<h3 id="bp_gameinstance-的-eventgraph"><a class="anchor" href="#bp_gameinstance-的-eventgraph">#</a> BP_GameInstance 的 EventGraph</h3>
+<p>BP_GameInstance 属于第一类蓝图，是 ActionRPG 游戏的全局控制器，继承自 GameInstance 蓝图基类，用来控制游戏的整体逻辑。</p>
+<p>可以在资源面板中，Content 目录下搜索 BP_GameInstance，双击打开蓝图。一个蓝图可以有多个 Graph，可以在左边的列表中看到。</p>
+<p>这里，首先引入眼帘的就是 EventGraph：</p>
+<ol>
+<li>鼠标放上去可以看到 BP_GameInstance 继承自  <code>URPGGameInstanceBase</code>
+<ol>
+<li>所以，你发现项目中各种 cpp 之所以叫做 xxxxbase，就是因为它们是给蓝图继承用的。</li>
+</ol>
+</li>
+<li>双击打开，其 EventGraph 中存在 6 个功能 Group
+<ol>
+<li>Event Init 事件
+<ol>
+<li>唯一一个系统事件，触发 Initialize StoreItems 事件（详见下一条）</li>
+</ol>
+</li>
+<li>Initialize StoreItems 事件
+<ol>
+<li>这里的 ItemSlotsPerType 是啥？
+<ol>
+<li>在基类 <code>URPGGameInstanceBase</code>  中定义了一个 PrimaryAssetsType 到 Int32 的字典，本质上是个字典（配置），定义了每种战斗资源的槽位数量，例如一个玩家最多持有三个武器，最多持有三瓶药水等等。在 Details 面板中可以看到详情，游戏中共有三种：技能，药品和武器。</li>
+</ol>
+</li>
+<li><code>FPrimaryAssetType</code>  的枚举值是哪里来的？
+<ol>
+<li>详见下文中的 AssetManager，建议先去看看。</li>
+</ol>
+</li>
+<li>这里其实就是异步加载了每种类型的资源，然后加入到了 StoreItems（一个蓝图定义的 RPGItem 数组）</li>
+<li>这里还会有存盘逻辑，先略过。</li>
+</ol>
+</li>
+<li>Connect to Service 事件
+<ol>
+<li>登录相关，先略过。</li>
+</ol>
+</li>
+<li>Load Game Level 事件
+<ol>
+<li>一个函数，先清理，读条然后切换 Level 到战斗场景</li>
+</ol>
+</li>
+<li>RestartGameLevel
+<ol>
+<li>就是读条，然后触发 Load Game Level</li>
+<li>有 GameMode 蓝图在重启游戏时调用。</li>
+<li>结束 UI 也会直接调用这个函数。</li>
+</ol>
+</li>
+<li>Pause Game 事件
+<ol>
+<li>就是弹出（创建）/ 关闭暂停窗口，UMG 部分的文档有讲过，有空再回顾。</li>
+</ol>
+</li>
+<li>GoToMainMenu 事件
+<ol>
+<li>切换 Level 到登录界面。</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="概念custom-event"><a class="anchor" href="#概念custom-event">#</a> 概念：Custom Event</h3>
+<ol>
+<li>我们可以自行定义任意 Event，作为一段逻辑的起点。</li>
+<li>如果我们想触发上述逻辑，在需要的地方，右键菜单中查询 Call Fuction，然后选择已经定义的 Custom Event，从而创建一个触发该事件的节点。<br />
+<span class="exturl" data-url="aHR0cHM6Ly9kb2NzLnVucmVhbGVuZ2luZS5jb20vNC4yNy96aC1DTi9Qcm9ncmFtbWluZ0FuZFNjcmlwdGluZy9CbHVlcHJpbnRzL1VzZXJHdWlkZS9FdmVudHMvQ3VzdG9tLw==">https://docs.unrealengine.com/4.27/zh-CN/ProgrammingAndScripting/Blueprints/UserGuide/Events/Custom/</span></li>
+</ol>
+<h3 id="assetmanager"><a class="anchor" href="#assetmanager">#</a> AssetManager</h3>
+<p>知乎介绍： <span class="exturl" data-url="aHR0cHM6Ly96aHVhbmxhbi56aGlodS5jb20vcC8xMjk3MTIxMDU=">https://zhuanlan.zhihu.com/p/129712105</span><br />
+ 官方文档： <span class="exturl" data-url="aHR0cHM6Ly9kb2NzLnVucmVhbGVuZ2luZS5jb20vNS4xL3poLUNOL2Fzc2V0LW1hbmFnZW1lbnQtaW4tdW5yZWFsLWVuZ2luZS8=">https://docs.unrealengine.com/5.1/zh-CN/asset-management-in-unreal-engine/</span></p>
+<ol>
+<li>我们在 C++ 中对 AssetType 进行声明和定义
+<ol>
+<li>这通常在 UAssetManager 的子类，比如 URPGAssetManager</li>
+<li>例如 SkillItemType 定义了技能资源对象这个类型。</li>
+<li>ActionARPG 自定义了一个资源管理器子类 <code>URPGAssetManager</code> ，需要在 Engine - General Settings 目录下进行设置，让 UE 项目使用我们自定义的 AssetManager，。</li>
+</ol>
+</li>
+<li>在 Project Settings / Game / AssetManager 中进行资源基本信息的配置
+<ol>
+<li>如果我们想要在蓝图中对资源进行引用的话，还需要在项目设置里面对 AssetType 进行注册</li>
+<li>每个 ITEM 会配置：
+<ol>
+<li>Type：也就是代码里面定义的 Text</li>
+<li>资产的 BaseClass：例如 RPGSkillItem</li>
+<li>资产的搜索的路径：/Game/Items/Skills</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>去 cpp 中看下 RPGSkillItem
+<ol>
+<li>继承自 URPGItem，override 了不同的 ItemType</li>
+<li>URPGItem 继承自 UPrimaryDataAsset</li>
+<li>URPGItem 定义了 GetPrimaryAssetId 方法，从而让 Secondary 资产变成了 Primary 资产。
+<ol>
+<li>默认情况下，只有关卡（Map）（/Game/Maps）是 PrimaryAsset（可能后边会发现还有一个 PrimaryAssetLabel，这个暂时忽略）。 那如何将 SecondaryAsset 设为 PrimaryAsset 呢？那第一步就是给资源类实现 <strong>virtual FPrimaryAssetId GetPrimaryAssetId() const override;</strong> 接口方法。</li>
+<li>返回的就是被子类复写的 ItemType：  <code>return FPrimaryAssetId(ItemType, GetFName());</code></li>
+</ol>
+</li>
+<li>URPGItem 定义了通用 Item 的各种属性，价格，数量，等级等。</li>
+</ol>
+</li>
+<li>看看资源 /Game/Items/Skills
+<ol>
+<li>里面有很多 RPGSkillItem 类型的资源。</li>
+<li>可有右键，在 Miscellaneous 目录下创建 Data Asset，这样就有一个资源了。</li>
+<li>里面有个 Granted Ability 选项，定义了具体技能逻辑模板，是 <code>URPGGameplayAbility</code>  的子类。</li>
+</ol>
+</li>
+</ol>
+<h3 id="urpgassetmanager"><a class="anchor" href="#urpgassetmanager">#</a> URPGAssetManager</h3>
+<ol>
+<li>有个关键点，该类在 StartInitialLoading 函数中，调用了：<br />
+ <code>UAbilitySystemGlobals::Get().InitGlobalData();</code></li>
+<li>Should be called once as part of project setup to load global data tables and tags</li>
+<li>这个 GAS 的初始化逻辑，我们暂时不 care 它，有空再看 <code>TODO</code></li>
+</ol>
+<h3 id="初识技能蓝图-urpggameplayability"><a class="anchor" href="#初识技能蓝图-urpggameplayability">#</a> 初识技能蓝图 URPGGameplayAbility</h3>
+<ol>
+<li>别怕，我们只是瞥一眼。。。</li>
+<li>skill 资源中的 GrantedAbility 字段，指向的就是这种类型的子类。</li>
+<li>URPGGameplayAbility 继承自 UGameplayAbility，后者来自 GAS 插件的定义。</li>
+<li>在 player/skills 目录下，会有具体的资源蓝图文件
+<ol>
+<li>可以通过创建 Blueprint 目录下的 GamePlayAbility BP 来创建一个新的。</li>
+</ol>
+</li>
+</ol>
+<img data-src="/images/Pasted image 20230316175803.png"/>
+<ol start="5">
+<li>这里已经深入到了具体的技能实现流程，我们先跳过，暂时这些还不重要。</li>
+</ol>
+<h3 id="saveslot"><a class="anchor" href="#saveslot">#</a> SaveSlot</h3>
+<p>它是 UE 存档的一个概念，知道就行，等研究存档系统时再细看。</p>
+<h3 id="总结"><a class="anchor" href="#总结">#</a> 总结</h3>
+<p>上面我们了解了 GameInstance 蓝图，它是代表的是整个游戏，提供了一些全局的方法，比如加载存档、切换 Level、暂停等等。我们也顺着它初步了解了游戏中的资源和 GamePlayAbilitySystem 后续称为 GAS。</p>
+<p>接下来，我们从登录界面开始看。从项目 Settings 中可以了解到，我们加载的第一张地图是 ActionRPG_Main，所以直接打开这张地图即可（不知道在哪里的可以搜索一下）。</p>
+<h2 id="登录地图界面-actionrpg_main"><a class="anchor" href="#登录地图界面-actionrpg_main">#</a> 登录地图 / 界面 ActionRPG_Main</h2>
+<ol>
+<li>直接双击打开 Map：ActionRPG_Main，可以看到一个简单的场景。</li>
+<li>选中这个 Map，然后打开 Wordsettings 窗口，可以看到这张地图使用的 GameMode 是蓝图是 <code>BP_MainMenuGameMode</code></li>
+</ol>
+<h3 id="bp_mainmenugamemode"><a class="anchor" href="#bp_mainmenugamemode">#</a> BP_MainMenuGameMode</h3>
+<ol>
+<li>基类就是 GameMode 没什么好说</li>
+<li>BeginPlay 事件
+<ol>
+<li>创建了 <code>WB Title界面</code></li>
+<li>Get/SetGlobalOptions（不重要，不用太关心）</li>
+</ol>
+</li>
+</ol>
+<p>游戏菜单界面，在 Blueprint/WidgetBP 下面</p>
+<ol>
+<li>构造时，基于手机与否决定是否显示退出按钮，然后播动画、音效、设置焦点</li>
+<li>点击 StartGame 按钮：调用 LoadGameLevel 函数（由 GameInstance BP 定义，前文有提过）进入战斗场景。</li>
+<li>点击 OptionsButton，打开 WB Options Screen</li>
+<li>点击 Quit 按钮，执行 QuitGame 函数</li>
+</ol>
+<h3 id="wb-title界面"><a class="anchor" href="#wb-title界面">#</a> WB Title 界面</h3>
+<p>不重要，先跳过</p>
+<h3 id="总结-2"><a class="anchor" href="#总结-2">#</a> 总结</h3>
+<p>我们已经了解了登录界面是如何运作，以及如何跳转到战斗场景的，接下来直接打开战斗场景进行学习即可。</p>
+<h3 id="wb-options-screen界面"><a class="anchor" href="#wb-options-screen界面">#</a> WB Options Screen 界面</h3>
+<h3 id="战斗场景-actionrpg_p"><a class="anchor" href="#战斗场景-actionrpg_p">#</a> 战斗场景： ActionRPG_P</h3>
+<ol>
+<li>打开 Map：ActionRPG_P，</li>
+<li>同样的方法查看 WorldSettings，发现全是 None，说明采用的是默认值。</li>
+<li>查看 ProjectSettings 中的配置即可：
+<ol>
+<li>这张地图使用的 GameMode 为 <code>BP_GameMode</code></li>
+<li>默认创建的玩家对象为 <code>BP_PlayerCharacter</code></li>
+<li>默认使用的玩家控制器为 <code>BP_PlayerController</code></li>
+</ol>
+</li>
+<li>上面这些蓝图就是游戏的核心蓝图了，后续主要就是学习它们。</li>
+<li>选中地图的同时，打开 Levels 窗口
+<ol>
+<li>它是由一个 persistlevel 和另外两个 level 构成的</li>
+<li>查看 Persistent Level 的 LevelBlueprint，这是关卡蓝图。</li>
+</ol>
+</li>
+</ol>
+<h3 id="level蓝图level-bp"><a class="anchor" href="#level蓝图level-bp">#</a> Level 蓝图：Level BP</h3>
+<p>先看关卡蓝图，比较简单：</p>
+<ol>
+<li>BeginPlay
+<ol>
+<li>会加载场景 Level，ActionRPG_Dungeon02_Asset，从节点上看可以选择阻塞式加载</li>
+<li>淡出 LoadingScreen，这是 Instance 的函数。</li>
+</ol>
+</li>
+<li>DebugMode 事件
+<ol>
+<li><code>TODO</code>  没有找到触发者，可能是我搜索的方式不对，回头再想想</li>
+<li>过程：
+<ol>
+<li>打印字符串</li>
+<li>GetPlayerCharacterBP 可以获取玩家 BP，然后调用器方法</li>
+<li>先切换武器 DebugAutoSwitch（详见 BP_PlayerCharacter）</li>
+<li>再 DebugAutoPlay（详见 BP_PlayerCharacter）</li>
+<li>再通过命令行指令显示帧率图和 fps 统计</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="全局函数库-bp_rpgfunctionlibrary蓝图"><a class="anchor" href="#全局函数库-bp_rpgfunctionlibrary蓝图">#</a> 全局函数库： BP_RPGFunctionLibrary 蓝图</h2>
+<p>我们会发现有些函数定义在这个蓝图里，它继承自 Blueprint Fuction Library 基类，提供了一组静态函数给蓝图系统，主要是方便使用。</p>
+<h3 id="函数列表"><a class="anchor" href="#函数列表">#</a> 函数列表</h3>
+<ol>
+<li>GetPlayerCharacterBP 获取玩家角色 BP
+<ol>
+<li>从玩家控制器中获取</li>
+</ol>
+</li>
+<li>GetPlayerControllerBP 获取玩家控制器 BP
+<ol>
+<li>优先从 Game Mode BP 中获取（已经转换过类型的 BP）</li>
+<li>否则从 Player Controller 中获取，并进行类型转换</li>
+</ol>
+</li>
+<li>GetGameModeBP
+<ol>
+<li>获取 当前 GameMode 并转换为 BPGameMode 类型</li>
+</ol>
+</li>
+<li>GetPlayerAnimBP
+<ol>
+<li>TODO</li>
+</ol>
+</li>
+<li>GetGameInstanceBP
+<ol>
+<li>获取并转换为我们定义的子类</li>
+</ol>
+</li>
+<li>IsRunningOnMobile
+<ol>
+<li>获取字符串并用一个 Switch on String 节点来控制返回值</li>
+</ol>
+</li>
+<li>ShowMouseCursor
+<ol>
+<li>TODO</li>
+</ol>
+</li>
+</ol>
+<h2 id="关卡逻辑控制者bp_gamemode蓝图"><a class="anchor" href="#关卡逻辑控制者bp_gamemode蓝图">#</a> 关卡逻辑控制者：BP_GameMode 蓝图</h2>
+<h3 id="问题关卡蓝图和gamemode蓝图"><a class="anchor" href="#问题关卡蓝图和gamemode蓝图">#</a> 问题：关卡蓝图和 GameMode 蓝图</h3>
+<p>前面的 level 蓝图已经定义了一些关卡相关的内容，这里有两个问题</p>
+<ol>
+<li>为什么这么小一个场景，却要定义 persistLevel 之外的 level？分别是个场景和光照
+<ol>
+<li><code>TODO</code>  有空再想，这个也不太重要</li>
+</ol>
+</li>
+<li>level 里面的逻辑和 gamemode 里面的逻辑异同何在？</li>
+</ol>
+<blockquote>
+<p><strong>思考：哪些逻辑应该写在 GameMode 里？哪些应该写在 Level Blueprint 里？</strong></p>
+</blockquote>
+<ul>
+<li>概念上，Level 是表示，World 是逻辑，一个 World 如果有很多个 Level 拼在一起，那么也就是有了很多个 LevelScriptActor，无法想象在那么多个地方写一个完整的游戏逻辑。所以<strong> GameMode 应该专注于逻辑的实现，而 LevelScriptActor 应该专注于本 Level 的表示逻辑</strong>，比如改变 Level 内某些 Actor 的运动轨迹，或者某一个区域的重力，或者触发一段特效或动画。而 GameMode 应该专注于玩法，比如胜利条件，怪物刷新等。</li>
+<li>组合上，同 Controller 应用到 Pawn 一样道理，因为<strong> GameMode 是可以应用在不同的 Level 的，所以通用的玩法应该放在 GameMode 里。</strong></li>
+<li>GameMode 只在 Server 存在（单机游戏也是 Server），对于已经连接上 Server 的 Client 来说，因为游戏的状态都是由 Sever 决定的，Client 只是负责展示，所以<strong> Client 上是没有 GameMode 的，但是有 LevelScriptActor，所以 GameMode 里不要写 Client 特定相关的逻辑，比如操作 UI 等</strong>。但是 LevelScriptActor 还是有的，而且支持 RPC，即使如此，<strong>LevelScriptActor 还是应该只专注于表现，比如网络中触发一个特效火焰</strong>。至于<strong> UI，可以通过 PlayerController 的 RPC，然后转发到 GameInstance 来操作</strong>。</li>
+<li>跟下层的 PlayerController 比较，<strong>GameMode 关心的是构建一个游戏本身的玩法，PlayerController 关心的玩家的行为</strong>。这两个行为是独立正交可以自由组合的。所以想想哪些逻辑属于游戏，哪些属于玩家，就应该清楚写在哪里了。</li>
+<li>跟上层的 GameInstance 比较，<strong>GameInstance 关注的是更高层的不同 World 之间的逻辑，虽然有时候他也把手伸下来做些 UI 的管理工作，不过严谨来说，在 UE 里 UI 是独立于 World 的一个结构</strong>，所以也还算能理解。因此可以把不同 GameMode 之间协调的工作交给 GameInstance，而 GameMode 只专注自己的玩法世界。</li>
+</ul>
+<h3 id="eventgraph部分游戏的开始-计时器和结束"><a class="anchor" href="#eventgraph部分游戏的开始-计时器和结束">#</a> EventGraph 部分 —— 游戏的开始、计时器和结束</h3>
+<ol>
+<li>Event BeginPlay
+<ol>
+<li>播放了一段过场动画（PlayDefaultIntroCutScene)</li>
+<li>播放了一段 2D 音效</li>
+</ol>
+</li>
+<li>PlayDefaultIntroCutScene
+<ol>
+<li>GetAllActorsOfClass 获取所有 LevelSequenceActor</li>
+<li>如果存在过场
+<ol>
+<li>获取第 0 个过场的 SequencePlayer</li>
+<li>调用 BP_Player 的 <code>PlaySkippableCutscene</code>  函数播放这个过场
+<ol>
+<li>详见玩家 BP</li>
+<li><code>问题</code>  这里是如何 StartGame 的呢？过场播完了或者中断了就会由 PlayerController 蓝图中的逻辑调用过来。</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>如果不存在过场
+<ol>
+<li>Start Game 函数</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>Start Game
+<ol>
+<li>系统函数 RestartPlayer 创建玩家对象
+<ol>
+<li>Tries to spawn the player's pawn, at the location returned by FindPlayerStart</li>
+<li>需要传入 PlayerController</li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9kb2NzLnVucmVhbGVuZ2luZS5jb20vNC4yNi9lbi1VUy9CbHVlcHJpbnRBUEkvR2FtZS9SZXN0YXJ0UGxheWVyLw==">https://docs.unrealengine.com/4.26/en-US/BlueprintAPI/Game/RestartPlayer/</span></li>
+</ol>
+</li>
+<li>调用同一个蓝图的事件 <code>StartPlayTimer</code></li>
+<li>调用蓝图的 function 部分开始布乖： <code>Start Enemy Spawn</code></li>
+</ol>
+</li>
+<li>StartPlayTimer
+<ol>
+<li>SetTimerByEvent 函数用于设定一个重复定时器，不断触发函数。</li>
+<li>设定好计时器后，记录当前的 StartTime（注意，这是一个全局参数，不会被某个具体的蓝图实例所修改）</li>
+<li>当事件触发器触发时，BattleTime 每次 - 1</li>
+<li>更新战斗界面的 UI 倒计时信息
+<ol>
+<li>从 PlayerController 中获取 <code>OnScreenControls</code> （详见 BP_PlayerController）</li>
+<li>这里有个 UpdateTimer 函数用来设置
+<ol>
+<li>具体原理还没看懂， <code>TODO</code></li>
+</ol>
+</li>
+</ol>
+</li>
+<li>判断 BattleTime 倒计时是否到 0，如果到 0，则调用 <code>GameOver</code>  函数。
+<ol>
+<li>这是 GameMode 的一个变量，默认值为 60</li>
+<li>从 EnemyManager 的 IncreaseNPCKillCount 事件可以看到，每次杀怪都可以增加这个值，参数为 TimeBonusPerKill</li>
+<li>也就是说无限躲避也是不行，会因为时间不足而输掉游戏。</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><code>OnGameOver</code>  事件
+<ol>
+<li>这个是经过了 GameModeC++ 基类转而调用过来的。</li>
+<li>SetGlobalTimeDilation 0.25 放慢全局时间流速</li>
+<li>延迟 0.5s</li>
+<li>恢复全局时间流速</li>
+<li>暂停游戏</li>
+<li>显示结束 UI WB_inGame_Finish</li>
+<li>切换为 UIOnly 的操作模式</li>
+</ol>
+</li>
+<li>ShoweDebugUI
+<ol>
+<li>全局搜了似乎没有调用者</li>
+<li>就是在非发布版中创建一个 <code>Debug_UI</code></li>
+</ol>
+</li>
+<li>Restart 事件和 EventDoRestart
+<ol>
+<li><code>TODO</code> EventDoRestart 应该是 Base 基类提供的事件</li>
+<li>没有找到 Restart 事件的调用者
+<ol>
+<li>inGameFinish 的 UI 蓝图中，是直接调用了 GameInstance 中的方法。</li>
+</ol>
+</li>
+<li>调用 GameInstance 蓝图中的对应事件 RestartGameLevel</li>
+</ol>
+</li>
+</ol>
+<h3 id="enemymanager刷怪机制"><a class="anchor" href="#enemymanager刷怪机制">#</a> EnemyManager—— 刷怪机制</h3>
+<p>这是 GameMode 中除了 EventGraph 之外的另一个 graph，它控制刷怪逻辑。<br />
+插播几个推论：</p>
+<ol>
+<li>一个蓝图中的 Functions 部分是共享的，并不属于某个 Graph，不会因为切换 Graph 而具有不同的 Functions</li>
+<li>Custom Event 的调用方式叫做 call fuction</li>
+</ol>
+<p>接下来看逻辑：</p>
+<ol>
+<li>IncreaseNPCKillCount
+<ol>
+<li>按参数增加剩余可用战斗时间</li>
+<li>更新两个 UI</li>
+<li>杀敌数增加 NPCKillsCount</li>
+</ol>
+</li>
+<li><code>Start Enemy Spawn</code>  进入战斗，开始生成怪物
+<ol>
+<li>由 GameMode 的 EventGraph 在 StartGame 事件的最后调用</li>
+<li>判断是否有位置生成怪物 <code>Get Random Spawn Point</code></li>
+<li>有的话延迟 1s，释放下一波怪物 <code>StartNewWave</code></li>
+</ol>
+</li>
+<li><code>StartNewWave</code>
+<ol>
+<li>从 DataTable（/Game/Blueprints/Progression/WavesProgression）中获取信息，基于 wave index 计算一个 row index，提取数据后，逻辑流一分为二。
+<ol>
+<li>找不到数据就直接 <code>GameOver</code></li>
+</ol>
+</li>
+<li>找到数据则有一个拆解 struct 的过程，提取了 SpawnGroup 和 Time，然后 set 为变量 <code>wave</code>  和 <code>BattleTime</code>
+<ol>
+<li><code>wave</code>  本身是个数组，每个元素是一个字典 <code>&#123;'enemies': &lt;list&gt;&#125;</code> ，其中的 list 是个 NPC 蓝图列表。</li>
+</ol>
+</li>
+<li>最后 <code>SpawnNewWave</code></li>
+</ol>
+</li>
+<li><code>SpawnNewWave</code>
+<ol>
+<li>实例化 UI 蓝图：WB_WaveStart 蓝图</li>
+<li><code>SpawnNextEnimesGroup</code>  创建下一组怪物</li>
+<li>更新 BattleTIme</li>
+</ol>
+</li>
+<li><code>SpawnNextEnimesGroup</code>  放一组怪
+<ol>
+<li>取 <code>wave</code>  [0] 这个字典
+<ol>
+<li>从中获取 <code>enemies</code> ，得到一个数组</li>
+<li>ForEachLoop 循环这个数组，取出每个 NPC，调用 <code>SpawnEnemy</code> ，然后移除数组的第 0 个元素
+<ol>
+<li><code>TODO</code>  为啥要移除第 0 个元素，难道不会导致跳跃式的创建吗？</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>移除 wave 的第 0 个元素</li>
+<li>注意，这个 wave 是数据表中的 SpawnGroup</li>
+</ol>
+</li>
+<li><code>SpawnEnemy</code>  创建一个怪物
+<ol>
+<li>获取一个地点，然后 SpawnActor</li>
+<li>SpawnedEnemies 计数器自增</li>
+<li>创建出来的实例，绑定一个 <code>EnemyDestroyed</code>  事件</li>
+</ol>
+</li>
+<li><code>EnemyDestroyed</code>  事件
+<ol>
+<li>计数器 - 1</li>
+<li>然后检查是否一波被消灭完了 <code>CheckCurrentWave</code></li>
+</ol>
+</li>
+<li><code>CheckCurrentWave</code>
+<ol>
+<li>检查计数器是否小于等于 0</li>
+<li>检查 wave 是否还有剩余（0 这个 idnex 是是否合法）</li>
+<li>合法： <code>SpawnNextEnimesGroup</code>  放一组怪</li>
+<li>空了：延迟 2s， <code>触发OnWaveFinished事件</code> ，CurrentWave++</li>
+</ol>
+</li>
+<li><code>OnWaveFinished事件</code>
+<ol>
+<li>显示 Wave 结束的 UI</li>
+<li>延迟 4s， <code>StartNewWave</code>  放下一波怪
+<ol>
+<li>StartNewWave 负责检查，如果没怪可用了，结束游戏。</li>
+</ol>
+</li>
+<li><code>TODO</code>  先延迟 2s 再延迟 4s，靠时差来把控进度，有点虚啊。</li>
+</ol>
+</li>
+</ol>
+<p><code>重要</code>  ForEachLoop 节点有一个非常重要的特性，LoopBody 端口会循环执行，全部执行完毕后会执行 Complete 端口。<br />
+ <code>重要</code>  一个 Event 被触发，如果尚未执行完毕，就再次出发，结果会如何？</p>
+<h4 id="函数部分"><a class="anchor" href="#函数部分">#</a> 函数部分</h4>
+<ol>
+<li><code>Get Random Spawn Point</code>
+<ol>
+<li>事先在场景中摆了需要占位对象 <code>NPCSpawnBox</code></li>
+<li>全部获取到一个数组 A</li>
+<li>看 A [0] 是否合法
+<ol>
+<li>非法则直接返回 inValid</li>
+<li>合法，则从 0~lastIndex 中随机一个 index，取 A [i] 的 Transform，设置给 SpawnPoint 并返回。</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><code>GameOver</code>
+<ol>
+<li>这是 C++GameMode 基类提供的一个函数</li>
+<li>它会设定标记，然后调用 K2_OnGameOver</li>
+<li>K2_OnGameOver 没有实现，估计是给蓝图重载用的，实际名称为 OnGameOver</li>
+</ol>
+</li>
+</ol>
+<h4 id="自动战斗"><a class="anchor" href="#自动战斗">#</a> 自动战斗</h4>
+<p>PlayerController 会在按键触发时调用过来，按键的配置来自 ProjectSettings。</p>
+<h4 id="todo"><a class="anchor" href="#todo">#</a> TODO</h4>
+<p><code>TODO</code>  有两个函数没有找到入口点，估计和自动战斗有关，有空补回来看看。</p>
+<ol>
+<li>ToggleAutoBattleMode</li>
+<li>InitializeAutoBattle</li>
+</ol>
+<h2 id="玩家控制器bp_playercontroller蓝图"><a class="anchor" href="#玩家控制器bp_playercontroller蓝图">#</a> 玩家控制器：BP_PlayerController 蓝图</h2>
+<p>第一个问题：PlayerController 是如何被创建的？<br />
+<span class="exturl" data-url="aHR0cHM6Ly9mb3J1bXMudW5yZWFsZW5naW5lLmNvbS90L3doZXJlLWFyZS1pbnN0YW5jZXMtb2YtZGVmYXVsdC1wbGF5ZXJjb250cm9sbGVycy1hbmQtcGF3bnMtY3JlYXRlZC1pbi1nYW1lbW9kZS8zMzY1NTEvMw==">https://forums.unrealengine.com/t/where-are-instances-of-default-playercontrollers-and-pawns-created-in-gamemode/336551/3</span><br />
+ 有两个调用点，一个是 Login 一个 Travel 函数，都是由 GameModeBase 函数负责实现的。</p>
+<p>拓展一下：<br />
+Understanding Game Mode, Sessions and game life cycle! - UE4 Advanced Blueprints Tutorial<br />
+<span class="exturl" data-url="aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1DSThmbEhQd1Q3WQ==">https://www.youtube.com/watch?v=CI8flHPwT7Y</span></p>
+<h3 id="eventgraph"><a class="anchor" href="#eventgraph">#</a> EventGraph</h3>
+<h4 id="输入处理"><a class="anchor" href="#输入处理">#</a> 输入处理</h4>
+<ol>
+<li>暂停：调用 GameInstance 的暂停函数</li>
+<li>打开背包：用了一堆逻辑与或节点，</li>
+<li>自动战斗：调用 GameMode 的函数启用自动战斗</li>
+</ol>
+<p>从这里可以理解 GameMode 和 GameInstance 的区别的</p>
+<h4 id="过场动画的控制"><a class="anchor" href="#过场动画的控制">#</a> 过场动画的控制</h4>
+<ol>
+<li>PlaySkippableCutscene
+<ol>
+<li>这个函数会在 GameMode 启动后发现存在过场动画时被调用
+<ol>
+<li>首先播放过场动画，创建一个跳过过场动画的 UI，隐藏 HUD</li>
+<li>触发一个事件分发器：OnCutsceneStarted</li>
+<li>但暂时没找到监听者</li>
+</ol>
+</li>
+<li>当播放完毕或者玩家按下回车
+<ol>
+<li>关闭过场动画播放器</li>
+<li>恢复 HUD</li>
+<li>StartGame
+<ol>
+<li><code>问题</code> ：这里的做法是否正确？StartGame 这种重要逻辑是否应该允许由一个 PlayerController 来触发？毕竟 StartGame 还负责了整个游戏的倒计时逻辑。在多人协作尤其是网游中，有某个 playerController 控制 GameMode 的逻辑有点不可思议。</li>
+<li><code>回答</code>  本地分屏或者本地多人的话 Controller 就会有多个，它们更像是作为每个真实玩家的代表和服务端通信的用途，被动接受信息以及推送本人的信息。GameMode 就像是单机游戏中的服务端，所以这里这个函数最好不要叫做 StartGame，改为 TellServerIamReady 比较好。我觉得就和谐多了</li>
+</ol>
+</li>
+<li>移除跳过按钮</li>
+<li>触发一个事件分发器：OnCutsceneEnded</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h4 id="初始化逻辑posses"><a class="anchor" href="#初始化逻辑posses">#</a> 初始化逻辑 ——Posses</h4>
+<ol>
+<li>入口是 EventOnPossess
+<ol>
+<li>有 pawn 被绑定过来时就会触发，且通过 DoOnce 节点保证只执行一次</li>
+<li>把 PlayerCharacter 缓存起来</li>
+<li>CreateHUD
+<ol>
+<li><code>问题</code>  这里虽然保证了 HUD 只被创建一次，但是 PlayerCharacter 经过不同的 Possess 会变的呀？？</li>
+</ol>
+</li>
+<li>监听物品（红魂）的变化</li>
+<li>创建所有武器，调用 Character 的函数： <code>CreateAllWeapons</code></li>
+<li>切换输入模式</li>
+</ol>
+</li>
+</ol>
+<h4 id="hud"><a class="anchor" href="#hud">#</a> HUD</h4>
+<ol>
+<li>CreateHUD 自定义事件
+<ol>
+<li>这里会基于 PC 或者移动端，创建不同的 UI 界面</li>
+<li>PC 的话会创建 WB_HUD_PC，保存为 On Screen Controls 参数
+<ol>
+<li>在 GameMode 蓝图中就会获取这个变量，然后 tick 的更新它上面的倒计时。</li>
+</ol>
+</li>
+<li>UpdateIcons
+<ol>
+<li>更新上面的按钮</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>ShowHUD
+<ol>
+<li>控制显示与隐藏，过场等过程中需要</li>
+</ol>
+</li>
+<li>UpdateOnScreenControls
+<ol>
+<li>调用 iHud 定义的接口，更新实际的主界面。</li>
+</ol>
+</li>
+</ol>
+<h4 id="玩家转身"><a class="anchor" href="#玩家转身">#</a> 玩家转身</h4>
+<p>和常规逻辑差不多，基于 Touch，按下时记录一个 x，拖动时可以转镜头，松开后则不行。拖动时，计算两次之间的 x 偏移，得出一个数值，叠加到当前方向上，设置为新方向</p>
+<p>两个重要接口：</p>
+<ol>
+<li>GetControlRotation
+<ol>
+<li><code>TODO</code></li>
+</ol>
+</li>
+<li>SetControlRotation
+<ol>
+<li><code>TODO</code></li>
+</ol>
+</li>
+</ol>
+<h4 id="玩家移动"><a class="anchor" href="#玩家移动">#</a> 玩家移动</h4>
+<p>移动的逻辑也在 EventGraph 当中，但是比较重要，拉出来单独说：</p>
+<ol>
+<li>前提条件 1：
+<ol>
+<li>非自动战斗模式</li>
+<li>能够 GetControlledPawn 并且 PawnValid</li>
+<li>没有被限制移动，BlockedMovement 标记控制</li>
+</ol>
+</li>
+<li>前提条件 2：Pawn 是 Character</li>
+<li>AnimInstance 没有 Montage 在播放中，如果有说明在放技能，只允许转身不允许移动。</li>
+<li>动作中
+<ol>
+<li>计算相机方向和角色 yaw 方向的插值，然后让角色 Actor 旋转这个角度值</li>
+</ol>
+</li>
+<li>非动作中
+<ol>
+<li>使用 GetMoveForward 的数值让角色沿着 CameraForward 的方向移动</li>
+<li>使用 GetMoveRight 的数值让角色沿着 CameraRIght 方向移动</li>
+<li>Get MoveForward 获取的就是 Axis Input 的输入值</li>
+<li>AddMovementInput
+<ol>
+<li>文档地址：<span class="exturl" data-url="aHR0cHM6Ly9kb2NzLnVucmVhbGVuZ2luZS5jb20vNS4xL2VuLVVTL0FQSS9SdW50aW1lL0VuZ2luZS9HYW1lRnJhbWV3b3JrL0FQYXduL0FkZE1vdmVtZW50SW5wdXQv">https://docs.unrealengine.com/5.1/en-US/API/Runtime/Engine/GameFramework/APawn/AddMovementInput/</span></li>
+<li>简单说 Character 和 DefaultPawn 天然支持，有空看看 <code>TODO</code></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="背包inventory"><a class="anchor" href="#背包inventory">#</a> 背包 Inventory</h3>
+<h4 id="eventgraph中监听soul就是战神里面的红魂变化"><a class="anchor" href="#eventgraph中监听soul就是战神里面的红魂变化">#</a> EventGraph 中监听 Soul（就是战神里面的红魂）变化</h4>
+<p>在 PlayerController 的 OpnPossess 过程中，会有 BindEvent OnInventoryItemChanged 函数，绑定了一个事件，这里其实是个 EventDispatcher，从红色 Event 端口拖出来，选择 EventDispatchers 就可以了。</p>
+<ol>
+<li>Handle Inventory Item Changed 回调函数
+<ol>
+<li>这里就是判断一下变化了的物品是否为红魂，如果是的话，就再触发一个 OnSoulsUpdated 事件</li>
+</ol>
+</li>
+</ol>
+<p>OnInventoryItemChanged 事件，是 C++ 层的 ControllerBase 提供的一个 Delegate，类型是 FOnInventoryItemChanged</p>
+<pre><code>DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnInventoryItemChanged, bool, bAdded, URPGItem*, Item);
+
+// 触发点
+void ARPGPlayerControllerBase::NotifyInventoryItemChanged(bool bAdded, URPGItem* Item)
+&#123;
+	// Notify native before blueprint
+	OnInventoryItemChangedNative.Broadcast(bAdded, Item);
+	OnInventoryItemChanged.Broadcast(bAdded, Item);
+
+	// Call BP update event
+	InventoryItemChanged(bAdded, Item);
+&#125;
+
+// 触发点
+bool ARPGPlayerControllerBase::RemoveInventoryItem(URPGItem* RemovedItem, int32 RemoveCount)
+bool ARPGPlayerControllerBase::AddInventoryItem(URPGItem* NewItem, int32 ItemCount, int32 ItemLevel, bool bAutoSlot)
+
+// 暴露给蓝图用于增删物品
+UFUNCTION(BlueprintCallable, Category = Inventory)
+bool AddInventoryItem(URPGItem* NewItem, int32 ItemCount = 1, int32 ItemLevel = 1, bool bAutoSlot = true);
+</code></pre>
+<h4 id="背包inventorygraph"><a class="anchor" href="#背包inventorygraph">#</a> 背包 InventoryGraph</h4>
+<p>不重要，有空再细看，总之记住：</p>
+<ol>
+<li>玩家使用 SoulItem 购买道具的相关逻辑，都在这里足矣。</li>
+<li>物品操作的具体函数，大部分都在 C++ 层实现。</li>
+</ol>
+<h3 id="接下来去哪儿"><a class="anchor" href="#接下来去哪儿">#</a> 接下来去哪儿？</h3>
+<p>此时，显然有两个问题选在心头：</p>
+<ol>
+<li>玩家是如何发动攻击的？</li>
+<li>玩家发动攻击用的武器是哪里来的？</li>
+</ol>
+<p>对于第一个问题，我们可以从 Input 配置入手，发现一个 NormalAttack 操作，直接全局搜索这个事件即可，答案也是显然的，下一站在 BP_PlayerCharacter 蓝图。</p>
+<h2 id="玩家对象bp_playercharacter蓝图"><a class="anchor" href="#玩家对象bp_playercharacter蓝图">#</a> 玩家对象：BP_PlayerCharacter 蓝图</h2>
+<p>到这里，发现内容越来越多了，不过东西越多越不用害怕，内容多而杂的地方往往是简单逻辑平铺大杂烩的。就像暴风城一样，那么多建筑和商店，看似杂乱，但实际上一来有分区，二来你常去的地方也就是拍卖行、银行、训练师和鸟点等少数几个地方。所以，这里一方面需要更多的大局观，泛泛的总结归纳。另一方面，需要明确目标，更多的思考你想了解什么问题。</p>
+<p>从这里开始我们也不会再去过所有的细节，而是更有目的性的来看代码。</p>
+<h3 id="actor蓝图中的组件列表"><a class="anchor" href="#actor蓝图中的组件列表">#</a> Actor 蓝图中的组件列表</h3>
+<p>UE 的蓝图不是纯逻辑内容，它更像是 Unity 的 Prefab，包含了预设的逻辑和表现。<br />
+界面左上角查看组件：</p>
+<ol>
+<li>胶囊体组件是 Root
+<ol>
+<li>两个箭头组件 ( <code>TODO</code></li>
+<li>Mesh</li>
+<li>SpringArm+TPSCamera（相机</li>
+<li>Inventory 灯光和相机（ <code>TODO</code></li>
+</ol>
+</li>
+<li>CharacterMovement 组件</li>
+<li>技能系统组件：AbilitySystemComponent</li>
+</ol>
+<p>首先是一堆输入的处理的节点，在细看之前，先去 ProjectSettings 中看一下 Input 配置：</p>
+<ul>
+<li>普攻：左键</li>
+<li>特攻：F 按键</li>
+<li>翻滚：空格和右键</li>
+<li>切换武器：滚轮</li>
+<li>背包：Tab</li>
+<li>自动玩耍：退格</li>
+<li>暂停：Esc</li>
+<li>使用道具：R</li>
+<li>跑步：左边 ctrl</li>
+</ul>
+<h3 id="eventgraph-2"><a class="anchor" href="#eventgraph-2">#</a> EventGraph</h3>
+<p>EventGraph 内容</p>
+<ol>
+<li>玩家操作
+<ol>
+<li>输入处理</li>
+<li>翻滚</li>
+<li>使用血瓶</li>
+<li>切换武器</li>
+</ol>
+</li>
+<li>BeginPlay 是开启 Tickable，相机 Fade 效果</li>
+<li>监听生命值和法力变化，并更新 UI</li>
+<li>受击效果
+<ol>
+<li>播放了一个 Montage</li>
+</ol>
+</li>
+<li>Debug 相关功能</li>
+</ol>
+<h3 id="功能细节-普通攻击"><a class="anchor" href="#功能细节-普通攻击">#</a> 功能细节 - 普通攻击</h3>
+<h4 id="普通攻击1"><a class="anchor" href="#普通攻击1">#</a> 普通攻击（1）</h4>
+<p>这段比较有趣，从一个问题触发，慢慢看</p>
+<ol>
+<li>按下普通攻击按钮时发生了什么？
+<ol>
+<li>执行 DoMelleAttack 函数触发普通攻击</li>
+<li>子类和基类都实现了 DoMeleeAttack 函数，子类支持连招，基类就只是普通攻击</li>
+</ol>
+</li>
+<li>玩家（子类） <code>DoMelleAttack</code>  函数做了什么？
+<ol>
+<li>先判断 CanUseAnyAbility，要求游戏非暂停、玩家没有在使用技能，玩家或者。</li>
+<li>这里判断是否使用技能，访问了 GetActiveAbilitiesWithTag 接口，用了一个 Ability.Skill 的 Tag 进行筛选。</li>
+<li>猜测：普通攻击要么不是一个技能，要么不是 Skill 的 Tag。</li>
+<li>这个函数定义在 BP_Character 这个基类当中。</li>
+<li>判断是否在近战攻击</li>
+<li>这里印证了前面的猜想，它是一个技能但 Tag 不同。</li>
+<li>近战中：执行下一段 combo： <code>JumpSectionForCombo</code></li>
+<li>非近战中：激活技能 <code>ActivateAbilitiesWithItemSlot</code>  使用 <code>CurrentWeaponSlot</code></li>
+</ol>
+</li>
+</ol>
+<p>到此为止有很多疑惑摆在我们面前：</p>
+<ul>
+<li><code>CurrentWeaponSlot</code>  和技能时什么关系？</li>
+<li><code>ActivateAbilitiesWithItemSlot</code>  为什么可以释放技能？</li>
+<li><code>GetActiveAbilitiesWithTag</code>  是如何工作的？</li>
+<li><code>JumpSectionForCombo</code>  如何触发连招？</li>
+</ul>
+<p>但首先我们需要解决的是 <code>普通攻击的技能从何而来?</code> ，然后剩下三个问题也就迎刃而解了。</p>
+<h4 id="玩家的当前武器"><a class="anchor" href="#玩家的当前武器">#</a> 玩家的当前武器</h4>
+<p><code>CurrentWeaponSlot</code>  和技能时什么关系？</p>
+<ol>
+<li>顺手搜索一下，可以知道，武器的初始化过程源自 PlayerController，在 Initialize 的部分会调用 <code>CreateAllWeapons</code>  函数。當然，这个函数也会在处理背包时被调用。</li>
+</ol>
+<p><code>CreateAllWeapons</code>  干了啥？</p>
+<ol>
+<li>首先清空了当前武器数组 <code>EquippedWeapons</code> ，其中存的是 <code>WeaponActor</code>  也是个蓝图预制件。</li>
+<li>获取了一波 <code>GetSlotedItems</code> -Weapon（武器槽位中的对象信息，详见下个问题），设置到 <code>Equipped RPGItems</code> ，循环处理：
+<ol>
+<li>将 RPGItem 转换 RPGWeaponItem、获取 WeaponAcotrClass、然后创建 WeaponAcotor 实例</li>
+</ol>
+</li>
+<li>循环完毕后， <code>AttachNextWeapon</code>  来挂接武器，包括循环切换武器。</li>
+</ol>
+<p><code>SlotedItems</code>  存的是什么信息？</p>
+<ol>
+<li>在 CreateAllWeapons 中，我们获取了这个字典中，类型为 Weapon 的 Item。</li>
+<li>这里的类型指的是： <code>FPrimaryAssetType ItemType</code> ，它是把武器物品定义成了一种 UE 的资源，由 AssetManager 管理，前文在 BP_GameInstance 中已经介绍了这一概念。</li>
+<li>这数据结构是由 bool ARPGPlayerControllerBase::LoadInventory () 进行初始化的。
+<ol>
+<li>调用链：GameInstance-EventInit-  <code>HandleSaveGameLoaded</code> -LoadInventory</li>
+<li>调用链：ARPGPlayerControllerBase::BeginPlay ()-LoadInventory</li>
+<li>初始化：它会用 GameInstance-&gt;ItemSlotsPerType 这个结构来初始化，该结构 key 是 <code>FRPGItemSlot</code> （key, SlotNumber）
+<ol>
+<li>ItemSlotsPerType 的结构 key 是 PrimaryAssetType，value 则是数量</li>
+</ol>
+</li>
+<li>具体槽位中的物品会在加载游戏存档时恢复，或者通过函数接口添加。
+<ol>
+<li>比如捡东西的时候就会调用 <code>SetSlottedItem</code></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h4 id="玩家登录时的第一把武器是哪里来的"><a class="anchor" href="#玩家登录时的第一把武器是哪里来的">#</a> 玩家登录时的第一把武器是哪里来的？</h4>
+<ol>
+<li>单步调试一下，断点放在 LoadInventory，发现是来自 CurrentSaveGame 存档信息。</li>
+<li>看下代码，有个 AddDefaultInventory 函数，把 DefaultInventory 添加到存档里面了，这个配置则来自于蓝图 GamneInstance</li>
+<li>打开蓝图 GamneInstance，点击上方的 ClassDefaults，可以看到 Details 面板中给玩家添加了 Weapon_Axe</li>
+<li>改掉然后清档就可以试试了，锤子好玩的。</li>
+</ol>
+<h4 id="玩家怎么切换武器"><a class="anchor" href="#玩家怎么切换武器">#</a> 玩家怎么切换武器？</h4>
+<p>切换武器有几个关键函数，都定义在了 PlayerCharacter 的蓝图当中</p>
+<ol>
+<li><code>WeaponAttachMethod</code> ：通过 <code>DetachFromActor</code>  和 <code>AttachActorToComponent</code>  来挂接和移除武器实体。</li>
+<li><code>CreateAllWeapons</code>  会在我们获取武器时，自动切换到下一把（大概率就是新武器，还没确认）</li>
+<li><code>AttachNextWeapon</code>  计算下一个武器 index，然后调用 WeaponAttachMethod</li>
+<li><code>UpdateCurWeaponSlot</code>  刷新一下手上武器模型。</li>
+</ol>
+<p><code>AttachActorToComponent</code>  这是游戏中常见的概念，在 UE 中是把一个 Actor 的 RootComponent 挂接在另一个 Actor 的组件上，这里就是玩家的 Mesh 组件。（Attaches the RootComponent of this Actor to the supplied component, optionally at a named socket. It is not valid to call this on components that are not Registered.）<br />
+<span class="exturl" data-url="aHR0cHM6Ly9kb2NzLnVucmVhbGVuZ2luZS5jb20vNS4wL2VuLVVTL0JsdWVwcmludEFQSS9UcmFuc2Zvcm1hdGlvbi9BdHRhY2hBY3RvclRvQ29tcG9uZW50Lw==">https://docs.unrealengine.com/5.0/en-US/BlueprintAPI/Transformation/AttachActorToComponent/</span></p>
+<h4 id="普通攻击2-释放技能的函数"><a class="anchor" href="#普通攻击2-释放技能的函数">#</a> 普通攻击（2）—— 释放技能的函数</h4>
+<p><code>ActivateAbilitiesWithItemSlot</code>  为什么可以释放技能？</p>
+<ol>
+<li>DoMeleeAttack 函数会以 CurrentWeaponSlot 为参数，调用上述函数。
+<ol>
+<li>参数类型为 FRPGItemSlot，本质上是用来做主键的，ItemType+SlotNumber</li>
+<li>CurrentWeaponSlot 本质上是个 CurrentWeapon 的 Slot 属性</li>
+<li>CurrentWeapon 是 Weapon Actor</li>
+</ol>
+</li>
+<li>这里先获取技能，然后通过函数释放</li>
+</ol>
+<pre><code>/**
+ * Attempts to activate any ability in the specified item slot. Will return false if no activatable ability found or activation fails
+ * Returns true if it thinks it activated, but it may return false positives due to failure later in activation.
+ * If bAllowRemoteActivation is true, it will remotely activate local/server abilities, if false it will only try to locally activate the ability
+ */
+UFUNCTION(BlueprintCallable, Category = &quot;Abilities&quot;)
+bool ARPGCharacterBase::ActivateAbilitiesWithItemSlot(FRPGItemSlot ItemSlot, bool bAllowRemoteActivation)
+&#123;
+	FGameplayAbilitySpecHandle* FoundHandle = SlottedAbilities.Find(ItemSlot);
+
+	if (FoundHandle &amp;&amp; AbilitySystemComponent)
+	&#123;
+		return AbilitySystemComponent-&gt;TryActivateAbility(*FoundHandle, bAllowRemoteActivation);
+	&#125;
+
+	return false;
+&#125;
+</code></pre>
+<h4 id="玩家的武器为和会赋予普通攻击技能"><a class="anchor" href="#玩家的武器为和会赋予普通攻击技能">#</a> 玩家的武器为和会赋予普通攻击技能？</h4>
+<p>SlottedAbilities 是如何被填充的？</p>
+<ol>
+<li>在玩家被 PossessedBy 控制器时，会逐步调用到 FillSlottedAbilitySpecs</li>
+</ol>
+<pre><code>UE4Editor-ActionRPG.dll!ARPGCharacterBase::FillSlottedAbilitySpecs(TMap&lt;FRPGItemSlot,FGameplayAbilitySpec,FDefaultSetAllocator,TDefaultMapHashableKeyFuncs&lt;FRPGItemSlot,FGameplayAbilitySpec,0&gt;&gt; &amp; SlottedAbilitySpecs) Line 121	C++
+ 	UE4Editor-ActionRPG.dll!ARPGCharacterBase::AddSlottedGameplayAbilities() Line 149	C++
+ 	UE4Editor-ActionRPG.dll!ARPGCharacterBase::AddStartupGameplayAbilities() Line 53	C++
+ 	UE4Editor-ActionRPG.dll!ARPGCharacterBase::PossessedBy(AController * NewController) Line 219	C++
+
+</code></pre>
+<ol start="2">
+<li><code>FillSlottedAbilitySpecs</code>  这个函数会从 URPGItem 类型的道具实例中提取技能和技能等级，还会判断是否为武器，武器技能的等级会和武器配置信息挂钩。</li>
+</ol>
+<pre><code>	if (InventorySource)
+	&#123;
+		const TMap&lt;FRPGItemSlot, URPGItem*&gt;&amp; SlottedItemMap = InventorySource-&gt;GetSlottedItemMap();
+
+		for (const TPair&lt;FRPGItemSlot, URPGItem*&gt;&amp; ItemPair : SlottedItemMap)
+		&#123;
+			URPGItem* SlottedItem = ItemPair.Value;
+
+			// Use the character level as default
+			int32 AbilityLevel = GetCharacterLevel();
+
+			if (SlottedItem &amp;&amp; SlottedItem-&gt;ItemType.GetName() == FName(TEXT(&quot;Weapon&quot;)))
+			&#123;
+				// Override the ability level to use the data from the slotted item
+				AbilityLevel = SlottedItem-&gt;AbilityLevel;
+			&#125;
+
+			if (SlottedItem &amp;&amp; SlottedItem-&gt;GrantedAbility)
+			&#123;
+				// This will override anything from default
+				SlottedAbilitySpecs.Add(ItemPair.Key, FGameplayAbilitySpec(SlottedItem-&gt;GrantedAbility, AbilityLevel, INDEX_NONE, SlottedItem));
+			&#125;
+		&#125;
+	&#125;
+</code></pre>
+<ol start="3">
+<li>填充完毕后，会执行下面的函数来填充 <code>SlottedAbilities</code></li>
+</ol>
+<pre><code>void ARPGCharacterBase::AddSlottedGameplayAbilities()
+&#123;
+	TMap&lt;FRPGItemSlot, FGameplayAbilitySpec&gt; SlottedAbilitySpecs;
+	FillSlottedAbilitySpecs(SlottedAbilitySpecs);
+	
+	// Now add abilities if needed
+	for (const TPair&lt;FRPGItemSlot, FGameplayAbilitySpec&gt;&amp; SpecPair : SlottedAbilitySpecs)
+	&#123;
+		FGameplayAbilitySpecHandle&amp; SpecHandle = SlottedAbilities.FindOrAdd(SpecPair.Key);
+
+		if (!SpecHandle.IsValid())
+		&#123;
+			SpecHandle = AbilitySystemComponent-&gt;GiveAbility(SpecPair.Value);
+		&#125;
+	&#125;
+&#125;
+
+</code></pre>
+<p>总结一下，玩家身上挂了两个属性</p>
+<ol>
+<li>SlottedAbilitySpecs 保存了一种映射：（FRPGItemSlot, FGameplayAbilitySpec）</li>
+<li>SlottedAbilities 保存了一种映射：（FRPGItemSlot, FGameplayAbilitySpecHandle）</li>
+<li>二者的 key 在这里做了一次对齐，handle 是从前者生成出来的。 <code>SpecHandle = AbilitySystemComponent-&gt;GiveAbility(SpecPair.Value);</code></li>
+<li>简单来说，我们通过 Spec 描述技能，然后用这个描述来告诉 GAS 应该赋予玩家什么样的技能，然后 GAS 会在成功赋予技能后，返回给我们一个 handle，句柄？</li>
+</ol>
+<h2 id="玩家对象基类bp_character"><a class="anchor" href="#玩家对象基类bp_character">#</a> 玩家对象基类：BP_Character</h2>
+<p>这个是 BP_PlayerCharacter 的基类，有空再看，定义了一些基本玩家逻辑。</p>
+<ol>
+<li>IsUsingSkill 判断玩家是否在放技能，Function 分类为 Animation</li>
+</ol>
+<h2 id="ue的技能系统插件gameplay-ability-system"><a class="anchor" href="#ue的技能系统插件gameplay-ability-system">#</a> UE 的技能系统插件：Gameplay Ability System</h2>
+<p>这里我们就需要去看看实际技能系统的文档了： <span class="exturl" data-url="aHR0cHM6Ly9kb2NzLnVucmVhbGVuZ2luZS5jb20vNS4xL3poLUNOL3VzaW5nLWdhbWVwbGF5LWFiaWxpdGllcy1pbi11bnJlYWwtZW5naW5lLw==">https://docs.unrealengine.com/5.1/zh-CN/using-gameplay-abilities-in-unreal-engine/</span></p>
+<h3 id="技能的给予和移除"><a class="anchor" href="#技能的给予和移除">#</a> 技能的给予和移除</h3>
+<h4 id="给予"><a class="anchor" href="#给予">#</a> 给予</h4>
+<ul>
+<li><code>GiveAbility</code> ：使用  <code>FGameplayAbilitySpec</code>  指定要添加的技能，并返回  <code>FGameplayAbilitySpecHandle</code> 。</li>
+<li><code>GiveAbilityAndActivateOnce</code> ：使用  <code>FGameplayAbilitySpec</code>  指定要添加的技能，并返回  <code>FGameplayAbilitySpecHandle</code> 。技能必须实例化，并且必须能够在服务器上运行。尝试在服务器上运行技能后，将返回  <code>FGameplayAbilitySpecHandle</code> 。如果技能没有满足所需条件，或者无法执行，返回值将无效，并且技能系统组件将不会被授予该技能。</li>
+</ul>
+<h4 id="移除"><a class="anchor" href="#移除">#</a> 移除</h4>
+<ul>
+<li><code>ClearAbility</code> : 从技能系统组件中移除指定技能。</li>
+<li><code>SetRemoveAbilityOnEnd</code> ：当该技能执行完毕时，将该技能从技能系统组件中移除。如果未执行该技能，将立即移除它。如果正在执行该技能，将立即清除其输入，这样玩家就无法重新激活它或与它互动。</li>
+<li><code>ClearAllAbilities</code> ：从技能系统组件中移除所有技能。此函数是唯一不需要  <code>FGameplayAbilitySpecHandle</code>  的函数。</li>
+</ul>
+<h4 id="释放"><a class="anchor" href="#释放">#</a> 释放</h4>
+<ol>
+<li><code>CanActivateAbility</code>  也可以让调用者知道是否可执行该技能。</li>
+<li><code>CallActivateAbility</code>  执行技能相关的游戏代码，但不会检查该技能是否可用。通常在 <code>CanActivateAbility</code>  检查及执行技能之间需要某些逻辑时才会调用该函数。</li>
+<li><code>TryActivateAbility</code>  是执行技能的典型方式。该函数调用  <code>CanActivateAbility</code>  来确定技能是否可以立即运行，如果可以，则继续调用  <code>CallActivateAbility</code> 。</li>
+<li><code>EndAbility</code>  （C++）或 End Ability 节点（蓝图）会在技能执行完毕后将其关闭。如果技能被取消， <code>UGameplayAbility</code>  类会将其作为取消流程的一部分自动处理，但其他情况下，开发者都必须调用 C++ 函数或在技能的蓝图图表中添加节点。</li>
+</ol>
+<h3 id="属性系统urpgattributeset"><a class="anchor" href="#属性系统urpgattributeset">#</a> 属性系统：URPGAttributeSet</h3>
+<h4 id="定义和赋予"><a class="anchor" href="#定义和赋予">#</a> 定义和赋予</h4>
+<ol>
+<li>Extend the base Attribute Set class,  <code>UAttributeSet</code> , and add your Gameplay Attributes as  <code>FGameplayAttributeData</code>  UProperties.</li>
+<li>Store the Attribute Set on the Actor, and expose it to the engine. Use the  <code>const</code>  keyword to ensure that code cannot modify the Attribute Set directly. Add this to your Actor's class definition</li>
+<li>Register the Attribute Set with the appropriate Ability System Component. (定义的属性需要注册给 ASC)
+<ol>
+<li>This happens <strong>automatically</strong> when you instantiate the Attribute Set, which you can do in the Actor's constructor, or during  <code>BeginPlay</code> , as long as the Actor's  <code>GetAbilitySystemComponent</code>  function returns a valid Ability System Component at the moment of instantiation.
+<ol>
+<li><code>AttributeSet = CreateDefaultSubobject&lt;URPGAttributeSet&gt;(TEXT(&quot;AttributeSet&quot;));</code></li>
+</ol>
+</li>
+<li>You can also edit the Actor's Blueprint and add the Attribute Set type to the Ability System Component's Default Starting Data. A third method is to instruct the Ability System Component to instantiate the Attribute Set, which will then register it automatically, as in this example:</li>
+</ol>
+</li>
+</ol>
+<p>这块，英文的文档更加完善： <span class="exturl" data-url="aHR0cHM6Ly9kb2NzLnVucmVhbGVuZ2luZS5jb20vNS4xL2VuLVVTL2dhbWVwbGF5LWF0dHJpYnV0ZXMtYW5kLWF0dHJpYnV0ZS1zZXRzLWZvci10aGUtZ2FtZXBsYXktYWJpbGl0eS1zeXN0ZW0taW4tdW5yZWFsLWVuZ2luZS8=">https://docs.unrealengine.com/5.1/en-US/gameplay-attributes-and-attribute-sets-for-the-gameplay-ability-system-in-unreal-engine/</span></p>
+<p>可以方便的添加一些 Getter 和 Setter 方法，在 ActionRPG 中就定义了这样的宏，对 GAS 系统的宏进行了二次封装。</p>
+<pre><code>
+// Uses macros from AttributeSet.h
+# define ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \
+	GAMEPLAYATTRIBUTE_PROPERTY_GETTER(ClassName, PropertyName) \
+	GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName) \
+	GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
+	GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
+</code></pre>
+<h3 id="游戏效果"><a class="anchor" href="#游戏效果">#</a> 游戏效果</h3>
+<h4 id="玩家属性的初始化"><a class="anchor" href="#玩家属性的初始化">#</a> 玩家属性的初始化</h4>
+<p>下面的内容帮助我们为玩家初始化属性系统：</p>
+<ol>
+<li>在 PlayerCharacter 蓝图中，打开 Classes Defaults，在 Details/Ability 引用（赋予）了玩家一一个被动技能效果</li>
+<li>这个效果定义在文件中
+<ol>
+<li>ActionRPG/Content/Abilities/Player/GE_PlayerStats.uasset</li>
+<li>继承自 GE_StatsBase</li>
+<li>继承自 GamePlayEffect</li>
+<li>可以添加 Modifier 来用各种方式修改玩家属性</li>
+<li><code>TODO</code>  这里非常值得借鉴</li>
+</ol>
+</li>
+</ol>
+<h4 id="gameplayeffect"><a class="anchor" href="#gameplayeffect">#</a> GamePlayEffect</h4>
+<p>这个东西基本就是 Buff 的概念了（当然，比 Buff 要更通用一点）</p>
+<p>这里非常值得借鉴：</p>
+<ol>
+<li>周期属性</li>
+<li>Modifier
+<ol>
+<li>Op 可以是覆盖，乘法，除法，加法，减法等等</li>
+<li>Magnitude 来源：类型、系数、资源 curve 文件，列名，预览值等等。</li>
+</ol>
+</li>
+</ol>
+<h3 id="技能"><a class="anchor" href="#技能">#</a> 技能</h3>
+<h4 id="普通攻击3普通攻击技能的运作流程"><a class="anchor" href="#普通攻击3普通攻击技能的运作流程">#</a> 普通攻击（3）普通攻击技能的运作流程</h4>
+<p>有了上面的知识，我们就可以继续了解玩家的普通攻击技能是如何运作的了。</p>
+<h5 id="相关资源"><a class="anchor" href="#相关资源">#</a> 相关资源</h5>
+<ol>
+<li>再次回到普通攻击的问题上，普通攻击技能来自武器，之前也提到，查看玩家默认武器斧头：
+<ol>
+<li><code>ActionRPG/Content/Items/Weapons/Weapon_Axe.uasset</code></li>
+</ol>
+</li>
+<li>斧头其中有个属性为 GrantedAbility（SlottedItem-&gt;GrantedAbility），代表了其上挂的武器技能：
+<ol>
+<li><code>ActionRPG/Content/Abilities/Player/Axe/GA_PlayerAxeMelee.uasset</code></li>
+</ol>
+</li>
+<li>这个技能资源的基类是： <code>GA_MeleeBase</code></li>
+<li>使用的攻击动画（蒙太奇）资源是： <code>AM_Attack_Axe</code>
+<ol>
+<li>这里我们需要对 Anim Montage 有一定了解才行，另起一篇文档： <span class="exturl" data-url="aHR0cHM6Ly9rbS5uZXRlYXNlLmNvbS9hcnRpY2xlLzQ2NjAzNw==">UE 文档学习：动画系统和动画蒙太奇</span></li>
+</ol>
+</li>
+</ol>
+<h5 id="攻击逻辑流"><a class="anchor" href="#攻击逻辑流">#</a> 攻击逻辑流</h5>
+<ol>
+<li>技能对象 EventGraph，在 ActivateAbility 事件中，会播放动画蒙太奇
+<ol>
+<li>通过封装过的接口节点 <code>PlayMontageAndWaitForEvent</code></li>
+</ol>
+</li>
+<li>动画蒙太奇会触发 WeaponAttackNS 这样一个 NotifyState</li>
+<li>NotifyState 蓝图中
+<ol>
+<li>ReceivedNotifyBegins 事件
+<ol>
+<li>从参数 Mesh 对象获取 Owner，转换为 PlayerCharacter，再获取其 CurrentWeapon 对象</li>
+<li>触发 CurrentWeapon 对象的 BeginWeaponAttack，也就是 WeaponActor 开启其物理碰撞检测。</li>
+</ol>
+</li>
+<li>ReceivedNotifyEnd 事件
+<ol>
+<li>同上，本质上是关闭物理检测。</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>WeaponActor 的物理 BeginOverlap 事件会
+<ol>
+<li>判断攻击者 Instigator 和受击者是否为同一人，避免打到自己。</li>
+<li>在 overlap 接触过程中只碰撞一次，脱离之前都不会再次进入后续逻辑。</li>
+<li>构建攻击事件并发送，SendGamePlayEventToActor，Actor 是攻击者。</li>
+<li>消耗武器次数（火焰锤）</li>
+<li>开启顿帧效果</li>
+</ol>
+</li>
+<li>技能蓝图响应 SendGamePlayEventToActor
+<ol>
+<li>在技能对象的 EventGraph 中，PlayMontage 节点会在 SendGamePlayEventToActor 被触发时返回，EventReceived 端口后续的节点会被执行。</li>
+<li>后续的 <code>ApplyEffectContainer</code>  会执行 C++ 函数，应用技能效果。</li>
+<li>这个过程中通过 Tag 对其逻辑，Tag 的内容详见扩展阅读部分。</li>
+</ol>
+</li>
+</ol>
+<h5 id="普通攻击的效果"><a class="anchor" href="#普通攻击的效果">#</a> 普通攻击的效果</h5>
+<ol>
+<li>能力图或者说技能蓝图 GA_PlayerAxeMelee 和它的基类，都会定义 GamePlayEffects 信息，在 EffectContainerMap 中，保存了多种攻击效果 GE。
+<ol>
+<li>Tag 表示效果的分类，是人为定义的，需要攻击动作中的关键帧进行匹配。</li>
+<li>TargetType 是用于执行相应效果的对象类型，类似于对 <code>URPGTargetType_UseEventData</code> ，这些都是定义在 cpp 当中的，通过逻辑定义了我们该如何基于一次攻击参数，为效果结算生成结算目标。</li>
+<li>TargetGameplayEffectClasses 数组中则包含了实际的效果类，比如 GE_PlayerAxeMelee。</li>
+</ol>
+</li>
+<li>效果包括：
+<ol>
+<li>伤害</li>
+<li>音效</li>
+<li>特效等等。</li>
+</ol>
+</li>
+<li>映射关系：
+<ol>
+<li>蒙太奇的 WeaponAttackNS 会带上 Tag，借助 Weapon 的物理碰撞，将消息传递给 GAS，从而让 Ability 技能对象蓝图接受到事件（附带 Tag），然后处理函数 <code>ApplyEffectContainer</code>  通过这个 Tag 拿到攻击对应的效果对象 GE，并使其生效。</li>
+</ol>
+</li>
+</ol>
+<h4 id="连招的原理"><a class="anchor" href="#连招的原理">#</a> 连招的原理</h4>
+<ol>
+<li>通常连击技能会有一个窗口
+<ol>
+<li>普通攻击的动作蒙太奇有一个 JumpSectionNS 区间，定义了玩家何时可以通过操作来打出 combo：
+<ol>
+<li>在这个 NotifyState 的蓝图中，会在开始和结束区间开启 BP_PlayerCharacter 的 EnableComboPeriod，从而打开连招区间。</li>
+<li>Tick 循环会判断是否开启了自动攻击，如果开启，则会调用 JumpSectionForCombo 函数跳转到下一个连招阶段。</li>
+<li>这个 NS 关键帧有一个列表 JumpSections，表示当前连招下一段的名字，指向 montage 的下一段动画</li>
+<li>在 Begin 事件中，会把这个 ns 对象设置为玩家的 JumpSectionNotify 属性，从而让玩家蓝图知道连招的下一段动作是啥。</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>打出 Combo
+<ol>
+<li>玩家在一段攻击时按下攻击键，可以出发连击。</li>
+<li>查看 DoMeleeAttack 函数，可以知道连击执行的是 BP_PlayerCharacter 的 JumpSectionForCombo 函数</li>
+<li>执行该函数时，首先需要 EnableComboPeriod</li>
+<li>然后会获取当前动作蒙太奇的当前 section，以及读取 JumpSectionNS 定义的下一段 section 的 name。</li>
+<li>最终，通过 MontageSetNextSection 节点，告诉蒙太奇播放完当前动作后，跳转到下一段连击动作。</li>
+<li>此时记得取消 EnableComboPeriod。</li>
+</ol>
+</li>
+<li><code>问题</code>  显然，下一段连招动作通常可以触发多段攻击的技能回掉，有空看下细节。</li>
+<li><code>问题</code>  显然，多段攻击的效果看上去似乎是一样的，如果不一样，该怎么做呢？
+<ol>
+<li><code>答案</code>  显然是 GA 定义多个 tag 分别对应不同段数的攻击，同时 NS 区间使用不同的 Tag 名称。</li>
+</ol>
+</li>
+</ol>
+<h2 id="怪物是怎么死的"><a class="anchor" href="#怪物是怎么死的">#</a> 怪物是怎么死的？</h2>
+<ol>
+<li>GameEffect 会更新血量</li>
+<li>AttributeAsset 会调用 Actor 的血量变化接口 <code>HandleHealthChanged</code></li>
+<li><code>HandleHealthChanged</code>  会抛出事件给蓝图。</li>
+<li>蓝图逻辑更新 UI，触发 OnEventDeath</li>
+<li>OnEventDeath 会销毁怪物，更新统计信息</li>
+</ol>
+<h2 id="游戏是如何结束的"><a class="anchor" href="#游戏是如何结束的">#</a> 游戏是如何结束的？</h2>
+<ol>
+<li>GameMode 脚本负责创建怪物，同时会绑定监听怪物销毁事件 EnemyDestroyed，从而统计怪物数量。</li>
+<li>怪物数量减到 0，会触发下一波怪物的刷新，或者直接结束游戏。</li>
+</ol>
+<h2 id="扩展内容"><a class="anchor" href="#扩展内容">#</a> 扩展内容</h2>
+<h3 id="动画系统"><a class="anchor" href="#动画系统">#</a> 动画系统</h3>
+<p><span class="exturl" data-url="aHR0cHM6Ly9rbS5uZXRlYXNlLmNvbS9hcnRpY2xlLzQ2NjAzNw==">UE 文档学习：动画系统和动画蒙太奇</span></p>
+<h3 id="ue文档学习gameplaytag"><a class="anchor" href="#ue文档学习gameplaytag">#</a> UE 文档学习：GamePlayTag</h3>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cudW5yZWFsZW5naW5lLmNvbS96aC1DTi90ZWNoLWJsb2cvdXNpbmctZ2FtZXBsYXktdGFncy10by1sYWJlbC1hbmQtb3JnYW5pemUteW91ci1jb250ZW50LWluLXVlNA==">https://www.unrealengine.com/zh-CN/tech-blog/using-gameplay-tags-to-label-and-organize-your-content-in-ue4</span></p>
+<p>层次化标记可以成为整理概念和数据的非常实用的方法，游戏性标记系统是 UE4 用于声明和查询层次化标记的方法。</p>
+<ol>
+<li>Tag 是 UE 提供的分类标签系统，基于 Path 的，x.y 的形式存在。</li>
+<li>可以在 ProjectSettings 中进行 Tag 的定义，有一套基于 Path 的 tag 编辑界面。</li>
+<li>管理器是 <code>UGameplayTagsManager</code></li>
+<li>项目中可以任意定义类型和和进行使用。</li>
+</ol>
+<h3 id="hudihud接口-pc和移动端实现"><a class="anchor" href="#hudihud接口-pc和移动端实现">#</a> HUD：iHUD 接口、PC 和移动端实现</h3>
+<ol>
+<li>iHUD 定义了一系列函数，用于描述一个完备的 HUD 实现类需要实现哪些接口。</li>
+<li>这里有 UpdateTimer、AddBonusTime, UpdateIcons, SetHP, SetMana, SetAutoPlayEnabled</li>
+<li>WB_HUD_PC 和 WB_HUD_MOBILE 都继承了这个接口，所以虽然实现类不同，但是调用比较无痛。
+<ol>
+<li>GameMode 的 EnemyEvent 检测到有敌人被杀，会更新倒计时信息，双击那里的函数，会看到跳跃到 iHUD，所以不太方便观看。</li>
+</ol>
+</li>
+</ol>
+<h3 id="输入按钮-wb_inputbutton"><a class="anchor" href="#输入按钮-wb_inputbutton">#</a> 输入按钮 WB_InputButton</h3>
+<p>HUD 上的战斗用按钮都是 WB_InputButton 的实例</p>
+<h3 id="wb_wavestart蓝图"><a class="anchor" href="#wb_wavestart蓝图">#</a> WB_WaveStart 蓝图</h3>
+<ol>
+<li>由 GameMode 的 EnemyGraph 在释放新的一波小怪时创建</li>
+<li>从 GameMode 中获取波束，然后显示并且播放动画</li>
+</ol>
+<h2 id="todo-2"><a class="anchor" href="#todo-2">#</a> TODO</h2>
+<h3 id="列表"><a class="anchor" href="#列表">#</a> 列表</h3>
+<ol>
+<li><code>GetActiveAbilitiesWithTag</code>  是如何工作的？</li>
+<li>玩家图标上的技能时哪里来的？</li>
+<li>Debug 相关功能</li>
+<li>使用血瓶</li>
+<li>火球术：攒够魂了可以购买技能，顺着看看如何获得一个技能。</li>
+<li>DebugAutoSwitch</li>
+<li>DebugAutoPlay</li>
+<li>蓝图 Variable 的 Category 是什么用途？</li>
+<li>Asset 的 ID 是个重要的概念似乎和全局引用有关系</li>
+</ol>
+<h3 id="杂记"><a class="anchor" href="#杂记">#</a> 杂记</h3>
+<h4 id="逻辑流和数据流耦合的情况"><a class="anchor" href="#逻辑流和数据流耦合的情况">#</a> 逻辑流和数据流耦合的情况？</h4>
+<p>这是一个有趣的结构，数据流依赖链上的前置节点，是某个前序逻辑流中的节点的输出。如果这个前序逻辑流中的节点没有被执行，那么会 run 出来什么效果？</p>
+<h4 id="蓝图的event触发机制"><a class="anchor" href="#蓝图的event触发机制">#</a> 蓝图的 Event 触发机制？</h4>
+<p>一次 Event 触发后还没有执行完，下一次就进来了怎么办？（同步逻辑还好，如果存在异步逻辑会怎样？)</p>
+<h2 id="随手记录"><a class="anchor" href="#随手记录">#</a> 随手记录</h2>
+<p>技能数据，如果还是类似 AL 的话，也应当支持版本管理</p>
+<blockquote>
+<p>ARPG 通过原生结构使用 <strong>URPGSaveGame</strong> ARPG 类将玩家的物品栏（包括灵魂 / 经验）存储在磁盘上。通常，任何关键信息都应使用原生结构存储，以便可以使用原生版本控制和修正代码。对于 <strong>URPGSaveGame</strong>，这使用 <strong>ERPGSaveGameVersion</strong> 枚举值和 Serialize 函数中的修正代码来实现。这是因为在任何时候，用户定义的结构体都可能被意外修改。如果开发者试图重命名或删除字段，那么玩家保存的游戏就会丢失数据，可能导致玩家保存的数据被完全破坏。通常，应使用具有版本控制功能的原生结构来实现关键数据。</p>
+</blockquote>
+<p>虚拟路径而非实际物理路径来引用资源（之前项目已经是这样了，我们用技能 ID，而非 mth 文件路径</p>
+<blockquote>
+<p>ARPG 保存游戏使用存储为字符串的 <strong>PrimaryAssetIds</strong>（版块类型 <strong>ItemType:ItemName</strong>）来存储物品栏。通过这种方法存储项目引用比资源路径（如 <strong>/Game/Items/ItemName.ItemName</strong>）更安全，因为即使资源移动了，引用也不会破坏。如果更改资源名称，可以使用 <strong>PrimaryAssetIdRedirects</strong> 或原生代码处理这些修复。<strong>ForceLoadItem</strong> 可以同步加载尚未在内存中的项目以从 <strong>PrimaryAssetId</strong> 转换为 <strong>URPGItem</strong>（由于上面提到的存储预载，在 ARPG 中通常需要这样操作）。</p>
+</blockquote>
+<p>不同范围定义下的属性集合</p>
+<blockquote>
+<p>因为 ARPG 相对简单，所以只有一个 AttributeSet，但是对于某些游戏，更合理的做法可能是设置一个玩家和敌人共用的 &quot;核心&quot; 集以及一个继承自 <strong>核心</strong> 且包含仅可由玩家使用的额外属性的 &quot;玩家&quot; 集。</p>
+</blockquote>
+<p>Commit 节点存在的必要性</p>
+<blockquote>
+<p>当启动某项能力时，调用 <strong>ActivateAbility</strong>，并使用 <strong>CommitAbility</strong> 应用能力的 <strong>消耗（Cost）</strong>（通常是 ARPG 中的法力）和 <strong>冷却效果（Cooldown）</strong>。调用 <strong>EndAbility</strong> 通知系统该能力已执行完毕。另外两个节点专用于 ARPG，通常每个游戏都会根据需要添加新的函数和节点。</p>
+</blockquote>
+<p>原则：不应该将任何配置放在代码中</p>
+<blockquote>
+<p>配置的归配置，代码的归代码，把显然是配置的东西写死在代码里是有问题的。要想清楚一个 “东西” 到底是配置还是代码。</p>
+</blockquote>
+<p>GamePlayTag 系统得用起来</p>
+<blockquote>
+<p>基于 Path 的路径标记</p>
+</blockquote>
+<p>有一个笔记，有空学习一下</p>
+<blockquote>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL2NvbHVtbi91ZWxlYXJu">https://www.zhihu.com/column/uelearn</span></p>
+</blockquote>
+<p>蓝图比 AL 好在哪儿？</p>
+<blockquote>
+<ol>
+<li>白线逻辑流正向执行，其它颜色线数据流反向计算依赖按需执行，这一点很值得借鉴<br />
+ 2. Event 机制<br />
+ 3. out pin 解决分支问题<br />
+ 4. foreach 节点解决循环问题（配合 Event 和 Function 就很赞）<br />
+5. 这是 “定义清晰而明确” 带来的副作用，它会要求策划去 cast，去了解每个节点 inPin 所需的详细参数类型<br />
+ 6. 蓝图没有上下文的，任何东西，用之前要定义，用的时候要 Get（唯一的上下文可能就是 self 了。。）</li>
+</ol>
+</blockquote>
+
+      <div class="tags">
+          <a href="/tags/Game-Program/" rel="tag"><i class="ic i-tag"></i> Game Program</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2023-05-16 00:51:44" itemprop="dateModified" datetime="2023-05-16T00:51:44+08:00">2023-05-16</time>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>Frozzen·J·Chou <i class="ic i-at"><em>@</em></i>FrozzenCJ's Game Site
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="http://frozzencj.github.io/2023/05/15/2021-08-12-%E7%BA%BF%E6%80%A7%E9%98%85%E8%AF%BBActionRPG%E9%A1%B9%E7%9B%AE/" title="UE4 GAS 方案探究">http://frozzencj.github.io/2023/05/15/2021-08-12-线性阅读ActionRPG项目/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2023/05/15/2020-09-11-%E5%89%A7%E6%83%85%E7%BC%96%E8%BE%91%E5%99%A8/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipevuctzzj20zk0m84qp.jpg" title="AVG剧情编辑器">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>AVG剧情编辑器</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2023/05/15/2021-09-10-Jenkins%20+%20Feedback%20+%20POPO/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giph4wqtg4j20zk0m8x6p.jpg" title="Jenkins + Feedback + POPO">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>Jenkins + Feedback + POPO</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text"> 简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE"><span class="toc-number">1.1.</span> <span class="toc-text"> 项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AE%B9"><span class="toc-number">1.2.</span> <span class="toc-text"> 内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95"><span class="toc-number">1.3.</span> <span class="toc-text"> 学习方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%B8%E6%88%8F%E7%9A%84%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text"> 游戏的全局配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#project-settings-maps-modes"><span class="toc-number">2.1.</span> <span class="toc-text"> Project Settings &#x2F; Maps &amp; Modes</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%B8%E6%88%8F%E5%85%A8%E5%B1%80%E6%8E%A7%E5%88%B6%E5%99%A8bp_gameinstance%E5%92%8C%E6%8A%80%E8%83%BD%E8%B5%84%E6%BA%90"><span class="toc-number">3.</span> <span class="toc-text"> 游戏全局控制器：BP_GameInstance 和技能资源</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#bp_gameinstance-%E7%9A%84-eventgraph"><span class="toc-number">3.1.</span> <span class="toc-text"> BP_GameInstance 的 EventGraph</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5custom-event"><span class="toc-number">3.2.</span> <span class="toc-text"> 概念：Custom Event</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#assetmanager"><span class="toc-number">3.3.</span> <span class="toc-text"> AssetManager</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#urpgassetmanager"><span class="toc-number">3.4.</span> <span class="toc-text"> URPGAssetManager</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E8%AF%86%E6%8A%80%E8%83%BD%E8%93%9D%E5%9B%BE-urpggameplayability"><span class="toc-number">3.5.</span> <span class="toc-text"> 初识技能蓝图 URPGGameplayAbility</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#saveslot"><span class="toc-number">3.6.</span> <span class="toc-text"> SaveSlot</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">3.7.</span> <span class="toc-text"> 总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%99%BB%E5%BD%95%E5%9C%B0%E5%9B%BE%E7%95%8C%E9%9D%A2-actionrpg_main"><span class="toc-number">4.</span> <span class="toc-text"> 登录地图 &#x2F; 界面 ActionRPG_Main</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#bp_mainmenugamemode"><span class="toc-number">4.1.</span> <span class="toc-text"> BP_MainMenuGameMode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#wb-title%E7%95%8C%E9%9D%A2"><span class="toc-number">4.2.</span> <span class="toc-text"> WB Title 界面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-2"><span class="toc-number">4.3.</span> <span class="toc-text"> 总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#wb-options-screen%E7%95%8C%E9%9D%A2"><span class="toc-number">4.4.</span> <span class="toc-text"> WB Options Screen 界面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%98%E6%96%97%E5%9C%BA%E6%99%AF-actionrpg_p"><span class="toc-number">4.5.</span> <span class="toc-text"> 战斗场景： ActionRPG_P</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#level%E8%93%9D%E5%9B%BElevel-bp"><span class="toc-number">4.6.</span> <span class="toc-text"> Level 蓝图：Level BP</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E5%87%BD%E6%95%B0%E5%BA%93-bp_rpgfunctionlibrary%E8%93%9D%E5%9B%BE"><span class="toc-number">5.</span> <span class="toc-text"> 全局函数库： BP_RPGFunctionLibrary 蓝图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%88%97%E8%A1%A8"><span class="toc-number">5.1.</span> <span class="toc-text"> 函数列表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E5%8D%A1%E9%80%BB%E8%BE%91%E6%8E%A7%E5%88%B6%E8%80%85bp_gamemode%E8%93%9D%E5%9B%BE"><span class="toc-number">6.</span> <span class="toc-text"> 关卡逻辑控制者：BP_GameMode 蓝图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E5%85%B3%E5%8D%A1%E8%93%9D%E5%9B%BE%E5%92%8Cgamemode%E8%93%9D%E5%9B%BE"><span class="toc-number">6.1.</span> <span class="toc-text"> 问题：关卡蓝图和 GameMode 蓝图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#eventgraph%E9%83%A8%E5%88%86%E6%B8%B8%E6%88%8F%E7%9A%84%E5%BC%80%E5%A7%8B-%E8%AE%A1%E6%97%B6%E5%99%A8%E5%92%8C%E7%BB%93%E6%9D%9F"><span class="toc-number">6.2.</span> <span class="toc-text"> EventGraph 部分 —— 游戏的开始、计时器和结束</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#enemymanager%E5%88%B7%E6%80%AA%E6%9C%BA%E5%88%B6"><span class="toc-number">6.3.</span> <span class="toc-text"> EnemyManager—— 刷怪机制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E9%83%A8%E5%88%86"><span class="toc-number">6.3.1.</span> <span class="toc-text"> 函数部分</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E6%88%98%E6%96%97"><span class="toc-number">6.3.2.</span> <span class="toc-text"> 自动战斗</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#todo"><span class="toc-number">6.3.3.</span> <span class="toc-text"> TODO</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%A9%E5%AE%B6%E6%8E%A7%E5%88%B6%E5%99%A8bp_playercontroller%E8%93%9D%E5%9B%BE"><span class="toc-number">7.</span> <span class="toc-text"> 玩家控制器：BP_PlayerController 蓝图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#eventgraph"><span class="toc-number">7.1.</span> <span class="toc-text"> EventGraph</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E5%A4%84%E7%90%86"><span class="toc-number">7.1.1.</span> <span class="toc-text"> 输入处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%87%E5%9C%BA%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A7%E5%88%B6"><span class="toc-number">7.1.2.</span> <span class="toc-text"> 过场动画的控制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E9%80%BB%E8%BE%91posses"><span class="toc-number">7.1.3.</span> <span class="toc-text"> 初始化逻辑 ——Posses</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#hud"><span class="toc-number">7.1.4.</span> <span class="toc-text"> HUD</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%8E%A9%E5%AE%B6%E8%BD%AC%E8%BA%AB"><span class="toc-number">7.1.5.</span> <span class="toc-text"> 玩家转身</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%8E%A9%E5%AE%B6%E7%A7%BB%E5%8A%A8"><span class="toc-number">7.1.6.</span> <span class="toc-text"> 玩家移动</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%83%8C%E5%8C%85inventory"><span class="toc-number">7.2.</span> <span class="toc-text"> 背包 Inventory</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#eventgraph%E4%B8%AD%E7%9B%91%E5%90%ACsoul%E5%B0%B1%E6%98%AF%E6%88%98%E7%A5%9E%E9%87%8C%E9%9D%A2%E7%9A%84%E7%BA%A2%E9%AD%82%E5%8F%98%E5%8C%96"><span class="toc-number">7.2.1.</span> <span class="toc-text"> EventGraph 中监听 Soul（就是战神里面的红魂）变化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%83%8C%E5%8C%85inventorygraph"><span class="toc-number">7.2.2.</span> <span class="toc-text"> 背包 InventoryGraph</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A5%E4%B8%8B%E6%9D%A5%E5%8E%BB%E5%93%AA%E5%84%BF"><span class="toc-number">7.3.</span> <span class="toc-text"> 接下来去哪儿？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%A9%E5%AE%B6%E5%AF%B9%E8%B1%A1bp_playercharacter%E8%93%9D%E5%9B%BE"><span class="toc-number">8.</span> <span class="toc-text"> 玩家对象：BP_PlayerCharacter 蓝图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#actor%E8%93%9D%E5%9B%BE%E4%B8%AD%E7%9A%84%E7%BB%84%E4%BB%B6%E5%88%97%E8%A1%A8"><span class="toc-number">8.1.</span> <span class="toc-text"> Actor 蓝图中的组件列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#eventgraph-2"><span class="toc-number">8.2.</span> <span class="toc-text"> EventGraph</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E7%BB%86%E8%8A%82-%E6%99%AE%E9%80%9A%E6%94%BB%E5%87%BB"><span class="toc-number">8.3.</span> <span class="toc-text"> 功能细节 - 普通攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%99%AE%E9%80%9A%E6%94%BB%E5%87%BB1"><span class="toc-number">8.3.1.</span> <span class="toc-text"> 普通攻击（1）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%8E%A9%E5%AE%B6%E7%9A%84%E5%BD%93%E5%89%8D%E6%AD%A6%E5%99%A8"><span class="toc-number">8.3.2.</span> <span class="toc-text"> 玩家的当前武器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%8E%A9%E5%AE%B6%E7%99%BB%E5%BD%95%E6%97%B6%E7%9A%84%E7%AC%AC%E4%B8%80%E6%8A%8A%E6%AD%A6%E5%99%A8%E6%98%AF%E5%93%AA%E9%87%8C%E6%9D%A5%E7%9A%84"><span class="toc-number">8.3.3.</span> <span class="toc-text"> 玩家登录时的第一把武器是哪里来的？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%8E%A9%E5%AE%B6%E6%80%8E%E4%B9%88%E5%88%87%E6%8D%A2%E6%AD%A6%E5%99%A8"><span class="toc-number">8.3.4.</span> <span class="toc-text"> 玩家怎么切换武器？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%99%AE%E9%80%9A%E6%94%BB%E5%87%BB2-%E9%87%8A%E6%94%BE%E6%8A%80%E8%83%BD%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-number">8.3.5.</span> <span class="toc-text"> 普通攻击（2）—— 释放技能的函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%8E%A9%E5%AE%B6%E7%9A%84%E6%AD%A6%E5%99%A8%E4%B8%BA%E5%92%8C%E4%BC%9A%E8%B5%8B%E4%BA%88%E6%99%AE%E9%80%9A%E6%94%BB%E5%87%BB%E6%8A%80%E8%83%BD"><span class="toc-number">8.3.6.</span> <span class="toc-text"> 玩家的武器为和会赋予普通攻击技能？</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%A9%E5%AE%B6%E5%AF%B9%E8%B1%A1%E5%9F%BA%E7%B1%BBbp_character"><span class="toc-number">9.</span> <span class="toc-text"> 玩家对象基类：BP_Character</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ue%E7%9A%84%E6%8A%80%E8%83%BD%E7%B3%BB%E7%BB%9F%E6%8F%92%E4%BB%B6gameplay-ability-system"><span class="toc-number">10.</span> <span class="toc-text"> UE 的技能系统插件：Gameplay Ability System</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%80%E8%83%BD%E7%9A%84%E7%BB%99%E4%BA%88%E5%92%8C%E7%A7%BB%E9%99%A4"><span class="toc-number">10.1.</span> <span class="toc-text"> 技能的给予和移除</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%99%E4%BA%88"><span class="toc-number">10.1.1.</span> <span class="toc-text"> 给予</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A7%BB%E9%99%A4"><span class="toc-number">10.1.2.</span> <span class="toc-text"> 移除</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%87%8A%E6%94%BE"><span class="toc-number">10.1.3.</span> <span class="toc-text"> 释放</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%9E%E6%80%A7%E7%B3%BB%E7%BB%9Furpgattributeset"><span class="toc-number">10.2.</span> <span class="toc-text"> 属性系统：URPGAttributeSet</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E5%92%8C%E8%B5%8B%E4%BA%88"><span class="toc-number">10.2.1.</span> <span class="toc-text"> 定义和赋予</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B8%B8%E6%88%8F%E6%95%88%E6%9E%9C"><span class="toc-number">10.3.</span> <span class="toc-text"> 游戏效果</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%8E%A9%E5%AE%B6%E5%B1%9E%E6%80%A7%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">10.3.1.</span> <span class="toc-text"> 玩家属性的初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#gameplayeffect"><span class="toc-number">10.3.2.</span> <span class="toc-text"> GamePlayEffect</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%80%E8%83%BD"><span class="toc-number">10.4.</span> <span class="toc-text"> 技能</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%99%AE%E9%80%9A%E6%94%BB%E5%87%BB3%E6%99%AE%E9%80%9A%E6%94%BB%E5%87%BB%E6%8A%80%E8%83%BD%E7%9A%84%E8%BF%90%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">10.4.1.</span> <span class="toc-text"> 普通攻击（3）普通攻击技能的运作流程</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90"><span class="toc-number">10.4.1.1.</span> <span class="toc-text"> 相关资源</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%94%BB%E5%87%BB%E9%80%BB%E8%BE%91%E6%B5%81"><span class="toc-number">10.4.1.2.</span> <span class="toc-text"> 攻击逻辑流</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%99%AE%E9%80%9A%E6%94%BB%E5%87%BB%E7%9A%84%E6%95%88%E6%9E%9C"><span class="toc-number">10.4.1.3.</span> <span class="toc-text"> 普通攻击的效果</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9E%E6%8B%9B%E7%9A%84%E5%8E%9F%E7%90%86"><span class="toc-number">10.4.2.</span> <span class="toc-text"> 连招的原理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%AA%E7%89%A9%E6%98%AF%E6%80%8E%E4%B9%88%E6%AD%BB%E7%9A%84"><span class="toc-number">11.</span> <span class="toc-text"> 怪物是怎么死的？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%B8%E6%88%8F%E6%98%AF%E5%A6%82%E4%BD%95%E7%BB%93%E6%9D%9F%E7%9A%84"><span class="toc-number">12.</span> <span class="toc-text"> 游戏是如何结束的？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%A9%E5%B1%95%E5%86%85%E5%AE%B9"><span class="toc-number">13.</span> <span class="toc-text"> 扩展内容</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E7%94%BB%E7%B3%BB%E7%BB%9F"><span class="toc-number">13.1.</span> <span class="toc-text"> 动画系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ue%E6%96%87%E6%A1%A3%E5%AD%A6%E4%B9%A0gameplaytag"><span class="toc-number">13.2.</span> <span class="toc-text"> UE 文档学习：GamePlayTag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hudihud%E6%8E%A5%E5%8F%A3-pc%E5%92%8C%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%AE%9E%E7%8E%B0"><span class="toc-number">13.3.</span> <span class="toc-text"> HUD：iHUD 接口、PC 和移动端实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E6%8C%89%E9%92%AE-wb_inputbutton"><span class="toc-number">13.4.</span> <span class="toc-text"> 输入按钮 WB_InputButton</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#wb_wavestart%E8%93%9D%E5%9B%BE"><span class="toc-number">13.5.</span> <span class="toc-text"> WB_WaveStart 蓝图</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#todo-2"><span class="toc-number">14.</span> <span class="toc-text"> TODO</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%97%E8%A1%A8"><span class="toc-number">14.1.</span> <span class="toc-text"> 列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%82%E8%AE%B0"><span class="toc-number">14.2.</span> <span class="toc-text"> 杂记</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E6%B5%81%E5%92%8C%E6%95%B0%E6%8D%AE%E6%B5%81%E8%80%A6%E5%90%88%E7%9A%84%E6%83%85%E5%86%B5"><span class="toc-number">14.2.1.</span> <span class="toc-text"> 逻辑流和数据流耦合的情况？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%93%9D%E5%9B%BE%E7%9A%84event%E8%A7%A6%E5%8F%91%E6%9C%BA%E5%88%B6"><span class="toc-number">14.2.2.</span> <span class="toc-text"> 蓝图的 Event 触发机制？</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%8F%E6%89%8B%E8%AE%B0%E5%BD%95"><span class="toc-number">15.</span> <span class="toc-text"> 随手记录</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="Frozzen·J·Chou"
+      data-src="/images/avatar.png">
+  <p class="name" itemprop="name">Frozzen·J·Chou</p>
+  <div class="description" itemprop="description"></div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">19</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">5</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>HOME</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>RECORDS</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>ARCHIVES</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>CATEGORIES</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>TAGS</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-sakura"></i>ABOUT</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2023/05/15/2020-09-11-%E5%89%A7%E6%83%85%E7%BC%96%E8%BE%91%E5%99%A8/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2023/05/15/2021-09-10-Jenkins%20+%20Feedback%20+%20POPO/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/15/2023-04-26-%E8%A1%A8%E6%A0%BC%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E6%A3%80%E6%9F%A5%E5%B7%A5%E5%85%B7/" title="表格导出数据检查工具">表格导出数据检查工具</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/15/2021-08-12-%E7%BA%BF%E6%80%A7%E9%98%85%E8%AF%BBActionRPG%E9%A1%B9%E7%9B%AE/" title="UE4 GAS 方案探究">UE4 GAS 方案探究</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/15/2022-07-07-%E6%80%A7%E8%83%BD%E8%B7%91%E6%B5%8B%E5%B9%B3%E5%8F%B0/" title="性能跑测平台">性能跑测平台</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/15/2023-04-30-%E5%89%A7%E6%83%85%E6%B8%B8%E6%88%8F/" title="梦境侦探">梦境侦探</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/15/2023-03-29-%E7%A4%BE%E4%BA%A4%E7%8E%A9%E6%B3%95/" title="游戏社交玩法思考">游戏社交玩法思考</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/15/2022-12-12-%E5%B0%8F%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/" title="小游戏设计">小游戏设计</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/15/2023-04-28-%E5%85%B6%E4%BB%96%E5%B0%8F%E5%B7%A5%E5%85%B7/" title="工作小工具">工作小工具</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/15/2023-05-09-%E5%A4%A7%E4%B8%96%E7%95%8C%E8%AE%BE%E8%AE%A1/" title="大世界设计思考">大世界设计思考</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/15/2023-05-01-%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%AE%A2%E8%A7%82%E8%AE%A4%E8%AF%86/" title="游戏设计的客观认识">游戏设计的客观认识</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/15/2023-03-02-%E7%BB%93%E5%90%88AI%E7%9A%84%E8%AE%BE%E8%AE%A1/" title="AIGC应用思考和实践">AIGC应用思考和实践</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Frozzen·J·Chou @ FrozzenCJ</span>
+  </div>
+    <div class="powered-by">
+      基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+    </div>
+  
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2023/05/15/2021-08-12-线性阅读ActionRPG项目/',
+    favicon: {
+      show: "（●´3｀●）库里亚！",
+      hide: "(´Д｀)浏览器已崩溃！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

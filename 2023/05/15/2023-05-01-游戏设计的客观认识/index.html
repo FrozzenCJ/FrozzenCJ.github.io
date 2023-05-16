@@ -1,0 +1,576 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="FrozzenCJ's Game Site" href="http://frozzencj.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="FrozzenCJ's Game Site" href="http://frozzencj.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="FrozzenCJ's Game Site" href="http://frozzencj.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="Design" />
+
+
+<link rel="canonical" href="http://frozzencj.github.io/2023/05/15/2023-05-01-%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%AE%A2%E8%A7%82%E8%AE%A4%E8%AF%86/">
+
+
+
+  <title>
+游戏设计的客观认识 |
+FrozzenCJ = FrozzenCJ's Game Site = It means, I will accomplish it!</title>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">游戏设计的客观认识
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2023-05-15 13:31:38">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2023-05-15T13:31:38+08:00">2023-05-15</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">FrozzenCJ</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giph4fomxoj20zk0m8axp.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclj61ylzj20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipewf5l51j20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipeudstjqj20zk0m8k3r.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipetfk5zwj20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipesng5oej20zk0m87d4.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="http://frozzencj.github.io/2023/05/15/2023-05-01-%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%AE%A2%E8%A7%82%E8%AE%A4%E8%AF%86/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.png">
+    <meta itemprop="name" content="Frozzen·J·Chou">
+    <meta itemprop="description" content="It means, I will accomplish it!, ">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="FrozzenCJ's Game Site">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <blockquote>
+<p>抽象一些理论方法来分析游戏设计，以及游戏设计的客观认识</p>
+</blockquote>
+<h2 id="理论分析"><a class="anchor" href="#理论分析">#</a> 理论分析</h2>
+<h3 id="不可能三角形原则"><a class="anchor" href="#不可能三角形原则">#</a> 不可能三角形原则</h3>
+<p>蒙代尔的不可能三角形原则：</p>
+<ul>
+<li>两项容易导致极端化</li>
+<li>四项去两项维度和三角形类似，四项去一项，分主次思维成本增加，3！=6 次组合</li>
+</ul>
+<p>简洁高效的思维，拓展性良好，太简单的模型可用性差，太复杂的模型复用性差，在此中间获得平衡，设计就是简单 -&gt; 复杂 -&gt; 抽象简单的过程（学习，工作等方方面面都是）。</p>
+<p>例如，对于产品来说，成本 - 性能 - 可靠性 三个维度去考虑，一个有趣的路径： 互联网往往通过不计成本的方式，用高性能和高可靠性吸引专业化 (目标) 用户；然后产品稳定后，拓展渠道，降低成本，逐渐在性能和可靠性的平衡中，不断向低成本靠近，拓宽用户范围。</p>
+<p>按照此原则，初始游戏应首先考虑生存问题，应在 成本 - 可玩性 - 画风 上做出平衡。成本主要指 2d/3d 的资源，人员开发成本，其最低成本就是人员（单位成本 X 时间 = 实际成本），人心齐聚代价会低很多。可玩性的最低就是某类固定爱好玩家，比如米氏二次元就有些固定玩家，总有喜欢某些品类的玩家。画风最低就是吸引玩家来体验的意愿程度，像素风，卡通风格（有趣），真实风等，当然，越精致成本越高。</p>
+<pre><code>1.  卡通风格：使用简化的线条和明亮的色彩，突出游戏的趣味性和轻松感。
+    
+2.  真实主义风格：力求在游戏中还原真实的场景和人物形象，通常使用高质量的纹理和细节。
+    
+3.  手绘风格：仿佛手工绘制的效果，注重线条和色彩的表现力和艺术感染力。
+    
+4.  像素风格：使用像素化的图形和局限的色彩，重现早期电子游戏的风格和情怀。
+    
+5.  立体主义风格：通过立体化和抽象化的手法来表现游戏世界，突出其科幻或幻想的特点。
+    
+6.  欧美风格：通常注重写实和细节的表现，也较为严肃和成熟。
+    
+7.  东方风格：强调线条、色彩和符号的表现力，通常具有浓郁的文化氛围和情感色彩。
+    
+8.  恐怖风格：注重调节游戏气氛和心理效果，通过黑暗、血腥和恐怖的元素来吸引玩家注意。
+
+</code></pre>
+<p>吸引之后就是留存，和找 plmm 类似，始于颜值，终于灵魂，那就是可玩性，也是核心所在，比如《通神榜》中 吸血鬼幸存者 + 土豆兄弟的玩法， 武器系统是两者的结合，充满了随机的趣味性。<br />
+而平滑的成长 - 刷怪机制，比土豆兄弟要爽，成型后薄纱各种敌人的快感也是让人流连忘返的关键点。当然，里面有些设计漏洞可能会加强短期体验 - 降低整体寿命，比如抛瓦刷灵力转刀剑，吸血 + 高伤，基本能站撸，但不在前期考虑范畴。</p>
+<p>如果天时地利人和，初期取得一定的成功，中期就要有稳定的制造业流程，罐头游戏只是一个分支，另一个是抽象出关键的流程和制作思路（框架），在现有的基础上能够快速做出不同品类，例如《原神》- 《星穹》（画风和用户信息界面 GUI 等有非常近似的渲染管线）</p>
+<p>参考米哈游的工作管线，以先单机后联机的方案考虑（当然前期需要定好，不然网络部分迭代起来会比较麻烦），主设计 - 框架 - 开发 - 设计 - 开发 - 这个流程</p>
+<h2 id="马尔科夫链"><a class="anchor" href="#马尔科夫链">#</a> 马尔科夫链</h2>
+<p>ChatGPT 3.5 给的回答：<br />
+马尔科夫链在游戏中有多种应用，其中包括：</p>
+<ol>
+<li>游戏 AI：利用马尔科夫链模型来构建游戏 AI，使其能够根据当前状态和可能的转移情况做出最优决策。</li>
+<li>游戏设计：通过构建马尔科夫链模型来预测玩家的行为和游戏进程，从而优化游戏设计和玩法。</li>
+<li>网络游戏：使用马尔科夫链模型来预测玩家的在线时间和游戏偏好，从而提供个性化的游戏体验。</li>
+<li>游戏平衡：通过分析游戏中的各种状态和转移情况，构建马尔科夫链模型来评估游戏的平衡性和公正性，从而进行相应的调整和优化。</li>
+</ol>
+<p>马尔科夫链（Markov Chain）是一种随机过程，它具有 “无记忆性”，即下一状态的概率仅取决于当前状态，而与过去的状态无关。在游戏开发中，马尔科夫链可以用于实现各种基于概率的系统，例如随机地图生成、NPC 行为模拟、游戏故事生成等。</p>
+<p>创造性 GPT4 给的回答：</p>
+<p>以下是马尔科夫链在游戏中的一些具体应用：</p>
+<ol>
+<li>
+<p>随机地图生成：在游戏中，利用马尔科夫链可以生成具有一定规律性的随机地图。例如，在一个战略游戏中，不同类型的地形可以看作是马尔科夫链的状态，通过预先定义各种地形之间的转移概率，我们可以生成具有一定规律性的随机地图。</p>
+</li>
+<li>
+<p>NPC 行为模拟：马尔科夫链可以用来模拟具有简单行为逻辑的 NPC。通过为 NPC 设定一系列行为状态和相应的状态转移概率，例如：行走、站立、攻击等，可以实现 NPC 在不同状态之间的随机切换，从而使其表现出较为真实的行为。</p>
+</li>
+<li>
+<p>游戏故事生成：利用马尔科夫链可以生成具有一定连贯性的游戏故事。通过为游戏设定一系列情节节点和相应的状态转移概率，可以让游戏故事在不同情节之间自然地转换，从而提高游戏的可玩性和故事的丰富度。</p>
+</li>
+<li>
+<p>随机事件生成：在很多游戏中，随机事件是增强游戏趣味的重要元素。通过马尔科夫链，我们可以为游戏设定一系列随机事件和相应的状态转移概率，使事件的发生和转换具有一定的规律性，从而让玩家在游戏过程中遇到更多有趣的挑战。</p>
+</li>
+<li>
+<p>概率平衡设计：在游戏中，某些资源、技能或物品的获取往往需要一定的随机性。利用马尔科夫链可以对这些元素的获取进行概率平衡设计，从而确保游戏的公平性和可玩性。</p>
+</li>
+</ol>
+<p>总之，马尔科夫链在游戏中的应用颇为广泛，它可以用于实现各种基于概率的系统，提高游戏的趣味性、真实感和可玩性。</p>
+<h3 id="应用"><a class="anchor" href="#应用">#</a> 应用</h3>
+<h4 id="1-随机地图生成"><a class="anchor" href="#1-随机地图生成">#</a> 1. 随机地图生成</h4>
+<p>在随机地图生成中应用马尔科夫链，主要是通过定义地形之间的状态转移概率来生成具有一定规律性的随机地图。以下是一个简单的步骤说明：</p>
+<ol>
+<li>
+<p>首先，确定地形类型。在游戏中，可能有多种类型的地形，如草地、沙漠、山地、森林等。这些地形类型将作为马尔科夫链的状态。</p>
+</li>
+<li>
+<p>其次，定义状态转移概率矩阵。状态转移概率矩阵是一个二维数组，其行和列分别代表不同的地形状态，矩阵中的元素表示从一个状态转换到另一个状态的概率。例如，从草地转移到沙漠的概率可能较低，而从草地转移到森林的概率较高。通过定义这个矩阵，我们可以控制生成地图中不同地形之间的相互关系。</p>
+</li>
+<li>
+<p>初始化地图。创建一个二维数组来表示地图的网格，每个网格对应一个地形状态。可以从一个随机或预先设定的初始状态开始生成地图。</p>
+</li>
+<li>
+<p>根据状态转移概率矩阵生成地图。遍历地图的每个网格，基于当前网格的地形状态和状态转移概率矩阵，随机选择下一个地形状态。可以采用不同的遍历方式，如从左到右、从上到下、螺旋式等。对于每个网格，根据其相邻网格的地形状态和转移概率矩阵来更新其地形状态。</p>
+</li>
+<li>
+<p>根据需要优化地图。生成的地图可能需要进行一些优化，如确保地图的连通性、平衡各种地形的分布比例等。可以通过一些后处理算法来实现这些优化目标。</p>
+</li>
+<li>
+<p>渲染地图。根据生成的地图网格及其地形状态，将地图渲染到游戏画面上。通常，需要为不同地形状态设计相应的美术素材（如不同类型的地面纹理），以提高地图的视觉效果。</p>
+</li>
+</ol>
+<p>通过以上步骤，我们可以利用马尔科夫链生成具有一定规律性的随机地图。这种方法的优点在于可以在保证地图随机性的同时控制地形之间的相互关系，使生成的地图更具有真实感和可玩性。同时，通过调整状态转移概率矩阵，可以轻松实现不同风格的地图生成。</p>
+<h4 id="2npc行为模拟"><a class="anchor" href="#2npc行为模拟">#</a> 2.NPC 行为模拟</h4>
+<p>假设有一个游戏中的 NPC，其状态可分为三种：巡逻、攻击和逃跑。其中，巡逻状态下 NPC 有 50% 的概率继续巡逻，30% 的概率转变为攻击状态，20% 的概率转变为逃跑状态；攻击状态下 NPC 有 70% 的概率继续攻击，20% 的概率转变为逃跑状态，10% 的概率转变为巡逻状态；逃跑状态下 NPC 有 80% 的概率继续逃跑，20% 的概率转变为巡逻状态。在马尔科夫链收敛后，各个状态的概率分布趋于稳定，称为平稳分布或稳态分布。在稳态分布下，各个状态的概率表示为 πi，表示在长时间运行后，系统处于状态 i 的概率。在游戏 NPC 行为模拟中，各个行为的概率取决于 NPC 状态转移矩阵和 NPC 的初始状态。如果 NPC 状态转移矩阵满足细致平稳条件，那么稳态分布可以通过转移矩阵的特征向量计算得出。具体而言，稳态分布 π 满足以下方程组：</p>
+<p>π = πP</p>
+<p>Σπi = 1</p>
+<p>其中，P 是 NPC 状态转移矩阵，π 是稳态分布，Σπi = 1 表示稳态分布的概率和为 1。解这个方程组可以得到每个状态的稳态概率，从而得到 NPC 模拟中各个行为的概率分布。在 NPC 状态转移矩阵描述的例子中，如果我们假设 NPC 的初始状态为巡逻状态，那么在该矩阵满足细致平稳条件的情况下，进行 100 次状态转移后，各个状态的稳态概率分别为：</p>
+<p>巡逻状态：0.5714</p>
+<p>攻击状态：0.2857</p>
+<p>逃跑状态：0.1429</p>
+<p>这意味着，当 NPC 处于稳态时，其有 57.14% 的概率处于巡逻状态，28.57% 的概率处于攻击状态，14.29% 的概率处于逃跑状态。需要注意的是，这些数值并不是固定不变的，它们取决于 NPC 状态转移矩阵的具体数值和 NPC 的初始状态。</p>
+
+      <div class="tags">
+          <a href="/tags/Design/" rel="tag"><i class="ic i-tag"></i> Design</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2023-05-07 00:34:57" itemprop="dateModified" datetime="2023-05-07T00:34:57+08:00">2023-05-07</time>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>Frozzen·J·Chou <i class="ic i-at"><em>@</em></i>FrozzenCJ's Game Site
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="http://frozzencj.github.io/2023/05/15/2023-05-01-%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%AE%A2%E8%A7%82%E8%AE%A4%E8%AF%86/" title="游戏设计的客观认识">http://frozzencj.github.io/2023/05/15/2023-05-01-游戏设计的客观认识/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2023/05/15/2023-04-30-%E5%89%A7%E6%83%85%E6%B8%B8%E6%88%8F/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicli3sbvtj20zk0m8x6p.jpg" title="梦境侦探">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>梦境侦探</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2023/05/15/2023-05-04-%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9%20-%20%E4%BB%98%E8%B4%B9%20&%20%E6%B4%BB%E8%B7%83%E6%B4%BB%E5%8A%A8/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicis081o9j20zk0m8dmr.jpg" title="工作总结 - 付费 &amp; 活跃活动">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>工作总结 - 付费 & 活跃活动</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%90%86%E8%AE%BA%E5%88%86%E6%9E%90"><span class="toc-number">1.</span> <span class="toc-text"> 理论分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E5%8F%AF%E8%83%BD%E4%B8%89%E8%A7%92%E5%BD%A2%E5%8E%9F%E5%88%99"><span class="toc-number">1.1.</span> <span class="toc-text"> 不可能三角形原则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A9%AC%E5%B0%94%E7%A7%91%E5%A4%AB%E9%93%BE"><span class="toc-number">2.</span> <span class="toc-text"> 马尔科夫链</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8"><span class="toc-number">2.1.</span> <span class="toc-text"> 应用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E9%9A%8F%E6%9C%BA%E5%9C%B0%E5%9B%BE%E7%94%9F%E6%88%90"><span class="toc-number">2.1.1.</span> <span class="toc-text"> 1. 随机地图生成</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2npc%E8%A1%8C%E4%B8%BA%E6%A8%A1%E6%8B%9F"><span class="toc-number">2.1.2.</span> <span class="toc-text"> 2.NPC 行为模拟</span></a></li></ol></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="Frozzen·J·Chou"
+      data-src="/images/avatar.png">
+  <p class="name" itemprop="name">Frozzen·J·Chou</p>
+  <div class="description" itemprop="description"></div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">19</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">5</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>HOME</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>RECORDS</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>ARCHIVES</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>CATEGORIES</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>TAGS</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-sakura"></i>ABOUT</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2023/05/15/2023-04-30-%E5%89%A7%E6%83%85%E6%B8%B8%E6%88%8F/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2023/05/15/2023-05-04-%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9%20-%20%E4%BB%98%E8%B4%B9%20&%20%E6%B4%BB%E8%B7%83%E6%B4%BB%E5%8A%A8/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/15/2022-11-11-%E8%B7%91%E6%B5%8B%E9%83%A8%E7%BD%B2/" title="稳定性工具部署">稳定性工具部署</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/15/2023-05-04-%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9%20-%20%E4%BB%98%E8%B4%B9%20&%20%E6%B4%BB%E8%B7%83%E6%B4%BB%E5%8A%A8/" title="工作总结 - 付费 &amp; 活跃活动">工作总结 - 付费 & 活跃活动</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/14/hello-world/" title="Hello World">Hello World</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/15/2022-04-01-%E5%A5%96%E5%8A%B1%E7%9B%91%E6%8E%A7%E5%B9%B3%E5%8F%B0/" title="奖励监控平台">奖励监控平台</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/15/2022-07-07-%E6%80%A7%E8%83%BD%E8%B7%91%E6%B5%8B%E5%B9%B3%E5%8F%B0/" title="性能跑测平台">性能跑测平台</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/15/2023-04-30-%E5%89%A7%E6%83%85%E6%B8%B8%E6%88%8F/" title="梦境侦探">梦境侦探</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/15/2021-09-10-Jenkins%20+%20Feedback%20+%20POPO/" title="Jenkins + Feedback + POPO">Jenkins + Feedback + POPO</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/15/2023-05-09-%E5%A4%A7%E4%B8%96%E7%95%8C%E8%AE%BE%E8%AE%A1/" title="大世界设计思考">大世界设计思考</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/15/2023-04-26-%E8%A1%A8%E6%A0%BC%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E6%A3%80%E6%9F%A5%E5%B7%A5%E5%85%B7/" title="表格导出数据检查工具">表格导出数据检查工具</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/15/2023-05-01-%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%AE%A2%E8%A7%82%E8%AE%A4%E8%AF%86/" title="游戏设计的客观认识">游戏设计的客观认识</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Frozzen·J·Chou @ FrozzenCJ</span>
+  </div>
+    <div class="powered-by">
+      基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+    </div>
+  
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2023/05/15/2023-05-01-游戏设计的客观认识/',
+    favicon: {
+      show: "（●´3｀●）库里亚！",
+      hide: "(´Д｀)浏览器已崩溃！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>
