@@ -103,8 +103,9 @@ theme: shoka
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo: git@github.com:FrozzenCJ/FrozzenCJ.github.io.git # 仓库地址
+  repo: https://github.com/FrozzenCJ/FrozzenCJ.github.io.git # 仓库地址
   branch: gh-pages # 分支
+  # branch: master
 
 # multi markdown render
 markdown:
