@@ -197,7 +197,7 @@ valine:
   tagMeta:
     visitor: 新朋友
     master: 主人
-    friend: 小伙伴
+    friend: 小伙伴1
     investor: 金主粑粑
   tagColor:
     master: "var(--color-orange)"
