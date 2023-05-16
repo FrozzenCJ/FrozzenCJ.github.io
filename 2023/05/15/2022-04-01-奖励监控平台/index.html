@@ -102,12 +102,12 @@ FrozzenCJ = FrozzenCJ's Game Site = It means, I will accomplish it!</title>
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipeyvx1d4j20zk0m8hdt.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclgrvbd6j20zk0m8qv5.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giciuja1j1j20zk0m8kjl.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1giclxp31goj20zk0m8qv5.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gicliwyw55j20zk0m8hdt.jpg"></li>
-          <li class="item" data-background-image="https://tva3.sinaimg.cn/large/6833939bly1gipesx5fdwj20zk0m81kx.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclfw2t96j20zk0m8x6p.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giciukx8a7j20zk0m8aio.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipet4bz0yj20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclxfdlttj20zk0m8npd.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipew8gmvyj20zk0m87wh.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipetv6p75j20zk0m8x6p.jpg"></li>
         </ul>
       </div>
     </header>
@@ -183,11 +183,74 @@ FrozzenCJ = FrozzenCJ's Game Site = It means, I will accomplish it!</title>
 <p>用的组内老框架接手别人的半成品<br />
  Django 2 + mysql + 原生 Js + bootstrap3</p>
 <h3 id="1-奖励确认"><a class="anchor" href="#1-奖励确认">#</a> 1. 奖励确认</h3>
-<figure class="highlight mermaid"><figcaption data-lang="mermaid"><span>d</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">graph</span> TD</pre></td></tr><tr><td data-num="2"></td><td><pre>    A<span class="token text string">[Start]</span> <span class="token arrow operator">--></span> Redmine<span class="token text string">[易协作]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>    Svn_version<span class="token text string">[/版本信息/]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="4"></td><td><pre>    <span class="token keyword">subgraph</span> 奖励表合表</pre></td></tr><tr><td data-num="5"></td><td><pre>    Reward_data<span class="token text string">[reward_data 相关文件]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="6"></td><td><pre>    Reward_data <span class="token arrow operator">--></span> Robot_trans<span class="token text string">[自动导表及记录]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="7"></td><td><pre>    Robot_trans<span class="token arrow operator">--></span> Reward_datas<span class="token text string">[/奖励合表.py/]</span><span class="token punctuation">;</span> </pre></td></tr><tr><td data-num="8"></td><td><pre>    <span class="token keyword">end</span></pre></td></tr><tr><td data-num="9"></td><td><pre>    <span class="token keyword">subgraph</span> 奖励确认平台逻辑</pre></td></tr><tr><td data-num="10"></td><td><pre>    Ref_infos<span class="token text string">[/相关信息/]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="11"></td><td><pre>    Diff_data<span class="token text string">[/差量相关词条全部数据/]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="12"></td><td><pre>    Diff_data <span class="token arrow operator">--></span> Robot_before<span class="token text string">[/搬运前数据/]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="13"></td><td><pre>    Ref_infos <span class="token operator">&amp;</span> Robot_before <span class="token arrow operator">--></span> New_reward<span class="token text string">[/合并新数据/]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="14"></td><td><pre>    New_reward <span class="token operator">&amp;</span> DB_reward<span class="token text string">[/数据库数据/]</span> <span class="token arrow operator">--></span> Prase_data<span class="token text string">[对比新老数据并解析]</span> <span class="token arrow operator">--></span> Store<span class="token text string">[存储]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="15"></td><td><pre>    Store <span class="token arrow operator">--></span> POPO_info<span class="token text string">[消息通知]</span> &amp; Crontab<span class="token text string">[定时提示]</span> <span class="token arrow operator">--></span> Check_Diff<span class="token text string">[确认diff]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="16"></td><td><pre>    Check_Diff <span class="token arrow operator">--></span> E<span class="token text string">[End]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="17"></td><td><pre>    <span class="token keyword">end</span></pre></td></tr><tr><td data-num="18"></td><td><pre>    Redmine <span class="token arrow operator">--></span> Reward_data<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="19"></td><td><pre>    Reward_datas <span class="token arrow operator">--></span> Diff_data<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="20"></td><td><pre>    Redmine <span class="token operator">&amp;</span> Svn_version<span class="token arrow operator">--></span> Ref_infos<span class="token punctuation">;</span></pre></td></tr></table></figure><h3 id="2-奖励报警"><a class="anchor" href="#2-奖励报警">#</a> 2. 奖励报警</h3>
+<pre class="mermaid">
+graph TD
+    A[Start] --> Redmine[易协作];
+    Svn_version[/版本信息/];
+    subgraph 奖励表合表
+    Reward_data[reward_data 相关文件];
+    Reward_data --> Robot_trans[自动导表及记录];
+    Robot_trans--> Reward_datas[/奖励合表.py/]; 
+    end
+    subgraph 奖励确认平台逻辑
+    Ref_infos[/相关信息/];
+    Diff_data[/差量相关词条全部数据/];
+    Diff_data --> Robot_before[/搬运前数据/];
+    Ref_infos & Robot_before --> New_reward[/合并新数据/];
+    New_reward & DB_reward[/数据库数据/] --> Prase_data[对比新老数据并解析] --> Store[存储];
+    Store --> POPO_info[消息通知] & Crontab[定时提示] --> Check_Diff[确认diff];
+    Check_Diff --> E[End];
+    end
+    Redmine --> Reward_data;
+    Reward_datas --> Diff_data;
+    Redmine & Svn_version--> Ref_infos;</pre>
+<h3 id="2-奖励报警"><a class="anchor" href="#2-奖励报警">#</a> 2. 奖励报警</h3>
 <h4 id="100-问题"><a class="anchor" href="#100-问题">#</a> 100% 问题</h4>
-<figure class="highlight mermaid"><figcaption data-lang="mermaid"><span>d</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">graph</span> TD</pre></td></tr><tr><td data-num="2"></td><td><pre>    A<span class="token text string">[start]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>    DB_reward_info<span class="token text string">[/数据库奖励相关信息/]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="4"></td><td><pre>    <span class="token keyword">subgraph</span> RewardCompInGame</pre></td></tr><tr><td data-num="5"></td><td><pre>    reward_comp<span class="token text string">[RewardComp]</span> <span class="token arrow operator">--></span> alarm<span class="token text string">[防刷检查]</span> <span class="token arrow operator">--></span> check_alarm<span class="token text string">&#123;触发?&#125;</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="6"></td><td><pre>    check_alarm <span class="token inter-arrow-label"><span class="token arrow-head arrow operator">--</span> <span class="token label property">Yes</span> <span class="token arrow operator">--></span></span> alarm_datas<span class="token text string">[/机器集群数据&amp;游戏详细数据/]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="7"></td><td><pre>    check_alarm <span class="token inter-arrow-label"><span class="token arrow-head arrow operator">--</span> <span class="token label property">No</span> <span class="token arrow operator">--></span></span> send_reward<span class="token text string">[正常发奖]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="8"></td><td><pre>    alarm_datas <span class="token arrow operator">--></span> send_msg<span class="token text string">[报警汇总群]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="9"></td><td><pre>    send_msg <span class="token arrow operator">--></span> alarm_data<span class="token text string">[/报警信息/]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="10"></td><td><pre>    <span class="token keyword">end</span></pre></td></tr><tr><td data-num="11"></td><td><pre>    <span class="token keyword">subgraph</span> Robot</pre></td></tr><tr><td data-num="12"></td><td><pre>    api_info<span class="token text string">[群信息api]</span> <span class="token arrow operator">--></span> alarm_data<span class="token text string">[/报警信息/]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="13"></td><td><pre>    <span class="token keyword">end</span></pre></td></tr><tr><td data-num="14"></td><td><pre>    <span class="token keyword">subgraph</span> 100%RewardAlarm</pre></td></tr><tr><td data-num="15"></td><td><pre>    alarm_data <span class="token arrow operator">--></span> key_filter<span class="token text string">[关键词筛选]</span> <span class="token arrow operator">--></span> reward_info<span class="token text string">[/关键信息/]</span> <span class="token arrow operator">--></span> DB_store<span class="token text string">[存库]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="16"></td><td><pre>    reward_info <span class="token operator">&amp;</span> DB_reward_info <span class="token arrow operator">--></span> info_res<span class="token text string">[解析数据]</span> <span class="token arrow operator">--></span> DB_store<span class="token text string">[存储]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="17"></td><td><pre>    DB_store <span class="token arrow operator">--></span> info<span class="token text string">[消息通知]</span> &amp; crontab<span class="token text string">[定时提示]</span> <span class="token arrow operator">--></span> E<span class="token text string">[end]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="18"></td><td><pre>    <span class="token keyword">end</span></pre></td></tr><tr><td data-num="19"></td><td><pre>    A <span class="token arrow operator">--></span> reward_comp<span class="token punctuation">;</span></pre></td></tr></table></figure><h4 id="疑似报警"><a class="anchor" href="#疑似报警">#</a> 疑似报警</h4>
-<figure class="highlight mermaid"><figcaption data-lang="mermaid"><span>d</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">graph</span> TD</pre></td></tr><tr><td data-num="2"></td><td><pre>    DB_reward_info2<span class="token text string">[/数据库奖励相关信息/]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>    <span class="token keyword">subgraph</span> SuspectRewardAlarm</pre></td></tr><tr><td data-num="4"></td><td><pre>    alarm_data2<span class="token text string">[/报警信息/]</span> <span class="token arrow operator">--></span> key_filter2<span class="token text string">[关键词筛选]</span> <span class="token arrow operator">--></span> reward_info2<span class="token text string">[/关键信息/]</span> <span class="token arrow operator">--></span> DB_store2<span class="token text string">[存库]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="5"></td><td><pre>    reward_info2 <span class="token operator">&amp;</span> DB_reward_info2 <span class="token arrow operator">--></span> info_res2<span class="token text string">[解析数据]</span> <span class="token arrow operator">--></span> DB_store2<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="6"></td><td><pre>    info_res2 <span class="token arrow operator">--></span> level<span class="token text string">[阶段阈值]</span> <span class="token arrow operator">--></span> tigger<span class="token text string">&#123;触发?&#125;</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="7"></td><td><pre>    tigger <span class="token inter-arrow-label"><span class="token arrow-head arrow operator">--</span> <span class="token label property">Yes</span> <span class="token arrow operator">--></span></span> s_info<span class="token text string">[消息通知]</span> &amp; s_crontab<span class="token text string">[定时提示]</span> <span class="token arrow operator">--></span> QA_check<span class="token text string">[人工复审]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="8"></td><td><pre>    QA_check <span class="token arrow operator">--></span> Suspect_check<span class="token text string">&#123;有问题?&#125;</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="9"></td><td><pre>    Suspect_check <span class="token inter-arrow-label"><span class="token arrow-head arrow operator">--</span> <span class="token label property">Yes</span> <span class="token arrow operator">--></span></span> DB_store2<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="10"></td><td><pre>    Suspect_check <span class="token inter-arrow-label"><span class="token arrow-head arrow operator">--</span> <span class="token label property">No</span> <span class="token arrow operator">--></span></span> Up_level<span class="token text string">[提高阈值]</span> <span class="token arrow operator">--></span> DB_store2<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="11"></td><td><pre>    tigger <span class="token inter-arrow-label"><span class="token arrow-head arrow operator">--</span> <span class="token label property">No</span> <span class="token arrow operator">--></span></span> DB_store2<span class="token punctuation">;</span> </pre></td></tr><tr><td data-num="12"></td><td><pre>    DB_store2 <span class="token arrow operator">--></span> E<span class="token text string">[end]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="13"></td><td><pre>    <span class="token keyword">end</span></pre></td></tr></table></figure><h3 id="3-协议关键代码"><a class="anchor" href="#3-协议关键代码">#</a> 3. 协议 / 关键代码</h3>
-<figure class="highlight mermaid"><figcaption data-lang="mermaid"><span>d</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">graph</span> TD</pre></td></tr><tr><td data-num="2"></td><td><pre>    A<span class="token text string">[Start]</span> <span class="token arrow operator">--></span> Redmine<span class="token text string">[易协作]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>    Redmine <span class="token arrow operator">--></span> Code_commit<span class="token text string">[/代码提交记录/]</span> &amp; Ref_infos<span class="token text string">[/相关信息/]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="4"></td><td><pre>    Code_commit <span class="token arrow operator">--></span> Code_key_words<span class="token text string">[/关键词匹配代码段/]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="5"></td><td><pre>    Code_key_words <span class="token arrow operator">--></span> Svn_up_blame<span class="token text string">[SVN更新和Blame]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="6"></td><td><pre>    Svn_up_blame <span class="token operator">&amp;</span> Ref_infos <span class="token arrow operator">--></span> Prase_store<span class="token text string">[解析和存储]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="7"></td><td><pre>    Prase_store <span class="token arrow operator">--></span> POPO_info<span class="token text string">[消息通知]</span> &amp; Crontab<span class="token text string">[定时提示]</span> <span class="token arrow operator">--></span> Check_Diff<span class="token text string">[确认diff]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="8"></td><td><pre>    Check_Diff <span class="token arrow operator">--></span> E<span class="token text string">[End]</span><span class="token punctuation">;</span></pre></td></tr></table></figure><h2 id="最终效果"><a class="anchor" href="#最终效果">#</a> 最终效果</h2>
+<pre class="mermaid">
+graph TD
+    A[start];
+    DB_reward_info[/数据库奖励相关信息/];
+    subgraph RewardCompInGame
+    reward_comp[RewardComp] --> alarm[防刷检查] --> check_alarm{触发?};
+    check_alarm -- Yes --> alarm_datas[/机器集群数据&游戏详细数据/];
+    check_alarm -- No --> send_reward[正常发奖];
+    alarm_datas --> send_msg[报警汇总群];
+    send_msg --> alarm_data[/报警信息/];
+    end
+    subgraph Robot
+    api_info[群信息api] --> alarm_data[/报警信息/];
+    end
+    subgraph 100%RewardAlarm
+    alarm_data --> key_filter[关键词筛选] --> reward_info[/关键信息/] --> DB_store[存库];
+    reward_info & DB_reward_info --> info_res[解析数据] --> DB_store[存储];
+    DB_store --> info[消息通知] & crontab[定时提示] --> E[end];
+    end
+    A --> reward_comp;</pre>
+<h4 id="疑似报警"><a class="anchor" href="#疑似报警">#</a> 疑似报警</h4>
+<pre class="mermaid">
+graph TD
+    DB_reward_info2[/数据库奖励相关信息/];
+    subgraph SuspectRewardAlarm
+    alarm_data2[/报警信息/] --> key_filter2[关键词筛选] --> reward_info2[/关键信息/] --> DB_store2[存库];
+    reward_info2 & DB_reward_info2 --> info_res2[解析数据] --> DB_store2;
+    info_res2 --> level[阶段阈值] --> tigger{触发?};
+    tigger -- Yes --> s_info[消息通知] & s_crontab[定时提示] --> QA_check[人工复审];
+    QA_check --> Suspect_check{有问题?};
+    Suspect_check -- Yes --> DB_store2;
+    Suspect_check -- No --> Up_level[提高阈值] --> DB_store2;
+    tigger -- No --> DB_store2; 
+    DB_store2 --> E[end];
+    end</pre>
+<h3 id="3-协议关键代码"><a class="anchor" href="#3-协议关键代码">#</a> 3. 协议 / 关键代码</h3>
+<pre class="mermaid">graph TD
+    A[Start] --> Redmine[易协作];
+    Redmine --> Code_commit[/代码提交记录/] & Ref_infos[/相关信息/];
+    Code_commit --> Code_key_words[/关键词匹配代码段/];
+    Code_key_words --> Svn_up_blame[SVN更新和Blame];
+    Svn_up_blame & Ref_infos --> Prase_store[解析和存储];
+    Prase_store --> POPO_info[消息通知] & Crontab[定时提示] --> Check_Diff[确认diff];
+    Check_Diff --> E[End];</pre>
+<h2 id="最终效果"><a class="anchor" href="#最终效果">#</a> 最终效果</h2>
 <p>外放前：<br />
 奖励确认<br />
 协议确认、关键代码确认（有代码权限感觉用处不大，基本上都会 review 代码）<br />
@@ -243,7 +306,7 @@ FrozzenCJ = FrozzenCJ's Game Site = It means, I will accomplish it!</title>
     <div class="item left">
       
 
-  <a href="/2023/05/15/2021-09-10-Jenkins%20+%20Feedback%20+%20POPO/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipexoj0moj20zk0m8kgu.jpg" title="Jenkins + Feedback + POPO">
+  <a href="/2023/05/15/2021-09-10-Jenkins%20+%20Feedback%20+%20POPO/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gipeu1usa7j20zk0m8b29.jpg" title="Jenkins + Feedback + POPO">
   <span class="type">上一篇</span>
   <span class="category"><i class="ic i-flag"></i> </span>
   <h3>Jenkins + Feedback + POPO</h3>
@@ -253,7 +316,7 @@ FrozzenCJ = FrozzenCJ's Game Site = It means, I will accomplish it!</title>
     <div class="item right">
       
 
-  <a href="/2023/05/15/2022-07-07-%E6%80%A7%E8%83%BD%E8%B7%91%E6%B5%8B%E5%B9%B3%E5%8F%B0/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicljitigmj20zk0m87fp.jpg" title="性能跑测平台">
+  <a href="/2023/05/15/2022-07-07-%E6%80%A7%E8%83%BD%E8%B7%91%E6%B5%8B%E5%B9%B3%E5%8F%B0/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclga70tsj20zk0m84mr.jpg" title="性能跑测平台">
   <span class="type">下一篇</span>
   <span class="category"><i class="ic i-flag"></i> </span>
   <h3>性能跑测平台</h3>
@@ -376,7 +439,7 @@ FrozzenCJ = FrozzenCJ's Game Site = It means, I will accomplish it!</title>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/05/15/2023-04-26-%E8%A1%A8%E6%A0%BC%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E6%A3%80%E6%9F%A5%E5%B7%A5%E5%85%B7/" title="表格导出数据检查工具">表格导出数据检查工具</a></span>
+    <span><a href="/2023/05/15/2020-09-11-%E5%89%A7%E6%83%85%E7%BC%96%E8%BE%91%E5%99%A8/" title="AVG剧情编辑器">AVG剧情编辑器</a></span>
   </li>
 
       
@@ -394,7 +457,7 @@ FrozzenCJ = FrozzenCJ's Game Site = It means, I will accomplish it!</title>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/05/15/2023-03-29-%E7%A4%BE%E4%BA%A4%E7%8E%A9%E6%B3%95/" title="游戏社交玩法思考">游戏社交玩法思考</a></span>
+    <span><a href="/2023/05/15/2023-05-04-%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9%20-%20%E4%BB%98%E8%B4%B9%20&%20%E6%B4%BB%E8%B7%83%E6%B4%BB%E5%8A%A8/" title="工作总结 - 付费 &amp; 活跃活动">工作总结 - 付费 & 活跃活动</a></span>
   </li>
 
       
@@ -412,7 +475,7 @@ FrozzenCJ = FrozzenCJ's Game Site = It means, I will accomplish it!</title>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/05/15/2023-01-10-%E7%A8%B3%E5%AE%9A%E6%80%A7%E8%87%AA%E6%B5%8B%E5%B7%A5%E5%85%B7/" title="稳定性自测工具">稳定性自测工具</a></span>
+    <span><a href="/2023/05/14/hello-world/" title="Hello World">Hello World</a></span>
   </li>
 
       
@@ -421,7 +484,7 @@ FrozzenCJ = FrozzenCJ's Game Site = It means, I will accomplish it!</title>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/05/15/2023-05-01-%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%AE%A2%E8%A7%82%E8%AE%A4%E8%AF%86/" title="游戏设计的客观认识">游戏设计的客观认识</a></span>
+    <span><a href="/2023/05/15/2022-07-07-%E6%80%A7%E8%83%BD%E8%B7%91%E6%B5%8B%E5%B9%B3%E5%8F%B0/" title="性能跑测平台">性能跑测平台</a></span>
   </li>
 
       
@@ -430,7 +493,7 @@ FrozzenCJ = FrozzenCJ's Game Site = It means, I will accomplish it!</title>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/05/15/2023-04-28-%E5%85%B6%E4%BB%96%E5%B0%8F%E5%B7%A5%E5%85%B7/" title="工作小工具">工作小工具</a></span>
+    <span><a href="/2023/05/15/2023-05-04-%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9%20-%20%E5%B7%A5%E5%85%B7%E5%BC%80%E5%8F%91/" title="工作总结 - 工具开发">工作总结 - 工具开发</a></span>
   </li>
 
       
@@ -448,7 +511,7 @@ FrozzenCJ = FrozzenCJ's Game Site = It means, I will accomplish it!</title>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/05/15/2023-04-28-%E8%BF%90%E8%90%A5%E6%B4%BB%E5%8A%A8%E8%90%A5%E6%94%B6%E6%80%BB%E7%BB%93/" title="运营活动营收总结">运营活动营收总结</a></span>
+    <span><a href="/2023/05/15/2021-09-10-Jenkins%20+%20Feedback%20+%20POPO/" title="Jenkins + Feedback + POPO">Jenkins + Feedback + POPO</a></span>
   </li>
 
       
@@ -457,7 +520,7 @@ FrozzenCJ = FrozzenCJ's Game Site = It means, I will accomplish it!</title>
 <div class="breadcrumb">
 </div>
 
-    <span><a href="/2023/05/15/2023-05-04-%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9%20-%20%E4%BB%98%E8%B4%B9%20&%20%E6%B4%BB%E8%B7%83%E6%B4%BB%E5%8A%A8/" title="工作总结 - 付费 &amp; 活跃活动">工作总结 - 付费 & 活跃活动</a></span>
+    <span><a href="/2023/05/15/2023-04-28-%E5%85%B6%E4%BB%96%E5%B0%8F%E5%B7%A5%E5%85%B7/" title="工作小工具">工作小工具</a></span>
   </li>
 
   </ul>
