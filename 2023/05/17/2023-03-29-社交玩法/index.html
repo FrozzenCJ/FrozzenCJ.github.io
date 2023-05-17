@@ -1,0 +1,517 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="FrozzenCJ's Game Site" href="http://frozzencj.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="FrozzenCJ's Game Site" href="http://frozzencj.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="FrozzenCJ's Game Site" href="http://frozzencj.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="Game Design" />
+
+
+<link rel="canonical" href="http://frozzencj.github.io/2023/05/17/2023-03-29-%E7%A4%BE%E4%BA%A4%E7%8E%A9%E6%B3%95/">
+
+
+
+  <title>
+游戏社交玩法思考 |
+FrozzenCJ = FrozzenCJ's Game Site = It means, I will accomplish it!</title>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="loader">
+      <div class="container">
+        <div class="carousel">
+          <div class="love"></div>
+          <div class="love"></div>
+          <div class="love"></div>
+          <div class="love"></div>
+          <div class="love"></div>
+          <div class="love"></div>
+          <div class="love"></div>
+        </div> 
+      </div>
+      <div class="container">
+        <div class="carousel">
+          <div class="death"></div>
+          <div class="death"></div>
+          <div class="death"></div>
+          <div class="death"></div>
+          <div class="death"></div>
+          <div class="death"></div>
+          <div class="death"></div>
+        </div> 
+      </div>
+      <div class="container">
+        <div class="carousel">
+            <div class="robots"></div>
+            <div class="robots"></div>
+            <div class="robots"></div>
+            <div class="robots"></div>
+            <div class="robots"></div>
+            <div class="robots"></div>
+            <div class="robots"></div>
+        </div> 
+      </div>
+    </div>    
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">游戏社交玩法思考
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2023-05-18 06:28:36">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2023-05-18T06:28:36+08:00">2023-05-18</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">FrozzenCJ</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://s2.loli.net/2023/05/17/oPhGYDCMEwx95Qs.jpg"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2023/05/16/LZYN3X5DMsVmAwb.jpg"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2023/05/17/wBA4eTSp8ld1Qu9.jpg"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2023/05/17/ZUYVrD7E9zNpxkS.jpg"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2023/05/17/jLilR1bVHmePw5y.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2023/05/17/tjXbMvw5Oi2Zx8o.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="http://frozzencj.github.io/2023/05/17/2023-03-29-%E7%A4%BE%E4%BA%A4%E7%8E%A9%E6%B3%95/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.png">
+    <meta itemprop="name" content="Frozzen·J·Chou">
+    <meta itemprop="description" content="It means, I will accomplish it!, ">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="FrozzenCJ's Game Site">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <p>第一种，前社交关系，这种模式下人与人只是被系统放在一起，大多数情况下形成的都是无实质社交关系。</p>
+<p>玩家间无需知道社交对象是谁，无需知道社交对象的特点，也不需要产生任何配合，故不存在有效社交行为。玩家实际上仍停留在与系统、NPC 进行互动的阶段，例如添加好友一键领金币，或是加入公会领取奖励，玩家实质上并未与其他人产生社交互动，实质上仍为个人玩法。</p>
+<p>第二种，弱社交关系 —— 桥接（Bridging ties），强调人与人之间形成一种广泛而不深度的社会关系，该关系下的社交行为完全由单次或短期的利益行为（组队 / 交易）构成，玩家间缺乏情感互动，也缺乏长期联系，关系非常脆弱，玩家随时可以更换社交对象并与其他玩家建立新的桥接关系，像 Among us 等线上随机组队的对抗游戏，也是通过快速但脆弱的联系增加玩家间接触及关系网刷新的频率。</p>
+<p>第三种，强社交关系 —— 链结（Bonding ties），人与人之间真正形成了一种稳固的亲密关系。玩家通过链结产生了彼此之间的强依赖，随着长期的合作不断加强彼此的联系，开启新的玩法体验、实现游戏体验乐趣最大化。</p>
+<p>如美国传播学教授 Mia Consalvo 就游戏中的社交工具研究（2011）中提及，目前许多游戏提供的交流工具难以达到深度交流，流于形式，包括但不限于无意义的讨论、交往及信息交换。</p>
+<p>以《剑与远征》为例，其作为一个放置 + 卡牌产品，本身为轻社交导向，即使游戏内提供相对完善的社交工具，并且官方在后续运营过程中不断丰富、优化玩家可使用的社交工具，但由于玩法本质仍为单机，故玩家间社交联系依旧停留于单向阶段，也就无法在玩家间形成有效 “链结 “关系。</p>
+<p>有社交玩法，也并不等同于形成 “链结”<br />
+Mia Consalvo（2011）还在其研究中提及，大量社交游戏正做着无意义的玩家互动，是对社交性的嘲弄，而非真情表达。</p>
+<p>以《新诛仙手游》为例，其作为一款 MMO 产品，游戏内大量堆砌社交玩法，初步满足玩家双向交互的条件，但实际社交生态中，玩家仅将社交系统作为数值提升的工具，对于社交的对象与社交的质量都没有进一步的追求，进而缺乏深层的情感联系。究其根本则是由于不收敛的养成数值，导致玩家行为以纯数值导向而忽视依恋关系。</p>
+<p>其实 “链结” 可以理解成用户筛选后的结果，而并非假设。</p>
+<p>游戏环境下衍生的 “链结” 价值<br />
+ 3.2.1 社群文化发展<br />
+此时 “链结” 关系作为一个中介影响因素，通过增强玩家对游戏的代入感以及归属感，从而推动玩家自发在社群传播游戏的内容与文化。得益于 “链结” 关系带来的对游戏内门派、阵容、角色强大的认同感及感情归属，玩家自发地将自身情感代入进游戏内，更愿意进行角色特征的刻画与创作，从而推动社群文化的传播与发展。</p>
+<p>3.2.2 现实关系迁移<br />
+同样，“链结” 关系作为一个中介，通过高质量的游戏体验提升玩家对游戏的评价，从而拉升玩家推荐意愿。以《光遇》为例，玩家若在游戏内获得了深度社交体验，将会影响其对该游戏的评价，从而更愿意将《光遇》推荐给其他朋友，这也是目前《光遇》拥有非常优秀的新增的一部分原因。</p>
+<p>评论：</p>
+<blockquote>
+<p>其实我们可以换个角度去思考，这部分属性的玩家是不是我们要去推动 “链结” 的重点对象？因为 moba 游戏乃至大部分竞技游戏，玩家画像和生态并不只有 “玩家偏好胜负、快节奏战斗、独狼” 等，我记得 18 年 G78 台服报告中提到 “台湾核心玩家特征：拥有较强的社交倾向，喜欢展示自我，主动积极和陌生人交流开黑，对于组织依赖和粘性强，但产品内辅助玩家社交的系统较少”。因而我们可以根据不同群体、地区或者环境等，考虑优先选择做符合社交属性用户的 “链结”，后续怎么把 “链结” 在游戏里面能形成更大的规模和影响力，去拓展其他画像的群体，正是我们后续不断探索和研究的方向。</p>
+</blockquote>
+<p>文章中可能有一个观点没有传达到位，我们讨论 “链结” 的前提，应该是建立在产品预期就要做社交的前提下。如果产品本来预期就没打算做社交，“链结” 其实可以看成一个课外读物。就比方说目前市场上很多卡牌、放置等类型的游戏，产品预期就没打算做社交，中间过程也不依赖社交，玩家画像和社交属性不契合，这时候去谈 “链结” 就有点伤感。就正如文中提到的《剑与远征》这款产品，没有社交的预期，筛选出来的用户当然社交属性很差，再在后续运营中 “半路出家” 加入了大量社交玩法、设计的尝试，效果和数据固然不理想，更别谈用户能达到 “链结”。因而我们并非说全部游戏都要做 “链结”，因为本来就没有社交预期的产品，往后强塞很多系统、设计等进去性价比很差。我们重点探索的方向是：本来就想做社交属性的产品，怎么能让更多 “桥接” 转化成 “链结”，甚至进一步稳固 “链结”，扩大游戏中 “链结” 的规模。</p>
+<p>游戏毕竟是游戏，如果游戏能和即时社交结合起来，这种 “链结” 关系会不会更牢固？</p>
+<blockquote>
+<p>毕竟打开手机的频率是远远大于打开游戏的，如果我打开手机就能收到游戏内好友消息的推送，是否会进一步挺高玩家打开游戏的概率？</p>
+</blockquote>
+<p>感谢这位同学，提的问题很有想法。</p>
+<p>我这里结合之前三国志战略版制作人分享的说法和个人见解跟你探讨一下：</p>
+<p>游戏里的社交功能不做那么方便和细致，是希望用户通过其他日常沟通软件（如微信、QQ 等）进行社交，让 “链结” 从游戏内到游戏外进一步加强。如果游戏社交功能做得很丰富很全面（比如你提到的可以实时收到好友消息推送），完全不用依赖其他社交软件，你可以从另一方面去想，这样用户要是流失了游戏卸载了，对方就很难找回来了。因而，一个好的社交属性的游戏产品，可以利用和依赖其他社交沟通软件，让游戏内和外社交氛围更强大，让 “链结” 更牢固。</p>
+
+      <div class="tags">
+          <a href="/tags/Game-Design/" rel="tag"><i class="ic i-tag"></i> Game Design</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>Frozzen·J·Chou <i class="ic i-at"><em>@</em></i>FrozzenCJ's Game Site
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="http://frozzencj.github.io/2023/05/17/2023-03-29-%E7%A4%BE%E4%BA%A4%E7%8E%A9%E6%B3%95/" title="游戏社交玩法思考">http://frozzencj.github.io/2023/05/17/2023-03-29-社交玩法/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2023/05/17/2023-04-26-%E8%A1%A8%E6%A0%BC%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E6%A3%80%E6%9F%A5%E5%B7%A5%E5%85%B7/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;s2.loli.net&#x2F;2023&#x2F;05&#x2F;17&#x2F;oPhGYDCMEwx95Qs.jpg" title="表格导出数据检查工具">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>表格导出数据检查工具</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/2023/05/17/2023-03-02-%E7%BB%93%E5%90%88AI%E7%9A%84%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;s2.loli.net&#x2F;2023&#x2F;05&#x2F;17&#x2F;oPhGYDCMEwx95Qs.jpg" title="AIGC应用思考和实践">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>AIGC应用思考和实践</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="Frozzen·J·Chou"
+      data-src="/images/avatar.png">
+  <p class="name" itemprop="name">Frozzen·J·Chou</p>
+  <div class="description" itemprop="description"></div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">19</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">5</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>HOME</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>RECORDS</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>ARCHIVES</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>CATEGORIES</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>TAGS</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-sakura"></i>ABOUT</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2023/05/17/2023-04-26-%E8%A1%A8%E6%A0%BC%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E6%A3%80%E6%9F%A5%E5%B7%A5%E5%85%B7/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2023/05/17/2023-03-02-%E7%BB%93%E5%90%88AI%E7%9A%84%E8%AE%BE%E8%AE%A1/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/17/2023-03-29-%E7%A4%BE%E4%BA%A4%E7%8E%A9%E6%B3%95/" title="游戏社交玩法思考">游戏社交玩法思考</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/17/2022-11-11-%E8%B7%91%E6%B5%8B%E9%83%A8%E7%BD%B2/" title="稳定性工具部署">稳定性工具部署</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/17/2023-03-02-%E7%BB%93%E5%90%88AI%E7%9A%84%E8%AE%BE%E8%AE%A1/" title="AIGC应用思考和实践">AIGC应用思考和实践</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/17/2023-05-04-%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9%20-%20%E4%BB%98%E8%B4%B9%20&%20%E6%B4%BB%E8%B7%83%E6%B4%BB%E5%8A%A8/" title="工作总结 - 付费 &amp; 活跃活动">工作总结 - 付费 & 活跃活动</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/17/2023-05-01-%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%AE%A2%E8%A7%82%E8%AE%A4%E8%AF%86/" title="游戏设计的客观认识">游戏设计的客观认识</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/17/2023-04-28-%E8%BF%90%E8%90%A5%E6%B4%BB%E5%8A%A8%E8%90%A5%E6%94%B6%E6%80%BB%E7%BB%93/" title="运营活动营收总结">运营活动营收总结</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/17/2023-04-28-%E5%85%B6%E4%BB%96%E5%B0%8F%E5%B7%A5%E5%85%B7/" title="工作小工具">工作小工具</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/17/2023-05-09-%E5%A4%A7%E4%B8%96%E7%95%8C%E8%AE%BE%E8%AE%A1/" title="大世界设计思考">大世界设计思考</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/17/2022-12-12-%E5%B0%8F%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/" title="小游戏设计">小游戏设计</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/17/hello-world/" title="Hello World">Hello World</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Frozzen·J·Chou @ FrozzenCJ</span>
+  </div>
+    <div class="powered-by">
+      基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+    </div>
+  
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2023/05/17/2023-03-29-社交玩法/',
+    favicon: {
+      show: "（●´3｀●）库里亚！",
+      hide: "(´Д｀)浏览器已崩溃！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

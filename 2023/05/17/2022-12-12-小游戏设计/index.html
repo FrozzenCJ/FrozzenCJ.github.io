@@ -1,0 +1,606 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="FrozzenCJ's Game Site" href="http://frozzencj.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="FrozzenCJ's Game Site" href="http://frozzencj.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="FrozzenCJ's Game Site" href="http://frozzencj.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="Game Design" />
+
+
+<link rel="canonical" href="http://frozzencj.github.io/2023/05/17/2022-12-12-%E5%B0%8F%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/">
+
+
+
+  <title>
+小游戏设计 |
+FrozzenCJ = FrozzenCJ's Game Site = It means, I will accomplish it!</title>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="loader">
+      <div class="container">
+        <div class="carousel">
+          <div class="love"></div>
+          <div class="love"></div>
+          <div class="love"></div>
+          <div class="love"></div>
+          <div class="love"></div>
+          <div class="love"></div>
+          <div class="love"></div>
+        </div> 
+      </div>
+      <div class="container">
+        <div class="carousel">
+          <div class="death"></div>
+          <div class="death"></div>
+          <div class="death"></div>
+          <div class="death"></div>
+          <div class="death"></div>
+          <div class="death"></div>
+          <div class="death"></div>
+        </div> 
+      </div>
+      <div class="container">
+        <div class="carousel">
+            <div class="robots"></div>
+            <div class="robots"></div>
+            <div class="robots"></div>
+            <div class="robots"></div>
+            <div class="robots"></div>
+            <div class="robots"></div>
+            <div class="robots"></div>
+        </div> 
+      </div>
+    </div>    
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">小游戏设计
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2023-05-18 06:28:36">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2023-05-18T06:28:36+08:00">2023-05-18</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">FrozzenCJ</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://s2.loli.net/2023/05/17/tjXbMvw5Oi2Zx8o.jpg"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2023/05/16/FNWtqubMd21iEz7.jpg"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2023/05/17/SskB7WxXPJQOGRt.png"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2023/05/17/XseaSxo5Th6KP3V.jpg"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2023/05/17/1UzsmwAhZ4OJnyQ.jpg"></li>
+          <li class="item" data-background-image="https://s2.loli.net/2023/05/17/ZUYVrD7E9zNpxkS.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="http://frozzencj.github.io/2023/05/17/2022-12-12-%E5%B0%8F%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.png">
+    <meta itemprop="name" content="Frozzen·J·Chou">
+    <meta itemprop="description" content="It means, I will accomplish it!, ">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="FrozzenCJ's Game Site">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h2 id="太吾绘卷有感"><a class="anchor" href="#太吾绘卷有感">#</a> 《太吾绘卷》有感</h2>
+<p>新功能重复性问题：<br />
+玩家对于某个新功能前期沉浸，中期由于过多的重复性点击或者繁琐的操作，逐渐变成厌烦的点。</p>
+<p>例如：读书功能在旧版中需要手动使用（玩法比较繁琐），部分玩家喜欢，部分玩家厌恶，<br />
+新版本改成了随身携带，随日期退役来读，极大减轻了玩家的负担， 但是效率而言， 之前一月三本，现在三月一本，不能满足大量书籍的读取</p>
+<p>手动 -&gt; 自动</p>
+<p>新设计： 悟性 120 (255)， 学识 120 (255)， 体力  120 (9999)（读书消耗体力）， 心境  200（9999） （读书消耗心境）<br />
+前期悟性和学识偏低，需要玩家手动进行读书，后期（随着学识、体力、心境增加），玩家可以自动读书（但是比手动的效率要低）</p>
+<p>书本进度 = 100%<br />
+ 书本品级 - 属性等级： S  A  B  C    天， 地， 玄， 黄<br />
+学习进度 / 每次学习 = ((悟性 + 学识)+ (体力 + 心境) + 属性等级 ) / 书本品级<br />
+学习消耗 / 每次学习 =  固定体力 + 固定心境</p>
+<p>手动（专注模式） 100% 学习<br />
+读书手动玩法：</p>
+<ol>
+<li>三消 （参考太阁立志传， 所有能力提升都是通过经典小游戏来， 趣味性较大）</li>
+<li>原版太污 - 心境 决定 量， 读书方式 决定 质</li>
+</ol>
+<p>自动（略读，精度，专注）<br />
+略读、精读： 自动功能解锁时自带<br />
+略读：效率低，消耗低       50% 学习<br />
+精度：效率中，消耗中       70% 学习<br />
+专注 (心境上限&gt; 255, 体力上限 &gt; 255，解锁，解锁后可继承): 效率高，消耗高    90% 学习<br />
+效率和消耗成正比 (轻微向下曲度)</p>
+<h2 id="小游戏玩法太阁侠客等"><a class="anchor" href="#小游戏玩法太阁侠客等">#</a> 小游戏玩法：（太阁，侠客等）</h2>
+<ul>
+<li>
+<p>打地鼠（点金矿）     太阁：矿山 （金石）<br />
+在限定次数内挖掘矿山，获得的金块数越多效果越大。<br />
+一个大金块＝两个中金块＝四个小金块<br />
+政治越高，限制次数越多，并且也更容易得到正确的路线、<br />
+矿山越高，限制次数越多，并且矿山更大，金块数量也更多。</p>
+</li>
+<li>
+<p>连连看（垂直掉落， 固定， 层级， 四角阵崩し）   太阁：军学 （谋略）<br />
+在限定时间内，将同颜色同数字的书选定并消去，下方的书被消去后上方的书会落下。<br />
+两本书之间的连线最多只能转两次弯。剩余的书越少，效果越大。<br />
+统率和智谋越高，限定时间越长，并且书的种类会减少。<br />
+军学越高，限定时间越短，并且书的数量会增加。</p>
+</li>
+<li>
+<p>打砖块 （）   太阁：破坏<br />
+在限定时间内尽量多的破坏墙壁，一共有四个弹珠，可以一个一个放出去也可以一起放出去。<br />
+武力和智谋越高，限定时间就越长，并且弹珠下落的速度也会变慢。<br />
+忍术越高，限定时间也越长，并且弹珠上升的速度会变快，破坏的墙壁也会增加。</p>
+</li>
+<li>
+<p>拼图（七巧板、俄罗斯方框）      太阁：建筑<br />
+在限定时间内将左边的建材填入右边的空缺，点右键可以旋转建材，建材一旦放入就无法取出，剩余的空格越少成果就越大。<br />
+政治和智谋越高，限制时间越长。<br />
+建筑越高，建材的数量越多。</p>
+</li>
+<li>
+<p>射箭（固定靶）   太阁：箭术   移动靶：火枪<br />
+调整射击的角度，并尽量多的击中目标，一颗子弹是可以击中多个目标的，击中的目标越多，效果越大。<br />
+统率和武力越高，目标越大。<br />
+铁炮越高，子弹数越多。</p>
+</li>
+</ul>
+<p>调整射击的角度，并尽量多的击中目标，一颗子弹是可以击中多个目标的，击中的目标越多，效果越大。<br />
+统率和武力越高，目标越大，墙壁越低。<br />
+弓术越高，弓箭数目越多，墙壁越高。</p>
+<ul>
+<li>
+<p>陆地战斗（海洋战斗）    太阁：足轻（水战）    流程：麻烦</p>
+</li>
+<li>
+<p>记顺序  太阁：茶道<br />
+和太阁四里的医术修行如出一辙，先展示一次上方的茶器顺序，要求你排出同样的顺序。<br />
+根据你正确的数目，结果分为：“お见事”、“惜しい”、“精进を”、“...”。お见事越多效果越好。<br />
+魅力越高，展示茶器顺序的时间越长。<br />
+茶道越高，箱子的数目越多。</p>
+</li>
+<li>
+<p>加减乘除    太阁：术数<br />
+在限定时间内将数字填入算式中并得出正确结果，选过一次的数字就不能再选。<br />
+政治和智谋越高，限定时间越长。<br />
+算术越高，算式越复杂。</p>
+</li>
+<li>
+<p>垂直骑马（excel 赛车， 飞来矢回避）   太阁：马术<br />
+点击左右两按钮操作马回避射来的箭，但撞到墙壁也算失败，点左右键的次数越多马移动的速度越快。失败次数越少效果越大。<br />
+统率和武力越高，失败可能次数越多。<br />
+马术越高，限制时间越长。</p>
+</li>
+<li>
+<p>查画像     太阁： 忍术<br />
+在限制时间内在右边的候补头像中找出左边缓缓拉开的卷物中的头像。<br />
+失败三次游戏就结束，根据成功耗时，分为 “早期发现”、“探索成功”、“探索失败” 三种，早期发现越多效果越大。<br />
+武力和智谋越高，限定时间越长。<br />
+忍术越高，右边的候补头像越多，并且结束时成果会增大。</p>
+</li>
+<li>
+<p>对战      太阁：武道</p>
+</li>
+<li>
+<p>21 点     太阁：话术<br />
+双方给出数字的差越接近二十一越好，但超过二十一就判负。<br />
+第一回一定由对方先手，从第二回开始谁落后谁先手。使用过一次的数字就无法使用。<br />
+智谋和魅力越高，限定时间越长。<br />
+弁舌越高，可选的数字的大小和种类都会增加，而且开始时的基础数值也会增加。</p>
+</li>
+<li>
+<p>老虎机     太阁：折扣</p>
+</li>
+<li>
+<p>灌溉水路（管道联通）<br />
+在限定时间内尽量多的将水源引入土地内。由于很可能弄出死胡同，所以要多考虑全局。<br />
+政治越高，限定时间越长。<br />
+开垦越高，荒地的面积越大。</p>
+</li>
+<li>
+<p>调和<br />
+在限定时间内点击勺子用来取左边的材料药，通过勺子间互相调整将正确的分量装入右边的调合药。<br />
+有点小学时数学竞赛的意思，当时特爱出这类调整题。<br />
+智谋和魅力越高，限定时间越长。<br />
+茶道越高，材料药和调合药越多。</p>
+</li>
+<li>
+<p>九宫合图（九枚绘合わせ）<br />
+在限定次数内尽量多的将中央的九本书弄成同一颜色，同颜色的书越多效果越好。<br />
+魅力越高，限定次数越多。<br />
+礼法越高，限定次数和书的种类越多。</p>
+</li>
+</ul>
+
+      <div class="tags">
+          <a href="/tags/Game-Design/" rel="tag"><i class="ic i-tag"></i> Game Design</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>Frozzen·J·Chou <i class="ic i-at"><em>@</em></i>FrozzenCJ's Game Site
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="http://frozzencj.github.io/2023/05/17/2022-12-12-%E5%B0%8F%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/" title="小游戏设计">http://frozzencj.github.io/2023/05/17/2022-12-12-小游戏设计/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/2023/05/17/2023-01-10-%E7%A8%B3%E5%AE%9A%E6%80%A7%E8%87%AA%E6%B5%8B%E5%B7%A5%E5%85%B7/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;s2.loli.net&#x2F;2023&#x2F;05&#x2F;17&#x2F;XseaSxo5Th6KP3V.jpg" title="稳定性自测工具">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>稳定性自测工具</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%AA%E5%90%BE%E7%BB%98%E5%8D%B7%E6%9C%89%E6%84%9F"><span class="toc-number">1.</span> <span class="toc-text"> 《太吾绘卷》有感</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E6%B8%B8%E6%88%8F%E7%8E%A9%E6%B3%95%E5%A4%AA%E9%98%81%E4%BE%A0%E5%AE%A2%E7%AD%89"><span class="toc-number">2.</span> <span class="toc-text"> 小游戏玩法：（太阁，侠客等）</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="Frozzen·J·Chou"
+      data-src="/images/avatar.png">
+  <p class="name" itemprop="name">Frozzen·J·Chou</p>
+  <div class="description" itemprop="description"></div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">19</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">5</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>HOME</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>RECORDS</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>ARCHIVES</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>CATEGORIES</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>TAGS</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-sakura"></i>ABOUT</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/17/2023-05-04-%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9%20-%20%E5%B7%A5%E5%85%B7%E5%BC%80%E5%8F%91/" title="工作总结 - 工具开发">工作总结 - 工具开发</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/17/2022-04-01-%E5%A5%96%E5%8A%B1%E7%9B%91%E6%8E%A7%E5%B9%B3%E5%8F%B0/" title="奖励监控平台">奖励监控平台</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/17/2023-05-04-%E5%B7%A5%E4%BD%9C%E5%86%85%E5%AE%B9%20-%20%E4%BB%98%E8%B4%B9%20&%20%E6%B4%BB%E8%B7%83%E6%B4%BB%E5%8A%A8/" title="工作总结 - 付费 &amp; 活跃活动">工作总结 - 付费 & 活跃活动</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/17/2023-05-01-%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1%E7%9A%84%E5%AE%A2%E8%A7%82%E8%AE%A4%E8%AF%86/" title="游戏设计的客观认识">游戏设计的客观认识</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/17/2023-04-28-%E5%85%B6%E4%BB%96%E5%B0%8F%E5%B7%A5%E5%85%B7/" title="工作小工具">工作小工具</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/17/2023-04-26-%E8%A1%A8%E6%A0%BC%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E6%A3%80%E6%9F%A5%E5%B7%A5%E5%85%B7/" title="表格导出数据检查工具">表格导出数据检查工具</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/17/2022-12-12-%E5%B0%8F%E6%B8%B8%E6%88%8F%E8%AE%BE%E8%AE%A1/" title="小游戏设计">小游戏设计</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/17/2023-03-29-%E7%A4%BE%E4%BA%A4%E7%8E%A9%E6%B3%95/" title="游戏社交玩法思考">游戏社交玩法思考</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/17/2022-07-07-%E6%80%A7%E8%83%BD%E8%B7%91%E6%B5%8B%E5%B9%B3%E5%8F%B0/" title="性能跑测平台">性能跑测平台</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2023/05/17/2022-11-11-%E8%B7%91%E6%B5%8B%E9%83%A8%E7%BD%B2/" title="稳定性工具部署">稳定性工具部署</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新评论</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Frozzen·J·Chou @ FrozzenCJ</span>
+  </div>
+    <div class="powered-by">
+      基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+    </div>
+  
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2023/05/17/2022-12-12-小游戏设计/',
+    favicon: {
+      show: "（●´3｀●）库里亚！",
+      hide: "(´Д｀)浏览器已崩溃！"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>
